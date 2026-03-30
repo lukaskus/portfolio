@@ -6,33 +6,32 @@
     <title>Lukáš Kus | Motion Artist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* Fixed Navigation */
+        /* Navigation - 50% větší texty */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 100;
             background: linear-gradient(to bottom, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 100%);
-            padding: 2rem 0;
-            transition: all 0.3s ease;
+            padding: 3rem 0;
         }
 
         .nav-link {
-            font-size: 0.7rem;
+            font-size: 1.1rem; /* Zvětšeno */
             font-weight: 900;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: #666;
-            transition: color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nav-link:hover { color: white; }
+        .nav-link:hover { color: white; transform: scale(1.1); }
 
-        /* Scroll Engine */
-        .hero-wrapper { height: 180vh; position: relative; }
+        /* Hero & Scroll Engine */
+        .hero-wrapper { height: 160vh; position: relative; }
         
         .sticky-container {
             position: sticky;
@@ -42,6 +41,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            z-index: 10;
         }
 
         #hero-video-box {
@@ -49,8 +49,10 @@
             height: 100%;
             overflow: hidden;
             position: relative;
-            will-change: transform;
-            transition: border-radius 0.4s ease;
+            will-change: transform, opacity;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 1s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-radius 0.8s ease;
         }
 
         .hero-video-bg {
@@ -60,41 +62,42 @@
             opacity: 0.4;
         }
 
-        /* Sections */
-        .content-section {
-            padding: 100px 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            min-height: 80vh;
+        /* Třída pro zmenšení při kliknutí na menu */
+        .video-minimized {
+            transform: scale(0.35) !important;
+            opacity: 0.05 !important;
+            border-radius: 60px;
         }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        .placeholder-box {
-            background: #0a0a0a;
-            border: 1px solid #111;
-            border-radius: 1rem;
-            aspect-ratio: 16/9;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #222;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
+        .content-section {
+            padding: 120px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 20;
         }
+
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .work-card {
+            background: #0a0a0a;
+            border-radius: 2rem;
+            overflow: hidden;
+            border: 1px solid #151515;
+            transition: border-color 0.4s ease;
+        }
+        .work-card:hover { border-color: #333; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="max-w-7xl mx-auto px-10 flex justify-center space-x-8 md:space-x-16">
-            <a href="#product-videos" class="nav-link">Product Videos</a>
-            <a href="#lotties" class="nav-link">Lotties</a>
-            <a href="#3d" class="nav-link">3D</a>
-            <a href="#playground" class="nav-link">Playground</a>
+        <div class="max-w-7xl mx-auto px-10 flex justify-center space-x-12 md:space-x-24">
+            <a href="#product-videos" class="nav-link menu-trigger">Product Videos</a>
+            <a href="#lotties" class="nav-link menu-trigger">Lotties</a>
+            <a href="#3d" class="nav-link menu-trigger">3D</a>
+            <a href="#playground" class="nav-link menu-trigger">Playground</a>
         </div>
     </nav>
 
@@ -104,88 +107,82 @@
                 <video autoplay muted loop playsinline class="hero-video-bg">
                     <source src="showreel_preview.mp4" type="video/mp4">
                 </video>
-                <div id="hero-text" class="absolute inset-0 flex flex-col items-center justify-center z-20">
-                    <h1 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter">Lukas Kus</h1>
-                    <p class="text-[10px] md:text-xs tracking-[0.6em] text-gray-500 uppercase mt-4">Motion Design Portfolio 2026</p>
+                <div id="hero-text" class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                    <h1 class="text-6xl md:text-[10rem] font-black italic uppercase tracking-tighter transition-all duration-700">Lukas Kus</h1>
+                    <p class="text-[10px] md:text-sm tracking-[0.8em] text-gray-600 uppercase mt-4">Motion Artist 2026</p>
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10"></div>
             </div>
         </div>
     </div>
 
-    <main class="relative z-30">
-
+    <main>
         <section id="product-videos" class="content-section reveal">
-            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">Product Videos</h2>
-            <div class="grid grid-cols-1 gap-10">
-                <div class="placeholder-box overflow-hidden">
+            <h2 class="text-6xl font-black italic uppercase mb-16 tracking-tighter">Product Videos</h2>
+            <div class="grid grid-cols-1 gap-12">
+                
+                <div class="work-card aspect-video">
                     <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                        <source src="product_1.mp4" type="video/mp4">
+                        <source src="Main Video 1.02-Vo.mp4" type="video/mp4">
                     </video>
                 </div>
+                
             </div>
         </section>
 
         <section id="lotties" class="content-section reveal">
-            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">Lotties</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="placeholder-box aspect-square">
-                    <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" style="width: 200px;" loop autoplay></dotlottie-player>
+            <h2 class="text-6xl font-black italic uppercase mb-16 tracking-tighter">Lotties</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="work-card aspect-square flex items-center justify-center p-12">
+                    <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-full" loop autoplay></dotlottie-player>
                 </div>
-                <div class="placeholder-box aspect-square">Animation 2</div>
-                <div class="placeholder-box aspect-square">Animation 3</div>
+                <div class="work-card aspect-square bg-zinc-950 border-dashed border-zinc-900 flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Slot 02</div>
+                <div class="work-card aspect-square bg-zinc-950 border-dashed border-zinc-900 flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Slot 03</div>
             </div>
         </section>
 
         <section id="3d" class="content-section reveal">
-            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">3D</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="placeholder-box">C4D / Octane Render 1</div>
-                <div class="placeholder-box">C4D / Octane Render 2</div>
-            </div>
-        </section>
-
-        <section id="playground" class="content-section reveal">
-            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">Playground</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="placeholder-box aspect-square">R&D</div>
-                <div class="placeholder-box aspect-square">Test</div>
-                <div class="placeholder-box aspect-square">Sim</div>
-                <div class="placeholder-box aspect-square">Sketch</div>
+            <h2 class="text-6xl font-black italic uppercase mb-16 tracking-tighter">3D Worlds</h2>
+            <div class="work-card h-[70vh]">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                    <source src="3d_clip.mp4" type="video/mp4">
+                </video>
             </div>
         </section>
 
     </main>
 
-    <footer class="py-40 text-center border-t border-white/5">
-        <a href="mailto:lukaskus.motion@gmail.com" class="text-xl md:text-4xl font-black hover:text-gray-500 transition tracking-tighter">LUKASKUS.MOTION@GMAIL.COM</a>
+    <footer class="py-60 text-center border-t border-white/5">
+        <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-7xl font-black hover:text-gray-500 transition-all italic uppercase tracking-tighter">Start a project</a>
     </footer>
 
     <script>
-        // SCROLL ANIMATION ENGINE
+        const videoBox = document.getElementById('hero-video-box');
+        const heroText = document.getElementById('hero-text');
+        const menuTriggers = document.querySelectorAll('.menu-trigger');
+
+        // SCROLL ZOOM
         window.addEventListener('scroll', () => {
-            const videoBox = document.getElementById('hero-video-box');
-            const heroText = document.getElementById('hero-text');
             const scrollValue = window.scrollY;
             
-            // Zoom video boxu (zmenší se z 1 na 0.6)
-            let scale = 1 - (scrollValue / 1200);
-            if (scale < 0.6) scale = 0.6;
-            
-            // Kulatost rohů
-            let radius = (scrollValue / 15);
-            if (radius > 50) radius = 50;
-
-            // Průhlednost textu
-            let opacity = 1 - (scrollValue / 400);
-            if (opacity < 0) opacity = 0;
-
-            videoBox.style.transform = `scale(${scale})`;
-            videoBox.style.borderRadius = `${radius}px`;
-            heroText.style.opacity = opacity;
+            // Pokud neklikneme, zmenšujeme standardně do 70%
+            if (!videoBox.classList.contains('video-minimized')) {
+                let scale = 1 - (scrollValue / 1500);
+                if (scale < 0.7) scale = 0.7;
+                videoBox.style.transform = `scale(${scale})`;
+                heroText.style.opacity = 1 - (scrollValue / 400);
+            }
         });
 
-        // REVEAL ON SCROLL
+        // MENU CLICK EFFECT (35% scale + fade out)
+        menuTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                videoBox.classList.add('video-minimized');
+                heroText.style.opacity = 0;
+            });
+        });
+
+        // REVEAL SCRIPT
         function reveal() {
             const reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -199,6 +196,5 @@
         window.addEventListener("scroll", reveal);
         reveal();
     </script>
-
 </body>
 </html>
