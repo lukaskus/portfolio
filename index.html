@@ -3,150 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lukáš Kus | Motion Designer Portfolio</title>
+    <title>Lukáš Kus | Motion Artist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
-        body { 
-            background-color: #050505; 
-            color: white; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; 
-        }
+        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* Smooth Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Fullscreen Video Background */
-        .hero-video-container {
-            position: absolute;
+        /* Container pro zmenšovací efekt */
+        .hero-wrapper { height: 200vh; position: relative; } /* 200vh vytvoří prostor pro skrolování */
+        
+        .sticky-container {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
             height: 100vh;
-            z-index: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
+
+        #hero-video-box {
+            width: 100%;
+            height: 100%;
+            transition: border-radius 0.5s ease;
+            overflow: hidden;
+            position: relative;
+            will-change: transform;
+        }
+
         .hero-video-bg {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.6;
         }
 
-        /* Custom Scrollbar for 2026 vibes */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        /* Bento Styling */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 300px;
+            gap: 1.5rem;
+        }
+
+        .bento-item {
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 2rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .bento-item:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        <div class="hero-video-container">
-            <video autoplay muted loop playsinline class="hero-video-bg opacity-50">
-                <source src="showreel_preview.mp4" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#050505] z-10"></div>
-        </div>
-        
-        <div class="relative z-20 text-center px-6 reveal active">
-            <h1 class="text-6xl md:text-[10rem] font-black tracking-tighter mb-2 italic uppercase leading-none select-none">
-                Motion Artist
-            </h1>
-            <p class="text-xs md:text-lg text-gray-400 font-light tracking-[0.5em] uppercase mb-10">
-                LUKÁŠ KUS &nbsp; | &nbsp; 2D • 3D • Lottie
-            </p>
-            <a href="mailto:lukaskus.motion@gmail.com" class="inline-block px-12 py-5 bg-white text-black font-bold rounded-full hover:bg-zinc-200 transition-all duration-300 hover:scale-105 shadow-2xl tracking-widest text-sm uppercase">
-                Start a Project
-            </a>
-        </div>
-
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 opacity-30 animate-pulse text-[10px] tracking-[0.4em] uppercase">
-            Scroll for more
-        </div>
-    </section>
-
-    <main class="max-w-7xl mx-auto py-32 px-6">
-        
-        <div class="reveal mb-20">
-            <h2 class="text-5xl font-black mb-4 uppercase italic">Selected Works</h2>
-            <div class="h-1 w-24 bg-white"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="reveal bg-zinc-900 aspect-square rounded-3xl flex items-center justify-center border border-white/5 hover:border-white/20 transition-all duration-500 overflow-hidden group">
-                <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-full h-full p-10" loop autoplay></dotlottie-player>
-            </div>
-
-            <div class="reveal bg-zinc-900 aspect-square rounded-3xl overflow-hidden border border-white/5 group">
-                <img src="render.jpg" alt="Visual Work" class="w-full h-full object-cover group-hover:scale-105 transition duration-1000">
-            </div>
-
-            <div class="reveal bg-zinc-900 aspect-square rounded-3xl overflow-hidden border border-white/5 relative group">
-                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end p-8">
-                   <p class="text-xs font-bold tracking-widest uppercase">3D Simulation / Abstract</p>
+    <div class="hero-wrapper">
+        <div class="sticky-container">
+            <div id="hero-video-box" class="flex items-center justify-center">
+                <video autoplay muted loop playsinline class="hero-video-bg">
+                    <source src="showreel_preview.mp4" type="video/mp4">
+                </video>
+                
+                <div id="hero-text" class="absolute z-20 text-center">
+                    <h1 class="text-6xl md:text-[8rem] font-black italic uppercase leading-none tracking-tighter">Motion Artist</h1>
+                    <p class="text-gray-400 tracking-[0.4em] uppercase text-sm mt-4 italic">Lukáš Kus</p>
                 </div>
-                <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                
+                <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 z-10"></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto py-20 px-6">
+        <div class="reveal mb-16 text-center">
+            <h2 class="text-4xl font-black uppercase italic tracking-tighter">Selected Disciplines</h2>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-item col-span-4 md:col-span-2 row-span-2 reveal group">
+                <h3 class="text-2xl font-bold italic mb-2">Animations</h3>
+                <p class="text-gray-500 text-sm mb-6 uppercase tracking-widest">Lottie & UI Motion</p>
+                <div class="w-full h-full flex items-center justify-center">
+                    <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-64" loop autoplay></dotlottie-player>
+                </div>
+            </div>
+
+            <div class="bento-item col-span-4 md:col-span-2 row-span-1 reveal group">
+                <h3 class="text-2xl font-bold italic mb-2">3D Worlds</h3>
+                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition">
                     <source src="3d_clip.mp4" type="video/mp4">
                 </video>
+                <p class="relative z-10 text-gray-400 text-xs uppercase tracking-widest">Cinema 4D / Octane</p>
             </div>
 
+            <div class="bento-item col-span-2 md:col-span-1 reveal">
+                <h3 class="text-xl font-bold italic">Lab</h3>
+                <p class="text-gray-600 text-[10px] uppercase mt-2">RnD Experiments</p>
+            </div>
+            
+            <div class="bento-item col-span-2 md:col-span-1 reveal flex flex-col justify-between">
+                <h3 class="text-xl font-bold italic">Contact</h3>
+                <a href="mailto:lukaskus.motion@gmail.com" class="text-[10px] text-white underline">EMAIL ME</a>
+            </div>
         </div>
-
-        <div class="reveal mt-40 mb-12">
-            <h2 class="text-3xl font-bold uppercase tracking-tighter italic">Experimental Playground</h2>
-            <p class="text-gray-500 text-sm mt-2">Dailies, RnD and motion sketches.</p>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
-             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
-             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
-             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
-        </div>
-
     </main>
 
-    <footer class="py-40 text-center border-t border-white/5">
-        <div class="reveal">
-            <p class="text-gray-500 uppercase tracking-[0.3em] mb-6 text-xs font-light italic">Available for freelance worldwide</p>
-            <a href="mailto:lukaskus.motion@gmail.com" class="text-2xl md:text-6xl font-black hover:text-gray-400 transition-all duration-300 break-words px-4">
-                lukaskus.motion@gmail.com
-            </a>
-            <div class="mt-16 flex justify-center space-x-8 text-xs tracking-widest uppercase text-gray-500">
-                <a href="#" class="hover:text-white transition">Instagram</a>
-                <a href="#" class="hover:text-white transition">Behance</a>
-                <a href="#" class="hover:text-white transition">LinkedIn</a>
-            </div>
-        </div>
+    <footer class="py-20 text-center opacity-50 text-[10px] tracking-[0.5em] uppercase">
+        © 2026 Lukáš Kus — Motion Designer
     </footer>
 
     <script>
+        // SCRIPT PRO ZMENŠOVÁNÍ VIDEA
+        window.addEventListener('scroll', () => {
+            const videoBox = document.getElementById('hero-video-box');
+            const heroText = document.getElementById('hero-text');
+            const scrollValue = window.scrollY;
+            
+            // Výpočet zmenšení (z 1 na 0.5)
+            // Zastaví se na 50% (0.5) po 500px skrolu
+            let scale = 1 - (scrollValue / 1000);
+            if (scale < 0.5) scale = 0.5;
+            
+            // Výpočet kulatosti rohů
+            let radius = (scrollValue / 10);
+            if (radius > 40) radius = 40; // Max 40px
+
+            // Výpočet průhlednosti textu (zmizí dřív)
+            let opacity = 1 - (scrollValue / 300);
+            if (opacity < 0) opacity = 0;
+
+            videoBox.style.transform = `scale(${scale})`;
+            videoBox.style.borderRadius = `${radius}px`;
+            heroText.style.opacity = opacity;
+        });
+
+        // REVEAL SCRIPT
         function reveal() {
             const reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
                 const windowHeight = window.innerHeight;
                 const elementTop = el.getBoundingClientRect().top;
-                const elementVisible = 80;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     el.classList.add("active");
                 }
             });
         }
         window.addEventListener("scroll", reveal);
-        // Initial trigger
         reveal();
     </script>
 
