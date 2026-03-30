@@ -3,80 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motion Artist | Portfolio 2026</title>
+    <title>Lukáš Kus | Motion Designer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { 
+            background-color: #050505; 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; 
+        }
         
-        /* Animace pro "Zážitek" */
+        /* Smooth Reveal Animation */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Hero Video Fullscreen */
-        .hero-video-bg {
+        /* Fullscreen Video Background */
+        .hero-video-container {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-video-bg {
+            width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 0;
         }
+
+        /* Custom Scrollbar for 2026 vibes */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
-        <video autoplay muted loop playsinline class="hero-video-bg opacity-60">
-            <source src="showreel_preview.mp4" type="video/mp4">
-        </video>
-
-        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/30 z-10"></div>
+        <div class="hero-video-container">
+            <video autoplay muted loop playsinline class="hero-video-bg opacity-50">
+                <source src="showreel_preview.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#050505] z-10"></div>
+        </div>
         
-        <div class="relative z-20 text-center px-6">
-            <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-4 italic uppercase leading-none">
+        <div class="relative z-20 text-center px-6 reveal active">
+            <h1 class="text-6xl md:text-[10rem] font-black tracking-tighter mb-2 italic uppercase leading-none select-none">
                 Motion Artist
             </h1>
-            <p class="text-sm md:text-xl text-gray-300 font-light tracking-[0.3em] uppercase mb-8">
-                Visualizing ideas in 2D, 3D & Beyond
+            <p class="text-xs md:text-lg text-gray-400 font-light tracking-[0.5em] uppercase mb-10">
+                LUKÁŠ KUS &nbsp; | &nbsp; 2D • 3D • Lottie
             </p>
-            <button class="px-10 py-4 bg-white text-black font-bold rounded-full hover:scale-110 transition-transform duration-300 shadow-xl">
-                PLAY SHOWREEL
-            </button>
+            <a href="mailto:lukaskus.motion@gmail.com" class="inline-block px-12 py-5 bg-white text-black font-bold rounded-full hover:bg-zinc-200 transition-all duration-300 hover:scale-105 shadow-2xl tracking-widest text-sm uppercase">
+                Start a Project
+            </a>
         </div>
 
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 opacity-40 animate-bounce text-xs tracking-widest uppercase">
-            ↓ Scroll to explore
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 opacity-30 animate-pulse text-[10px] tracking-[0.4em] uppercase">
+            Scroll for more
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto py-32 px-6">
-        <div class="reveal">
-            <h2 class="text-4xl font-bold mb-2 uppercase tracking-tight">Visual Playground</h2>
-            <div class="h-1 w-20 bg-white mb-12"></div>
+    <main class="max-w-7xl mx-auto py-32 px-6">
+        
+        <div class="reveal mb-20">
+            <h2 class="text-5xl font-black mb-4 uppercase italic">Selected Works</h2>
+            <div class="h-1 w-24 bg-white"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            <div class="reveal bg-zinc-900 aspect-square rounded-2xl flex items-center justify-center border border-white/5 hover:border-white/20 transition group overflow-hidden">
-                <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-full h-full" loop autoplay></dotlottie-player>
+            <div class="reveal bg-zinc-900 aspect-square rounded-3xl flex items-center justify-center border border-white/5 hover:border-white/20 transition-all duration-500 overflow-hidden group">
+                <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-full h-full p-10" loop autoplay></dotlottie-player>
             </div>
 
-            <div class="reveal bg-zinc-900 aspect-square rounded-2xl overflow-hidden border border-white/5 group">
-                <img src="render.jpg" alt="3D Render" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+            <div class="reveal bg-zinc-900 aspect-square rounded-3xl overflow-hidden border border-white/5 group">
+                <img src="render.jpg" alt="Visual Work" class="w-full h-full object-cover group-hover:scale-105 transition duration-1000">
             </div>
 
-            <div class="reveal bg-zinc-900 aspect-square rounded-2xl overflow-hidden border border-white/5 relative group">
-                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center">
-                   <span class="text-sm font-bold tracking-widest uppercase">3D Simulation</span>
+            <div class="reveal bg-zinc-900 aspect-square rounded-3xl overflow-hidden border border-white/5 relative group">
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end p-8">
+                   <p class="text-xs font-bold tracking-widest uppercase">3D Simulation / Abstract</p>
                 </div>
                 <video autoplay muted loop playsinline class="w-full h-full object-cover">
                     <source src="3d_clip.mp4" type="video/mp4">
@@ -84,12 +104,32 @@
             </div>
 
         </div>
-    </section>
 
-    <footer class="py-20 text-center border-t border-white/10">
+        <div class="reveal mt-40 mb-12">
+            <h2 class="text-3xl font-bold uppercase tracking-tighter italic">Experimental Playground</h2>
+            <p class="text-gray-500 text-sm mt-2">Dailies, RnD and motion sketches.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
+             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
+             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
+             <div class="reveal bg-zinc-900 aspect-video rounded-xl border border-white/5"></div>
+        </div>
+
+    </main>
+
+    <footer class="py-40 text-center border-t border-white/5">
         <div class="reveal">
-            <p class="text-gray-500 uppercase tracking-widest mb-4 text-sm">Let's build something together</p>
-            <a href="mailto:tvuj@email.cz" class="text-3xl md:text-5xl font-bold hover:text-zinc-400 transition-colors">hello@motionartist.com</a>
+            <p class="text-gray-500 uppercase tracking-[0.3em] mb-6 text-xs font-light italic">Available for freelance worldwide</p>
+            <a href="mailto:lukaskus.motion@gmail.com" class="text-2xl md:text-6xl font-black hover:text-gray-400 transition-all duration-300 break-words px-4">
+                lukaskus.motion@gmail.com
+            </a>
+            <div class="mt-16 flex justify-center space-x-8 text-xs tracking-widest uppercase text-gray-500">
+                <a href="#" class="hover:text-white transition">Instagram</a>
+                <a href="#" class="hover:text-white transition">Behance</a>
+                <a href="#" class="hover:text-white transition">LinkedIn</a>
+            </div>
         </div>
     </footer>
 
@@ -99,14 +139,14 @@
             reveals.forEach(el => {
                 const windowHeight = window.innerHeight;
                 const elementTop = el.getBoundingClientRect().top;
-                const elementVisible = 100;
+                const elementVisible = 80;
                 if (elementTop < windowHeight - elementVisible) {
                     el.classList.add("active");
                 }
             });
         }
         window.addEventListener("scroll", reveal);
-        // Spustit jednou při načtení
+        // Initial trigger
         reveal();
     </script>
 
