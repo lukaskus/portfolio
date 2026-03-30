@@ -7,12 +7,17 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
 
     <style>
-        :root { --bg: #050505; }
-        body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        :root { --bg: #050505; --accent: #ff5c00; }
+        body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
         /* TOBIAS-STYLE GRAIN OVERLAY */
         .noise-overlay {
@@ -35,18 +40,30 @@
             100% { transform: translate(5%, 0) }
         }
 
-        /* Navigation - Přesně podle zadání */
+        /* CLIP-PATH REVEAL (Vynoření textu) */
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            display: inline-block;
+        }
+        .reveal-text span {
+            display: block;
+            transform: translateY(110%);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-text.active span { transform: translateY(0); }
+
+        /* Navigation */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
             background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
             padding: 2.5rem 0;
         }
         .nav-link {
-            font-size: 0.9rem; font-weight: 400; letter-spacing: 0.1em;
-            text-transform: uppercase; color: #888; transition: color 0.4s ease;
+            font-size: 0.85rem; font-weight: 400; letter-spacing: 0.15em;
+            text-transform: uppercase; color: #777; transition: color 0.4s ease;
         }
         .nav-link:hover { color: #fff; }
-        .nav-contact { color: #ff5c00 !important; } /* Oranžová pro Contact */
+        .nav-contact { color: var(--accent) !important; }
 
         /* Hero Engine */
         .hero-wrapper { height: 180vh; position: relative; }
@@ -60,21 +77,18 @@
             will-change: transform, opacity;
             transition: transform 0.1s linear, border-radius 0.6s ease;
         }
-        .hero-video-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .hero-video-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+
+        /* Swiper / Slider Styles */
+        .swiper-slide {
+            opacity: 0.2;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .swiper-slide-active { opacity: 1 !important; }
+        .swiper-slide-next { opacity: 0.5 !important; }
 
         .content-section { padding: 120px 2rem; max-width: 1400px; margin: 0 auto; }
         .work-card { border-radius: 2.5rem; background: #0a0a0a; border: 1px solid #111; overflow: hidden; }
-
-        .reveal-text {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            display: inline-block;
-        }
-        .reveal-text span {
-            display: block;
-            transform: translateY(110%);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-text.active span { transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -84,7 +98,6 @@
     <nav>
         <div class="max-w-7xl mx-auto px-10 flex justify-between items-center">
             <div class="text-xl">✱</div>
-            
             <div class="flex space-x-12 md:space-x-20 items-center">
                 <a href="#work" class="nav-link">WORK</a>
                 <a href="#play" class="nav-link">PLAY</a>
@@ -107,15 +120,32 @@
     </div>
 
     <main>
-        <section id="work" class="content-section">
-            <div class="reveal-text mb-16">
-                <h2 class="text-6xl font-black italic uppercase tracking-tighter"><span>Work</span></h2>
+        <section id="work" class="content-section !max-w-none !px-0 overflow-hidden">
+            <div class="px-10 md:px-20 mb-12">
+                <div class="reveal-text">
+                    <h2 class="text-6xl font-black italic uppercase tracking-tighter"><span>Work</span></h2>
+                </div>
             </div>
-            <div class="grid grid-cols-1 gap-16">
-                <div class="work-card aspect-video">
-                    <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                        <source src="Main Video 1.02-Vo.mp4" type="video/mp4">
-                    </video>
+
+            <div class="swiper work-swiper cursor-grab active:cursor-grabbing w-full">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide !w-[80%] md:!w-[65%]">
+                        <div class="work-card aspect-video ml-10 md:ml-20">
+                            <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                                <source src="Main Video 1.02-Vo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="swiper-slide !w-[80%] md:!w-[65%]">
+                        <div class="work-card aspect-video">
+                            <div class="w-full h-full bg-zinc-900 flex items-center justify-center text-zinc-700 uppercase tracking-widest text-xs">Project 02 / Coming Soon</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide !w-[80%] md:!w-[65%]">
+                        <div class="work-card aspect-video mr-10 md:mr-20">
+                            <div class="w-full h-full bg-zinc-900 flex items-center justify-center text-zinc-700 uppercase tracking-widest text-xs">Project 03 / Coming Soon</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -125,8 +155,8 @@
                 <h3 class="text-4xl font-black italic uppercase"><span>Play</span></h3>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Experimental Motion</div>
-                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">R&D Lab</div>
+                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Experimental R&D</div>
+                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Daily Motion Sketches</div>
             </div>
         </section>
 
@@ -134,38 +164,27 @@
             <div class="reveal-text mb-12">
                 <h3 class="text-4xl font-black italic uppercase"><span>About</span></h3>
             </div>
-            <p class="text-2xl text-zinc-400 max-w-2xl leading-relaxed">
-                Motion artist zaměřený na vizualizaci nápadů ve 2D, 3D a dál. Spojuji technickou preciznost s kreativním vyprávěním.
+            <p class="text-2xl md:text-4xl text-zinc-400 max-w-4xl leading-tight font-light">
+                Motion artist specializing in <span class="text-white">visualizing ideas</span> in 2D, 3D and beyond. Currently pushing pixels in Prague.
             </p>
-        </section>
-
-        <section id="resources" class="content-section">
-            <div class="reveal-text mb-12">
-                <h3 class="text-4xl font-black italic uppercase"><span>Resources</span></h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="work-card p-8 border-dashed border-zinc-900">Project Files</div>
-                <div class="work-card p-8 border-dashed border-zinc-900">Assets</div>
-                <div class="work-card p-8 border-dashed border-zinc-900">Tutorials</div>
-            </div>
         </section>
     </main>
 
     <footer id="contact" class="py-60 text-center border-t border-white/5 relative">
-        <div class="absolute top-10 right-10 text-right">
+        <div class="hidden md:block absolute top-10 right-10 text-right">
             <p class="text-[#ff5c00] text-sm font-medium">• Available from April 7th, 2026</p>
             <p class="text-zinc-500 text-xs mt-1">Let's collaborate!</p>
         </div>
         
         <div class="reveal-text mb-6">
-            <p class="text-xs tracking-[0.6em] text-zinc-500 uppercase"><span>Get in touch</span></p>
+            <p class="text-xs tracking-[0.6em] text-zinc-600 uppercase"><span>Get in touch</span></p>
         </div>
         <br>
-        <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-6xl font-black uppercase italic tracking-tighter hover:text-zinc-400 transition-colors">lukaskus.motion@gmail.com</a>
+        <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-7xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">lukaskus.motion@gmail.com</a>
     </footer>
 
     <script>
-        // Smooth Scroll (Lenis)
+        // 1. SMOOTH SCROLL (LENIS)
         const lenis = new Lenis();
         function raf(time) {
             lenis.raf(time);
@@ -173,14 +192,14 @@
         }
         requestAnimationFrame(raf);
 
-        // Hero Scale Logic
+        // 2. HERO SCALE LOGIC
         const videoBox = document.getElementById('hero-video-box');
         lenis.on('scroll', (e) => {
             const scroll = window.scrollY;
             let scale = 1 - (scroll / 1500);
             if (scale < 0.35) scale = 0.35;
             
-            let opacity = 0.6 - (scroll / 1000);
+            let opacity = 0.5 - (scroll / 1200);
             if (opacity < 0.1) opacity = 0.1;
 
             let radius = scroll / 10;
@@ -191,7 +210,16 @@
             videoBox.style.borderRadius = `${radius}px`;
         });
 
-        // Observer for text reveal
+        // 3. WORK SLIDER (SWIPER)
+        const swiper = new Swiper('.work-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 40,
+            grabCursor: true,
+            speed: 900,
+            freeMode: { enabled: true, sticky: true },
+        });
+
+        // 4. TEXT REVEAL (INTERSECTION OBSERVER)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
