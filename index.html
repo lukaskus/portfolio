@@ -10,8 +10,29 @@
     <style>
         body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* Container pro zmenšovací efekt */
-        .hero-wrapper { height: 200vh; position: relative; } /* 200vh vytvoří prostor pro skrolování */
+        /* Fixed Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 100%);
+            padding: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: white; }
+
+        /* Scroll Engine */
+        .hero-wrapper { height: 180vh; position: relative; }
         
         .sticky-container {
             position: sticky;
@@ -26,118 +47,137 @@
         #hero-video-box {
             width: 100%;
             height: 100%;
-            transition: border-radius 0.5s ease;
             overflow: hidden;
             position: relative;
             will-change: transform;
+            transition: border-radius 0.4s ease;
         }
 
         .hero-video-bg {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.6;
+            opacity: 0.4;
         }
 
-        /* Bento Styling */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 300px;
-            gap: 1.5rem;
+        /* Sections */
+        .content-section {
+            padding: 100px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 80vh;
         }
 
-        .bento-item {
-            background: #111;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 2rem;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .bento-item:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
-
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .placeholder-box {
+            background: #0a0a0a;
+            border: 1px solid #111;
+            border-radius: 1rem;
+            aspect-ratio: 16/9;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #222;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+        }
     </style>
 </head>
 <body>
 
+    <nav>
+        <div class="max-w-7xl mx-auto px-10 flex justify-center space-x-8 md:space-x-16">
+            <a href="#product-videos" class="nav-link">Product Videos</a>
+            <a href="#lotties" class="nav-link">Lotties</a>
+            <a href="#3d" class="nav-link">3D</a>
+            <a href="#playground" class="nav-link">Playground</a>
+        </div>
+    </nav>
+
     <div class="hero-wrapper">
         <div class="sticky-container">
-            <div id="hero-video-box" class="flex items-center justify-center">
+            <div id="hero-video-box">
                 <video autoplay muted loop playsinline class="hero-video-bg">
                     <source src="showreel_preview.mp4" type="video/mp4">
                 </video>
-                
-                <div id="hero-text" class="absolute z-20 text-center">
-                    <h1 class="text-6xl md:text-[8rem] font-black italic uppercase leading-none tracking-tighter">Motion Artist</h1>
-                    <p class="text-gray-400 tracking-[0.4em] uppercase text-sm mt-4 italic">Lukáš Kus</p>
+                <div id="hero-text" class="absolute inset-0 flex flex-col items-center justify-center z-20">
+                    <h1 class="text-5xl md:text-9xl font-black italic uppercase tracking-tighter">Lukas Kus</h1>
+                    <p class="text-[10px] md:text-xs tracking-[0.6em] text-gray-500 uppercase mt-4">Motion Design Portfolio 2026</p>
                 </div>
-                
-                <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10"></div>
             </div>
         </div>
     </div>
 
-    <main class="max-w-7xl mx-auto py-20 px-6">
-        <div class="reveal mb-16 text-center">
-            <h2 class="text-4xl font-black uppercase italic tracking-tighter">Selected Disciplines</h2>
-        </div>
+    <main class="relative z-30">
 
-        <div class="bento-grid">
-            <div class="bento-item col-span-4 md:col-span-2 row-span-2 reveal group">
-                <h3 class="text-2xl font-bold italic mb-2">Animations</h3>
-                <p class="text-gray-500 text-sm mb-6 uppercase tracking-widest">Lottie & UI Motion</p>
-                <div class="w-full h-full flex items-center justify-center">
-                    <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-64" loop autoplay></dotlottie-player>
+        <section id="product-videos" class="content-section reveal">
+            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">Product Videos</h2>
+            <div class="grid grid-cols-1 gap-10">
+                <div class="placeholder-box overflow-hidden">
+                    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                        <source src="product_1.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
+        </section>
 
-            <div class="bento-item col-span-4 md:col-span-2 row-span-1 reveal group">
-                <h3 class="text-2xl font-bold italic mb-2">3D Worlds</h3>
-                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition">
-                    <source src="3d_clip.mp4" type="video/mp4">
-                </video>
-                <p class="relative z-10 text-gray-400 text-xs uppercase tracking-widest">Cinema 4D / Octane</p>
+        <section id="lotties" class="content-section reveal">
+            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">Lotties</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="placeholder-box aspect-square">
+                    <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" style="width: 200px;" loop autoplay></dotlottie-player>
+                </div>
+                <div class="placeholder-box aspect-square">Animation 2</div>
+                <div class="placeholder-box aspect-square">Animation 3</div>
             </div>
+        </section>
 
-            <div class="bento-item col-span-2 md:col-span-1 reveal">
-                <h3 class="text-xl font-bold italic">Lab</h3>
-                <p class="text-gray-600 text-[10px] uppercase mt-2">RnD Experiments</p>
+        <section id="3d" class="content-section reveal">
+            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">3D</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="placeholder-box">C4D / Octane Render 1</div>
+                <div class="placeholder-box">C4D / Octane Render 2</div>
             </div>
-            
-            <div class="bento-item col-span-2 md:col-span-1 reveal flex flex-col justify-between">
-                <h3 class="text-xl font-bold italic">Contact</h3>
-                <a href="mailto:lukaskus.motion@gmail.com" class="text-[10px] text-white underline">EMAIL ME</a>
+        </section>
+
+        <section id="playground" class="content-section reveal">
+            <h2 class="text-4xl font-black italic uppercase mb-10 tracking-tight">Playground</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="placeholder-box aspect-square">R&D</div>
+                <div class="placeholder-box aspect-square">Test</div>
+                <div class="placeholder-box aspect-square">Sim</div>
+                <div class="placeholder-box aspect-square">Sketch</div>
             </div>
-        </div>
+        </section>
+
     </main>
 
-    <footer class="py-20 text-center opacity-50 text-[10px] tracking-[0.5em] uppercase">
-        © 2026 Lukáš Kus — Motion Designer
+    <footer class="py-40 text-center border-t border-white/5">
+        <a href="mailto:lukaskus.motion@gmail.com" class="text-xl md:text-4xl font-black hover:text-gray-500 transition tracking-tighter">LUKASKUS.MOTION@GMAIL.COM</a>
     </footer>
 
     <script>
-        // SCRIPT PRO ZMENŠOVÁNÍ VIDEA
+        // SCROLL ANIMATION ENGINE
         window.addEventListener('scroll', () => {
             const videoBox = document.getElementById('hero-video-box');
             const heroText = document.getElementById('hero-text');
             const scrollValue = window.scrollY;
             
-            // Výpočet zmenšení (z 1 na 0.5)
-            // Zastaví se na 50% (0.5) po 500px skrolu
-            let scale = 1 - (scrollValue / 1000);
-            if (scale < 0.5) scale = 0.5;
+            // Zoom video boxu (zmenší se z 1 na 0.6)
+            let scale = 1 - (scrollValue / 1200);
+            if (scale < 0.6) scale = 0.6;
             
-            // Výpočet kulatosti rohů
-            let radius = (scrollValue / 10);
-            if (radius > 40) radius = 40; // Max 40px
+            // Kulatost rohů
+            let radius = (scrollValue / 15);
+            if (radius > 50) radius = 50;
 
-            // Výpočet průhlednosti textu (zmizí dřív)
-            let opacity = 1 - (scrollValue / 300);
+            // Průhlednost textu
+            let opacity = 1 - (scrollValue / 400);
             if (opacity < 0) opacity = 0;
 
             videoBox.style.transform = `scale(${scale})`;
@@ -145,13 +185,13 @@
             heroText.style.opacity = opacity;
         });
 
-        // REVEAL SCRIPT
+        // REVEAL ON SCROLL
         function reveal() {
             const reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
                 const windowHeight = window.innerHeight;
                 const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
+                if (elementTop < windowHeight - 150) {
                     el.classList.add("active");
                 }
             });
