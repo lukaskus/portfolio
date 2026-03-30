@@ -35,29 +35,18 @@
             100% { transform: translate(5%, 0) }
         }
 
-        /* CLIP-PATH REVEAL (Vynoření textu) */
-        .reveal-text {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            display: inline-block;
-        }
-        .reveal-text span {
-            display: block;
-            transform: translateY(110%);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-text.active span { transform: translateY(0); }
-
-        /* Navigation */
+        /* Navigation - Přesně podle zadání */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
             background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
-            padding: 3.5rem 0;
+            padding: 2.5rem 0;
         }
         .nav-link {
-            font-size: 1.1rem; font-weight: 900; letter-spacing: 0.2em;
-            text-transform: uppercase; color: #444; transition: color 0.4s ease;
+            font-size: 0.9rem; font-weight: 400; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #888; transition: color 0.4s ease;
         }
         .nav-link:hover { color: #fff; }
+        .nav-contact { color: #ff5c00 !important; } /* Oranžová pro Contact */
 
         /* Hero Engine */
         .hero-wrapper { height: 180vh; position: relative; }
@@ -73,11 +62,19 @@
         }
         .hero-video-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
 
-        .content-section { padding: 150px 2rem; max-width: 1400px; margin: 0 auto; }
+        .content-section { padding: 120px 2rem; max-width: 1400px; margin: 0 auto; }
         .work-card { border-radius: 2.5rem; background: #0a0a0a; border: 1px solid #111; overflow: hidden; }
 
-        /* Magnetic Button Feel */
-        .btn-magnetic { transition: transform 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            display: inline-block;
+        }
+        .reveal-text span {
+            display: block;
+            transform: translateY(110%);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-text.active span { transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -85,11 +82,16 @@
     <div class="noise-overlay"></div>
 
     <nav>
-        <div class="max-w-7xl mx-auto px-10 flex justify-center space-x-12 md:space-x-24">
-            <a href="#product-videos" class="nav-link">Product</a>
-            <a href="#lotties" class="nav-link">Lotties</a>
-            <a href="#3d" class="nav-link">3D</a>
-            <a href="#playground" class="nav-link">Playground</a>
+        <div class="max-w-7xl mx-auto px-10 flex justify-between items-center">
+            <div class="text-xl">✱</div>
+            
+            <div class="flex space-x-12 md:space-x-20 items-center">
+                <a href="#work" class="nav-link">WORK</a>
+                <a href="#play" class="nav-link">PLAY</a>
+                <a href="#about" class="nav-link">ABOUT</a>
+                <a href="#resources" class="nav-link">RESOURCES</a>
+                <a href="#contact" class="nav-link nav-contact">CONTACT</a>
+            </div>
         </div>
     </nav>
 
@@ -105,11 +107,10 @@
     </div>
 
     <main>
-        <section id="product-videos" class="content-section">
+        <section id="work" class="content-section">
             <div class="reveal-text mb-16">
-                <h2 class="text-6xl font-black italic uppercase tracking-tighter italic"><span>Selected Work</span></h2>
+                <h2 class="text-6xl font-black italic uppercase tracking-tighter"><span>Work</span></h2>
             </div>
-            
             <div class="grid grid-cols-1 gap-16">
                 <div class="work-card aspect-video">
                     <video autoplay muted loop playsinline class="w-full h-full object-cover">
@@ -119,30 +120,52 @@
             </div>
         </section>
 
-        <section id="lotties" class="content-section">
+        <section id="play" class="content-section">
             <div class="reveal-text mb-12">
-                <h3 class="text-4xl font-black italic uppercase italic"><span>Motion UI & Lottie</span></h3>
+                <h3 class="text-4xl font-black italic uppercase"><span>Play</span></h3>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-zinc-800 text-[10px] tracking-[0.5em] uppercase">
-                <div class="work-card aspect-square flex items-center justify-center">
-                    <dotlottie-player src="https://lottie.host/your-animation.json" background="transparent" speed="1" class="w-2/3" loop autoplay></dotlottie-player>
-                </div>
-                <div class="work-card aspect-square flex items-center justify-center border-dashed border-zinc-900">Next Case</div>
-                <div class="work-card aspect-square flex items-center justify-center border-dashed border-zinc-900">Next Case</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Experimental Motion</div>
+                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">R&D Lab</div>
+            </div>
+        </section>
+
+        <section id="about" class="content-section">
+            <div class="reveal-text mb-12">
+                <h3 class="text-4xl font-black italic uppercase"><span>About</span></h3>
+            </div>
+            <p class="text-2xl text-zinc-400 max-w-2xl leading-relaxed">
+                Motion artist zaměřený na vizualizaci nápadů ve 2D, 3D a dál. Spojuji technickou preciznost s kreativním vyprávěním.
+            </p>
+        </section>
+
+        <section id="resources" class="content-section">
+            <div class="reveal-text mb-12">
+                <h3 class="text-4xl font-black italic uppercase"><span>Resources</span></h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="work-card p-8 border-dashed border-zinc-900">Project Files</div>
+                <div class="work-card p-8 border-dashed border-zinc-900">Assets</div>
+                <div class="work-card p-8 border-dashed border-zinc-900">Tutorials</div>
             </div>
         </section>
     </main>
 
-    <footer class="py-60 text-center border-t border-white/5">
+    <footer id="contact" class="py-60 text-center border-t border-white/5 relative">
+        <div class="absolute top-10 right-10 text-right">
+            <p class="text-[#ff5c00] text-sm font-medium">• Available from April 7th, 2026</p>
+            <p class="text-zinc-500 text-xs mt-1">Let's collaborate!</p>
+        </div>
+        
         <div class="reveal-text mb-6">
-            <p class="text-xs tracking-[0.6em] text-zinc-500 uppercase italic"><span>Available for new projects</span></p>
+            <p class="text-xs tracking-[0.6em] text-zinc-500 uppercase"><span>Get in touch</span></p>
         </div>
         <br>
         <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-6xl font-black uppercase italic tracking-tighter hover:text-zinc-400 transition-colors">lukaskus.motion@gmail.com</a>
     </footer>
 
     <script>
-        // 1. SMOOTH SCROLL (LENIS)
+        // Smooth Scroll (Lenis)
         const lenis = new Lenis();
         function raf(time) {
             lenis.raf(time);
@@ -150,12 +173,10 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. HERO SCALE & FADE
+        // Hero Scale Logic
         const videoBox = document.getElementById('hero-video-box');
         lenis.on('scroll', (e) => {
             const scroll = window.scrollY;
-            
-            // Scale and Radius
             let scale = 1 - (scroll / 1500);
             if (scale < 0.35) scale = 0.35;
             
@@ -170,15 +191,12 @@
             videoBox.style.borderRadius = `${radius}px`;
         });
 
-        // 3. TEXT REVEAL OBSERVER
-        const observerOptions = { threshold: 0.1 };
+        // Observer for text reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal-text').forEach(text => observer.observe(text));
     </script>
