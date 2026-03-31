@@ -15,7 +15,6 @@
         :root { --bg: #050505; --accent: #ff5c00; --panel: #111; }
         body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* GLOBAL ALIGNMENT - Max šířka webu lícující s menu */
         .site-container {
             width: 100%;
             max-width: 1400px;
@@ -25,7 +24,6 @@
             padding-right: 24px;
         }
         
-        /* Swiper padding pro zarovnání s obsahem */
         .align-edge {
             padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px));
             padding-right: max(24px, calc((100vw - 1400px) / 2 + 24px));
@@ -37,20 +35,6 @@
                 padding-left: max(48px, calc((100vw - 1400px) / 2 + 48px));
                 padding-right: max(48px, calc((100vw - 1400px) / 2 + 48px));
             }
-        }
-
-        /* GRAIN NOISE */
-        .noise {
-            position: fixed; top: -100%; left: -100%; width: 300%; height: 300%;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Noise.png');
-            opacity: 0.04; pointer-events: none; z-index: 9999;
-            animation: noise-anim 0.5s steps(3) infinite;
-        }
-        @keyframes noise-anim {
-            0% { transform: translate(0,0) }
-            10% { transform: translate(-5%,-5%) }
-            50% { transform: translate(-10%,5%) }
-            100% { transform: translate(5%,0) }
         }
 
         /* NAVIGATION */
@@ -65,7 +49,7 @@
         .nav-link:hover { opacity: 0.5; }
         .nav-contact { color: var(--accent) !important; opacity: 1 !important; }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero { height: 180vh; position: relative; }
         .sticky-hero {
             position: sticky; top: 0; height: 100vh;
@@ -79,7 +63,7 @@
         }
         .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 
-        /* TEXT REVEAL */
+        /* REVEAL ANIMATIONS */
         .reveal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); display: inline-block; }
         .reveal .reveal-inner {
             display: block; transform: translateY(105%);
@@ -94,18 +78,15 @@
         }
         .reveal-wrapper.active .reveal-line span { transform: translateY(0); }
 
-        /* SLIDER & BENTO CARDS */
-        .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 1.5rem; overflow: hidden; position: relative; }
-        .work-video { width: 100%; height: 100%; object-fit: cover; }
+        /* BENTO CARDS */
+        .work-card { width: 100%; height: 100%; background: #1a1a1a; border-radius: 0.5rem; overflow: hidden; position: relative; }
+        .work-video, .work-img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
         .swiper-slide { opacity: 0.15; transition: opacity 0.8s ease; }
         .swiper-slide-active { opacity: 1 !important; }
-        .swiper-slide-next { opacity: 0.5 !important; }
     </style>
 </head>
 <body>
-
-    <div class="noise"></div>
 
     <nav>
         <div class="site-container flex justify-between items-start">
@@ -127,13 +108,11 @@
                 <video autoplay muted loop playsinline class="hero-video absolute inset-0">
                     <source src="showreel-preview.mp4" type="video/mp4">
                 </video>
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none"></div>
             </div>
         </div>
     </section>
 
     <main class="relative z-20">
-        
         <section class="w-full pt-20 pb-10">
             <div class="site-container reveal-wrapper">
                 <h2 class="text-3xl md:text-6xl lg:text-7xl font-light leading-[1.15] text-zinc-400">
@@ -150,22 +129,13 @@
                     <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter reveal-inner">Selected Work</h2>
                 </div>
             </div>
-
             <div class="swiper work-swiper w-full align-edge">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
-                        <div class="work-card">
-                            <video autoplay muted loop playsinline class="work-video">
-                                <source src="1-click Property.mp4" type="video/mp4">
-                            </video>
-                        </div>
+                        <div class="work-card"><video autoplay muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video></div>
                     </div>
                     <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
-                        <div class="work-card">
-                            <video autoplay muted loop playsinline class="work-video">
-                                <source src="Main Video 1.02-Vo.mp4" type="video/mp4">
-                            </video>
-                        </div>
+                        <div class="work-card"><video autoplay muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video></div>
                     </div>
                 </div>
             </div>
@@ -177,37 +147,57 @@
                     <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter reveal-inner">Playground</h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 auto-rows-[300px]">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     
-                    <div class="md:col-span-2 md:row-span-2 work-card">
-                        <video autoplay muted loop playsinline class="work-video">
-                            <source src="botte-secrete-1.mp4" type="video/mp4">
-                        </video>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-1 row-span-2 work-card">
+                            <video autoplay muted loop playsinline class="work-video">
+                                <source src="playground/botte-secrete-1.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="col-span-1 aspect-video work-card">
+                            <video autoplay muted loop playsinline class="work-video">
+                                <source src="playground/3D-tube.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="col-span-1 aspect-video work-card bg-zinc-900 flex items-center justify-center">
+                            <span class="text-[8px] tracking-widest text-zinc-500 uppercase italic">Slot 3</span>
+                        </div>
+                        <div class="col-span-1 aspect-square work-card bg-zinc-900"></div>
+                        <div class="col-span-1 aspect-square work-card bg-zinc-900"></div>
                     </div>
 
-                    <div class="md:col-span-1 work-card !bg-[#0a0a0a] flex items-center justify-center">
-                        <span class="text-zinc-800 uppercase tracking-widest text-[10px] italic">Coming Soon</span>
+                    <div class="flex flex-col gap-4">
+                        <div class="w-full aspect-video work-card bg-zinc-900"></div>
+                        <div class="grid grid-cols-3 gap-4 h-full">
+                            <div class="work-card bg-zinc-900"></div>
+                            <div class="work-card bg-zinc-900"></div>
+                            <div class="work-card bg-zinc-900"></div>
+                        </div>
                     </div>
 
-                    <div class="md:col-span-1 md:row-span-2 work-card !bg-[#0a0a0a] flex items-center justify-center">
-                        <span class="text-zinc-800 uppercase tracking-widest text-[10px] italic">Vertical Slot</span>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-2 aspect-square work-card bg-zinc-900"></div>
+                        <div class="col-span-1 aspect-square work-card bg-zinc-900"></div>
+                        <div class="col-span-1 aspect-video work-card bg-zinc-900"></div>
+                        <div class="col-span-2 aspect-video work-card bg-zinc-900"></div>
                     </div>
 
-                    <div class="md:col-span-1 work-card !bg-[#0a0a0a] flex items-center justify-center">
-                        <span class="text-zinc-800 uppercase tracking-widest text-[10px] italic">Coming Soon</span>
+                    <div class="flex flex-col gap-4">
+                        <div class="w-full h-1/2 work-card bg-zinc-900"></div>
+                        <div class="grid grid-cols-2 gap-4 h-1/2">
+                            <div class="work-card bg-zinc-900"></div>
+                            <div class="work-card bg-zinc-900"></div>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer id="contact" class="py-60 relative w-full border-t border-white/5">
         <div class="site-container text-center">
-            <div class="reveal mb-8">
-                <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase reveal-inner">Let's build together</p>
-            </div>
             <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
                 lukaskus.motion@gmail.com
             </a>
@@ -216,12 +206,10 @@
     </footer>
 
     <script>
-        // Smooth Scroll (Lenis)
         const lenis = new Lenis({ lerp: 0.1 });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Hero Scale Logic (Zarovnání s menu položkami)
         const stage = document.getElementById('main-stage');
         function updateHeroScale() {
             const scroll = window.scrollY;
@@ -230,13 +218,10 @@
             const maxContainerW = 1400;
             const contentWidth = Math.min(W, maxContainerW) - (sidePadding * 2);
             const minScale = contentWidth / W;
-            
             let scale = 1 - (scroll / 1200); 
             if (scale < minScale) scale = minScale;
-            
             let visualRadius = scroll / 10;
             if (visualRadius > 24) visualRadius = 24;
-            
             stage.style.transform = `scale(${scale})`;
             stage.style.borderRadius = `${visualRadius / scale}px`;
         }
@@ -245,21 +230,16 @@
         window.addEventListener('resize', updateHeroScale);
         updateHeroScale();
 
-        // Swiper Initialization
         const swiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto',
             spaceBetween: 40,
             speed: 1000,
-            mousewheel: { forceToAxis: true, sensitivity: 1, releaseOnEdges: true },
+            mousewheel: { forceToAxis: true, releaseOnEdges: true },
         });
 
-        // Intersection Observer for Reveal
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-        
         document.querySelectorAll('.reveal, .reveal-wrapper').forEach(el => observer.observe(el));
     </script>
 </body>
