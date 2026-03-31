@@ -15,7 +15,7 @@
         :root { --bg: #050505; --accent: #ff5c00; --panel: #111; }
         body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* GLOBAL ALIGNMENT CONTAINER */
+        /* GLOBAL ALIGNMENT - Max šířka webu lícující s menu */
         .site-container {
             width: 100%;
             max-width: 1400px;
@@ -24,12 +24,13 @@
             padding-left: 24px;
             padding-right: 24px;
         }
-        /* SWIPER DYNAMIC ALIGNMENT */
+        
+        /* Swiper padding pro zarovnání s obsahem */
         .align-edge {
             padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px));
             padding-right: max(24px, calc((100vw - 1400px) / 2 + 24px));
-            box-sizing: border-box;
         }
+
         @media (min-width: 768px) {
             .site-container { padding-left: 48px; padding-right: 48px; }
             .align-edge {
@@ -38,7 +39,7 @@
             }
         }
 
-        /* TOBIAS GRAIN */
+        /* GRAIN NOISE */
         .noise {
             position: fixed; top: -100%; left: -100%; width: 300%; height: 300%;
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Noise.png');
@@ -60,7 +61,6 @@
         .nav-link {
             font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em;
             text-transform: uppercase; color: #fff; transition: opacity 0.4s;
-            display: inline-block;
         }
         .nav-link:hover { opacity: 0.5; }
         .nav-contact { color: var(--accent) !important; opacity: 1 !important; }
@@ -75,12 +75,11 @@
             width: 100%; height: 100%; overflow: hidden;
             background: var(--panel);
             will-change: transform, border-radius;
-            /* Zrušil jsem transition na border-radius, protože ho teď přesně počítáme přes JS */
             transform-origin: center center;
         }
         .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 
-        /* TEXT REVEAL ANIMATION */
+        /* TEXT REVEAL */
         .reveal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); display: inline-block; }
         .reveal .reveal-inner {
             display: block; transform: translateY(105%);
@@ -94,18 +93,14 @@
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal-wrapper.active .reveal-line span { transform: translateY(0); }
-        .reveal-wrapper.active .reveal-line:nth-child(1) span { transition-delay: 0s; }
-        .reveal-wrapper.active .reveal-line:nth-child(2) span { transition-delay: 0.1s; }
-        .reveal-wrapper.active .reveal-line:nth-child(3) span { transition-delay: 0.2s; }
 
-        /* SLIDER SETTINGS */
-        .work-swiper { cursor: default !important; }
+        /* SLIDER & BENTO CARDS */
+        .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 1.5rem; overflow: hidden; position: relative; }
+        .work-video { width: 100%; height: 100%; object-fit: cover; }
+        
         .swiper-slide { opacity: 0.15; transition: opacity 0.8s ease; }
         .swiper-slide-active { opacity: 1 !important; }
         .swiper-slide-next { opacity: 0.5 !important; }
-
-        .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 1.5rem; overflow: hidden; }
-        .work-video { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
@@ -158,7 +153,6 @@
 
             <div class="swiper work-swiper w-full align-edge">
                 <div class="swiper-wrapper">
-                    
                     <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
                         <div class="work-card">
                             <video autoplay muted loop playsinline class="work-video">
@@ -166,7 +160,6 @@
                             </video>
                         </div>
                     </div>
-
                     <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
                         <div class="work-card">
                             <video autoplay muted loop playsinline class="work-video">
@@ -174,25 +167,36 @@
                             </video>
                         </div>
                     </div>
-
-                    <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
-                        <div class="work-card flex items-center justify-center">
-                            <span class="text-zinc-800 uppercase tracking-widest text-xs italic">Next Project Coming Soon</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
         <section id="play" class="py-32 w-full border-t border-white/5">
-            <div class="site-container mb-20">
-                <div class="reveal">
-                    <h2 class="text-5xl font-black italic uppercase tracking-tighter reveal-inner">Playground</h2>
+            <div class="site-container">
+                <div class="reveal mb-16">
+                    <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter reveal-inner">Playground</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-                    <div class="aspect-square work-card !bg-[#0a0a0a]"></div>
-                    <div class="aspect-square work-card !bg-[#0a0a0a]"></div>
-                    <div class="aspect-square work-card !bg-[#0a0a0a]"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 auto-rows-[300px]">
+                    
+                    <div class="md:col-span-2 md:row-span-2 work-card">
+                        <video autoplay muted loop playsinline class="work-video">
+                            <source src="botte-secrete-1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="md:col-span-1 work-card !bg-[#0a0a0a] flex items-center justify-center">
+                        <span class="text-zinc-800 uppercase tracking-widest text-[10px] italic">Coming Soon</span>
+                    </div>
+
+                    <div class="md:col-span-1 md:row-span-2 work-card !bg-[#0a0a0a] flex items-center justify-center">
+                        <span class="text-zinc-800 uppercase tracking-widest text-[10px] italic">Vertical Slot</span>
+                    </div>
+
+                    <div class="md:col-span-1 work-card !bg-[#0a0a0a] flex items-center justify-center">
+                        <span class="text-zinc-800 uppercase tracking-widest text-[10px] italic">Coming Soon</span>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -201,74 +205,55 @@
 
     <footer id="contact" class="py-60 relative w-full border-t border-white/5">
         <div class="site-container text-center">
-            <div class="absolute top-10 right-10 text-right hidden md:block" style="right: max(48px, calc((100vw - 1400px) / 2 + 48px));">
-                <p class="text-[--accent] text-sm font-medium">• Available from April 7th, 2026</p>
-            </div>
             <div class="reveal mb-8">
                 <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase reveal-inner">Let's build together</p>
             </div>
             <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
                 lukaskus.motion@gmail.com
             </a>
+            <p class="text-[--accent] text-sm font-medium mt-12">• Available from April 7th, 2026</p>
         </div>
     </footer>
 
     <script>
-        // Smooth Scroll
+        // Smooth Scroll (Lenis)
         const lenis = new Lenis({ lerp: 0.1 });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Precision Hero Scale Logic
+        // Hero Scale Logic (Zarovnání s menu položkami)
         const stage = document.getElementById('main-stage');
-        
         function updateHeroScale() {
             const scroll = window.scrollY;
             const W = window.innerWidth;
-            
-            // Odpovídá našemu CSS .site-container paddingu (48px na desktop, 24px na mobilu)
             const sidePadding = W >= 768 ? 48 : 24; 
             const maxContainerW = 1400;
-            
-            // Kolik místa reálně zabírá obsah (od hrany loga po hranu menu)
             const contentWidth = Math.min(W, maxContainerW) - (sidePadding * 2);
-            
-            // Cílové procento zmenšení videa
             const minScale = contentWidth / W;
             
             let scale = 1 - (scroll / 1200); 
             if (scale < minScale) scale = minScale;
             
-            // Vizuální zaoblení rohů, které vypadá stále jako 24px bez ohledu na scale factor
             let visualRadius = scroll / 10;
             if (visualRadius > 24) visualRadius = 24;
-            let cssRadius = visualRadius / scale; 
             
             stage.style.transform = `scale(${scale})`;
-            stage.style.borderRadius = `${cssRadius}px`;
+            stage.style.borderRadius = `${visualRadius / scale}px`;
         }
 
-        // Spustit při scrollu i při změně velikosti okna (aby to lícovalo vždycky)
         lenis.on('scroll', updateHeroScale);
         window.addEventListener('resize', updateHeroScale);
-        updateHeroScale(); // Inicializace
+        updateHeroScale();
 
-        // Work Slider
+        // Swiper Initialization
         const swiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto',
-            spaceBetween: 50,
-            centeredSlides: false,
-            grabCursor: false,
-            allowTouchMove: false,
+            spaceBetween: 40,
             speed: 1000,
-            mousewheel: {
-                forceToAxis: true,
-                sensitivity: 1,
-                releaseOnEdges: true,
-            },
+            mousewheel: { forceToAxis: true, sensitivity: 1, releaseOnEdges: true },
         });
 
-        // Reveal Animations
+        // Intersection Observer for Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -276,18 +261,6 @@
         }, { threshold: 0.1 });
         
         document.querySelectorAll('.reveal, .reveal-wrapper').forEach(el => observer.observe(el));
-
-        // Magnetic Menu
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('mousemove', (e) => {
-                const { offsetX, offsetY, target } = e;
-                const { clientWidth, clientHeight } = target;
-                const x = (offsetX - clientWidth / 2) / 3;
-                const y = (offsetY - clientHeight / 2) / 3;
-                link.style.transform = `translate(${x}px, ${y}px)`;
-            });
-            link.addEventListener('mouseleave', () => { link.style.transform = `translate(0, 0)`; });
-        });
     </script>
 </body>
 </html>
