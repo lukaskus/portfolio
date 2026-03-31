@@ -29,10 +29,10 @@
             100% { transform: translate(5%,0) }
         }
 
-        /* NAVIGATION */
+        /* NAVIGATION - Přesně podle zadání */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 2rem 0; mix-blend-mode: difference;
+            padding: 2.5rem 0; mix-blend-mode: difference;
         }
         .nav-link {
             font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em;
@@ -64,7 +64,8 @@
         }
         .reveal.active span { transform: translateY(0); }
 
-        /* SLIDER SETTINGS */
+        /* SLIDER SETTINGS - Vypnutý grab, pouze scroll */
+        .work-swiper { cursor: default !important; }
         .swiper-slide { opacity: 0.15; transition: opacity 0.8s ease; }
         .swiper-slide-active { opacity: 1 !important; }
         .swiper-slide-next { opacity: 0.5 !important; }
@@ -118,7 +119,7 @@
                 </div>
             </div>
 
-            <div class="swiper work-swiper w-full cursor-grab active:cursor-grabbing">
+            <div class="swiper work-swiper w-full">
                 <div class="swiper-wrapper">
                     
                     <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
@@ -142,7 +143,6 @@
                             <span class="text-zinc-800 uppercase tracking-widest text-xs italic">Next Project Coming Soon</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -171,7 +171,7 @@
 
     <footer id="contact" class="py-60 text-center relative border-t border-white/5">
         <div class="absolute top-10 right-10 text-right hidden md:block">
-            <p class="text-[--accent] text-sm font-medium">• Available for 2026 projects</p>
+            <p class="text-[--accent] text-sm font-medium">• Available from April 7th, 2026</p>
         </div>
         <div class="reveal mb-8">
             <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase"><span>Let's build together</span></p>
@@ -182,10 +182,12 @@
     </footer>
 
     <script>
+        // Smooth Scroll
         const lenis = new Lenis({ lerp: 0.1 });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
+        // Hero Animation
         const stage = document.getElementById('main-stage');
         lenis.on('scroll', (e) => {
             const scroll = window.scrollY;
@@ -197,15 +199,22 @@
             stage.style.borderRadius = `${radius}px`;
         });
 
+        // Work Slider - Vypnutý grab, pouze mousewheel
         const swiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto',
             spaceBetween: 50,
             centeredSlides: false,
-            grabCursor: true,
+            grabCursor: false,
+            allowTouchMove: false,
             speed: 1000,
-            mousewheel: { forceToAxis: true },
+            mousewheel: {
+                forceToAxis: true,
+                sensitivity: 1,
+                releaseOnEdges: true,
+            },
         });
 
+        // Reveal Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -213,6 +222,7 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+        // Magnetic Menu
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('mousemove', (e) => {
                 const { offsetX, offsetY, target } = e;
