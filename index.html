@@ -15,27 +15,34 @@
 
         .site-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
-        /* NAVIGATION */
+        /* NAVIGATION - Vyčištěné menu */
         nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2.5rem 0; mix-blend-mode: difference; }
         .nav-link { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; transition: opacity 0.4s; }
         .nav-contact { color: var(--accent) !important; }
+
+        /* HERO SECTION - Velké logo uprostřed */
+        .hero-content {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; z-index: 10; width: 100%;
+        }
+        .hero-title { font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; font-style: italic; text-transform: uppercase; line-height: 0.8; letter-spacing: -0.05em; }
+        .hero-subtitle { font-size: clamp(0.5rem, 1.5vw, 0.75rem); letter-spacing: 0.5em; text-transform: uppercase; color: #888; margin-top: 1.5rem; }
 
         /* SCROLL ANIMATIONS */
         .reveal-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
 
-        /* WORK SECTION */
+        /* WORK & PLAY CARDS */
         .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 0.8rem; overflow: hidden; position: relative; }
         .work-video { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
         
-        /* BENTO GRID SYSTEM */
-        .bento-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; }
+        /* BENTO GRID - Fixní poměry stran bez ořezu */
+        .bento-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; grid-auto-flow: dense; }
         @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        /* Strict Aspect Ratios */
-        .aspect-square { aspect-ratio: 1 / 1; }
-        .aspect-video { aspect-ratio: 16 / 9; }
-        .aspect-vertical { aspect-ratio: 9 / 16; }
+        .aspect-square { aspect-ratio: 1 / 1 !important; }
+        .aspect-video { aspect-ratio: 16 / 9 !important; }
+        .aspect-vertical { aspect-ratio: 9 / 16 !important; }
 
         #main-stage { width: 100%; height: 100vh; will-change: transform, border-radius; }
     </style>
@@ -43,12 +50,9 @@
 <body>
 
     <nav>
-        <div class="site-container flex justify-between items-start">
-            <div class="flex flex-col">
-                <span class="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-none">Lukas Kus</span>
-                <span class="text-[8px] md:text-[9px] tracking-[0.4em] text-zinc-400 uppercase mt-2">Motion Designer & Video Producer</span>
-            </div>
-            <div class="hidden md:flex space-x-12 items-center mt-2">
+        <div class="site-container flex justify-between items-center">
+            <span class="text-xl font-black italic uppercase tracking-tighter">*</span>
+            <div class="flex space-x-12 items-center">
                 <a href="#work" class="nav-link">WORK</a>
                 <a href="#play" class="nav-link">PLAY</a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaskus.motion@gmail.com" target="_blank" class="nav-link nav-contact">CONTACT</a>
@@ -56,18 +60,34 @@
         </div>
     </nav>
 
-    <section class="h-[140vh] relative">
+    <section class="h-[150vh] relative">
         <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+            <div class="hero-content">
+                <h1 class="hero-title">LUKAS KUS</h1>
+                <p class="hero-subtitle">Motion Designer & Video Producer</p>
+            </div>
             <div id="main-stage">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover"><source src="showreel-preview.mp4" type="video/mp4"></video>
+                <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                    <source src="showreel-preview.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
     </section>
 
-    <main class="relative z-20">
+    <main class="relative z-20 bg-[#050505]">
+        <section class="py-40">
+            <div class="site-container reveal-up">
+                <h2 class="text-4xl md:text-7xl font-light leading-tight text-zinc-500">
+                    I help brands <br>
+                    <span class="text-white italic font-normal">move</span> <br>
+                    through high-end motion design and strategic video production.
+                </h2>
+            </div>
+        </section>
+
         <section id="work" class="py-24">
             <div class="site-container mb-16 reveal-up">
-                <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Selected Work</h2>
+                <h2 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter">Selected Work</h2>
             </div>
             <div class="site-container grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="work-card aspect-video reveal-up">
@@ -82,55 +102,33 @@
         <section id="play" class="py-32 border-t border-white/5">
             <div class="site-container">
                 <div class="mb-16 reveal-up">
-                    <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Playground</h2>
+                    <h2 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter">Playground</h2>
                 </div>
 
                 <div class="bento-grid">
                     <div class="md:col-span-2 md:row-span-2 work-card aspect-square reveal-up">
                         <video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video>
                     </div>
-
                     <div class="md:col-span-2 work-card aspect-video reveal-up">
                         <video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video>
                     </div>
-
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video>
-                    </div>
-
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video>
-                    </div>
-
-                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video>
-                    </div>
-
-                    <div class="md:col-span-2 work-card aspect-video reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video>
-                    </div>
-
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video>
-                    </div>
-
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video>
-                    </div>
-                    
-                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video>
-                    </div>
+                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video></div>
+                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video></div>
+                    <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
+                    <div class="md:col-span-2 work-card aspect-video reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video></div>
+                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video></div>
+                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video></div>
+                    <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video></div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contact" class="py-60 border-t border-white/5">
+    <footer id="contact" class="py-60 border-t border-white/5 bg-[#050505]">
         <div class="site-container text-center reveal-up">
             <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase mb-8">Let's build together</p>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaskus.motion@gmail.com" target="_blank" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
-                lukaskus.motion@gmail.com
+                LUKASKUS.MOTION@GMAIL.COM
             </a>
         </div>
     </footer>
@@ -148,8 +146,8 @@
         const stage = document.getElementById('main-stage');
         window.addEventListener('scroll', () => {
             const scroll = window.scrollY;
-            const scale = Math.max(0.88, 1 - (scroll / 2500));
-            const radius = Math.min(32, scroll / 8);
+            const scale = Math.max(0.85, 1 - (scroll / 2000));
+            const radius = Math.min(40, scroll / 6);
             stage.style.transform = `scale(${scale})`;
             stage.style.borderRadius = `${radius}px`;
         });
