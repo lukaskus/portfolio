@@ -3,102 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lukas Kus | Motion Artist</title>
+    <title>Lukas Kus | Motion Designer & Video Producer</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-    
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
 
     <style>
-        :root { --bg: #050505; --accent: #ff5c00; }
+        :root { --bg: #050505; --accent: #ff5c00; --panel: #111; }
         body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* TOBIAS-STYLE GRAIN OVERLAY */
-        .noise-overlay {
-            position: fixed;
-            top: -100%; left: -100%;
-            width: 300%; height: 300%;
+        /* TOBIAS GRAIN */
+        .noise {
+            position: fixed; top: -100%; left: -100%; width: 300%; height: 300%;
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Noise.png');
-            opacity: 0.04;
-            pointer-events: none;
-            z-index: 9999;
-            animation: noise 0.5s steps(2) infinite;
+            opacity: 0.04; pointer-events: none; z-index: 9999;
+            animation: noise-anim 0.5s steps(3) infinite;
         }
-        @keyframes noise {
+        @keyframes noise-anim {
             0% { transform: translate(0,0) }
-            10% { transform: translate(-5%, -5%) }
-            20% { transform: translate(-10%, 5%) }
-            40% { transform: translate(5%, -10%) }
-            60% { transform: translate(-15%, 5%) }
-            80% { transform: translate(10%, 10%) }
-            100% { transform: translate(5%, 0) }
+            10% { transform: translate(-5%,-5%) }
+            50% { transform: translate(-10%,5%) }
+            100% { transform: translate(5%,0) }
         }
 
-        /* CLIP-PATH REVEAL (Vynoření textu) */
-        .reveal-text {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            display: inline-block;
-        }
-        .reveal-text span {
-            display: block;
-            transform: translateY(110%);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-text.active span { transform: translateY(0); }
-
-        /* Navigation */
+        /* NAVIGATION */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
-            background: linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
-            padding: 2.5rem 0;
+            padding: 2rem 0; mix-blend-mode: difference;
         }
         .nav-link {
-            font-size: 0.85rem; font-weight: 400; letter-spacing: 0.15em;
-            text-transform: uppercase; color: #777; transition: color 0.4s ease;
+            font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em;
+            text-transform: uppercase; color: #fff; transition: opacity 0.4s;
+            display: inline-block;
         }
-        .nav-link:hover { color: #fff; }
-        .nav-contact { color: var(--accent) !important; }
+        .nav-link:hover { opacity: 0.5; }
+        .nav-contact { color: var(--accent) !important; opacity: 1 !important; }
 
-        /* Hero Engine */
-        .hero-wrapper { height: 180vh; position: relative; }
-        .sticky-container {
+        /* HERO SECTION */
+        .hero { height: 180vh; position: relative; }
+        .sticky-hero {
             position: sticky; top: 0; height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
-        #hero-video-box {
+        #main-stage {
             width: 100%; height: 100%; overflow: hidden;
-            will-change: transform, opacity;
-            transition: transform 0.1s linear, border-radius 0.6s ease;
+            background: var(--panel);
+            will-change: transform, border-radius;
+            transition: border-radius 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hero-video-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
 
-        /* Swiper / Slider Styles */
-        .swiper-slide {
-            opacity: 0.2;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        /* TEXT REVEAL */
+        .reveal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        .reveal span {
+            display: block; transform: translateY(105%);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .reveal.active span { transform: translateY(0); }
+
+        /* SLIDER SETTINGS */
+        .swiper-slide { opacity: 0.15; transition: opacity 0.8s ease; }
         .swiper-slide-active { opacity: 1 !important; }
         .swiper-slide-next { opacity: 0.5 !important; }
 
-        .content-section { padding: 120px 2rem; max-width: 1400px; margin: 0 auto; }
-        .work-card { border-radius: 2.5rem; background: #0a0a0a; border: 1px solid #111; overflow: hidden; }
+        .placeholder-box { width: 100%; height: 100%; background: var(--panel); border-radius: 2rem; }
     </style>
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
+    <div class="noise"></div>
 
     <nav>
-        <div class="max-w-7xl mx-auto px-10 flex justify-between items-center">
-            <div class="text-xl">✱</div>
-            <div class="flex space-x-12 md:space-x-20 items-center">
+        <div class="max-w-[1800px] mx-auto px-10 flex justify-between items-center">
+            <div class="text-xl font-black italic">✱</div>
+            <div class="flex space-x-12 items-center">
                 <a href="#work" class="nav-link">WORK</a>
                 <a href="#play" class="nav-link">PLAY</a>
                 <a href="#about" class="nav-link">ABOUT</a>
@@ -108,125 +88,145 @@
         </div>
     </nav>
 
-    <div class="hero-wrapper">
-        <div class="sticky-container">
-            <div id="hero-video-box">
-                <video autoplay muted loop playsinline class="hero-video-bg">
-                    <source src="showreel_preview.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10"></div>
+    <section class="hero">
+        <div class="sticky-hero">
+            <div id="main-stage">
+                <div class="w-full h-full flex flex-col items-center justify-center relative">
+                    <div class="reveal active">
+                        <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter"><span>Lukas Kus</span></h1>
+                    </div>
+                    <div class="reveal active mt-4">
+                        <p class="text-[10px] md:text-xs tracking-[0.8em] text-zinc-500 uppercase"><span>Motion Designer & Video Producer</span></p>
+                    </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <main>
-        <section id="work" class="content-section !max-w-none !px-0 overflow-hidden">
-            <div class="px-10 md:px-20 mb-12">
-                <div class="reveal-text">
-                    <h2 class="text-6xl font-black italic uppercase tracking-tighter"><span>Work</span></h2>
+    <main class="relative z-20">
+        <section id="work" class="py-32">
+            <div class="px-10 md:px-20 mb-16">
+                <div class="reveal">
+                    <h2 class="text-7xl font-black italic uppercase tracking-tighter"><span>Selected Work</span></h2>
                 </div>
             </div>
 
-            <div class="swiper work-swiper cursor-grab active:cursor-grabbing w-full">
+            <div class="swiper work-swiper w-full cursor-grab active:cursor-grabbing">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide !w-[80%] md:!w-[65%]">
-                        <div class="work-card aspect-video ml-10 md:ml-20">
-                            <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                                <source src="Main Video 1.02-Vo.mp4" type="video/mp4">
-                            </video>
-                        </div>
+                    <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
+                        <div class="placeholder-box ml-10 md:ml-20"></div>
                     </div>
-                    <div class="swiper-slide !w-[80%] md:!w-[65%]">
-                        <div class="work-card aspect-video">
-                            <div class="w-full h-full bg-zinc-900 flex items-center justify-center text-zinc-700 uppercase tracking-widest text-xs">Project 02 / Coming Soon</div>
-                        </div>
+                    <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
+                        <div class="placeholder-box"></div>
                     </div>
-                    <div class="swiper-slide !w-[80%] md:!w-[65%]">
-                        <div class="work-card aspect-video mr-10 md:mr-20">
-                            <div class="w-full h-full bg-zinc-900 flex items-center justify-center text-zinc-700 uppercase tracking-widest text-xs">Project 03 / Coming Soon</div>
-                        </div>
+                    <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
+                        <div class="placeholder-box mr-10 md:mr-20"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="play" class="content-section">
-            <div class="reveal-text mb-12">
-                <h3 class="text-4xl font-black italic uppercase"><span>Play</span></h3>
+        <section id="play" class="px-10 md:px-20 py-32 border-t border-white/5">
+            <div class="reveal mb-20">
+                <h2 class="text-5xl font-black italic uppercase tracking-tighter"><span>Playground</span></h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Experimental R&D</div>
-                <div class="work-card aspect-video flex items-center justify-center text-zinc-800 uppercase text-[10px] tracking-widest">Daily Motion Sketches</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="aspect-square placeholder-box"></div>
+                <div class="aspect-square placeholder-box"></div>
+                <div class="aspect-square placeholder-box"></div>
             </div>
         </section>
 
-        <section id="about" class="content-section">
-            <div class="reveal-text mb-12">
-                <h3 class="text-4xl font-black italic uppercase"><span>About</span></h3>
+        <section id="about" class="px-10 md:px-20 py-60">
+            <div class="max-w-5xl">
+                <div class="reveal">
+                    <p class="text-3xl md:text-6xl font-light leading-tight text-zinc-400">
+                        <span>I help brands <span class="text-white italic">move</span> through high-end motion design and strategic video production.</span>
+                    </p>
+                </div>
             </div>
-            <p class="text-2xl md:text-4xl text-zinc-400 max-w-4xl leading-tight font-light">
-                Motion artist specializing in <span class="text-white">visualizing ideas</span> in 2D, 3D and beyond. Currently pushing pixels in Prague.
-            </p>
+        </section>
+
+        <section id="resources" class="px-10 md:px-20 py-32 border-t border-white/5">
+            <div class="reveal mb-12">
+                <h2 class="text-xs tracking-widest text-zinc-600 uppercase"><span>Resources & Assets</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="h-32 placeholder-box !rounded-xl"></div>
+                <div class="h-32 placeholder-box !rounded-xl"></div>
+            </div>
         </section>
     </main>
 
-    <footer id="contact" class="py-60 text-center border-t border-white/5 relative">
-        <div class="hidden md:block absolute top-10 right-10 text-right">
-            <p class="text-[#ff5c00] text-sm font-medium">• Available from April 7th, 2026</p>
-            <p class="text-zinc-500 text-xs mt-1">Let's collaborate!</p>
+    <footer id="contact" class="py-60 text-center relative border-t border-white/5">
+        <div class="absolute top-10 right-10 text-right hidden md:block">
+            <p class="text-[--accent] text-sm font-medium">• Available for 2026 projects</p>
         </div>
         
-        <div class="reveal-text mb-6">
-            <p class="text-xs tracking-[0.6em] text-zinc-600 uppercase"><span>Get in touch</span></p>
+        <div class="reveal mb-8">
+            <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase"><span>Let's build together</span></p>
         </div>
-        <br>
-        <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-7xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">lukaskus.motion@gmail.com</a>
+        <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
+            lukaskus.motion@gmail.com
+        </a>
     </footer>
 
     <script>
-        // 1. SMOOTH SCROLL (LENIS)
-        const lenis = new Lenis();
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        // 1. SMOOTH SCROLL
+        const lenis = new Lenis({ lerp: 0.1 });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // 2. HERO SCALE LOGIC
-        const videoBox = document.getElementById('hero-video-box');
+        // 2. STICKY HERO ANIMATION (Scale & Radius)
+        const stage = document.getElementById('main-stage');
         lenis.on('scroll', (e) => {
             const scroll = window.scrollY;
-            let scale = 1 - (scroll / 1500);
-            if (scale < 0.35) scale = 0.35;
             
-            let opacity = 0.5 - (scroll / 1200);
-            if (opacity < 0.1) opacity = 0.1;
+            // Scale stage down
+            let scale = 1 - (scroll / 2000);
+            if (scale < 0.4) scale = 0.4;
+            
+            // Border radius increase
+            let radius = scroll / 8;
+            if (radius > 100) radius = 100;
 
-            let radius = scroll / 10;
-            if (radius > 80) radius = 80;
-
-            videoBox.style.transform = `scale(${scale})`;
-            videoBox.style.opacity = opacity;
-            videoBox.style.borderRadius = `${radius}px`;
+            stage.style.transform = `scale(${scale})`;
+            stage.style.borderRadius = `${radius}px`;
         });
 
-        // 3. WORK SLIDER (SWIPER)
+        // 3. WORK SLIDER
         const swiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto',
-            spaceBetween: 40,
+            spaceBetween: 50,
+            centeredSlides: false,
             grabCursor: true,
-            speed: 900,
-            freeMode: { enabled: true, sticky: true },
+            speed: 1000,
+            mousewheel: { forceToAxis: true },
         });
 
-        // 4. TEXT REVEAL (INTERSECTION OBSERVER)
+        // 4. INTERSECTION OBSERVER FOR REVEALS
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal-text').forEach(text => observer.observe(text));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 5. MAGNETIC LINKS (Subtle)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('mousemove', (e) => {
+                const { offsetX, offsetY, target } = e;
+                const { clientWidth, clientHeight } = target;
+                const x = (offsetX - clientWidth / 2) / 3;
+                const y = (offsetY - clientHeight / 2) / 3;
+                link.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = `translate(0, 0)`;
+            });
+        });
     </script>
 </body>
 </html>
