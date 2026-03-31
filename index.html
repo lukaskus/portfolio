@@ -29,7 +29,7 @@
             100% { transform: translate(5%,0) }
         }
 
-        /* NAVIGATION - Přesně podle zadání */
+        /* NAVIGATION */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 100;
             padding: 2.5rem 0; mix-blend-mode: difference;
@@ -54,17 +54,29 @@
             will-change: transform, border-radius;
             transition: border-radius 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 
-        /* TEXT REVEAL */
-        .reveal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-        .reveal span {
+        /* TEXT REVEAL ANIMATION */
+        .reveal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); display: inline-block; }
+        .reveal .reveal-inner {
             display: block; transform: translateY(105%);
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal.active span { transform: translateY(0); }
+        .reveal.active .reveal-inner { transform: translateY(0); }
 
-        /* SLIDER SETTINGS - Vypnutý grab, pouze scroll */
+        /* MULTILINE REVEAL (pro Intro text) */
+        .reveal-line { overflow: hidden; display: block; }
+        .reveal-line span {
+            display: block; transform: translateY(110%);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-wrapper.active .reveal-line span { transform: translateY(0); }
+        /* Zpoždění pro jednotlivé řádky */
+        .reveal-wrapper.active .reveal-line:nth-child(1) span { transition-delay: 0s; }
+        .reveal-wrapper.active .reveal-line:nth-child(2) span { transition-delay: 0.1s; }
+        .reveal-wrapper.active .reveal-line:nth-child(3) span { transition-delay: 0.2s; }
+
+        /* SLIDER SETTINGS - Pouze scroll */
         .work-swiper { cursor: default !important; }
         .swiper-slide { opacity: 0.15; transition: opacity 0.8s ease; }
         .swiper-slide-active { opacity: 1 !important; }
@@ -79,13 +91,14 @@
     <div class="noise"></div>
 
     <nav>
-        <div class="max-w-[1800px] mx-auto px-10 flex justify-between items-center">
-            <div class="text-xl font-black italic">✱</div>
-            <div class="flex space-x-12 items-center">
+        <div class="max-w-[1800px] mx-auto px-10 flex justify-between items-start">
+            <div class="flex flex-col">
+                <span class="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-none">Lukas Kus</span>
+                <span class="text-[8px] md:text-[9px] tracking-[0.4em] text-zinc-400 uppercase mt-2">Motion Designer & Video Producer</span>
+            </div>
+            <div class="flex space-x-12 items-center mt-2">
                 <a href="#work" class="nav-link">WORK</a>
                 <a href="#play" class="nav-link">PLAY</a>
-                <a href="#about" class="nav-link">ABOUT</a>
-                <a href="#resources" class="nav-link">RESOURCES</a>
                 <a href="#contact" class="nav-link nav-contact">CONTACT</a>
             </div>
         </div>
@@ -97,25 +110,27 @@
                 <video autoplay muted loop playsinline class="hero-video absolute inset-0">
                     <source src="showreel-preview.mp4" type="video/mp4">
                 </video>
-                
-                <div class="w-full h-full flex flex-col items-center justify-center relative z-10">
-                    <div class="reveal active">
-                        <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-tighter"><span>Lukas Kus</span></h1>
-                    </div>
-                    <div class="reveal active mt-4">
-                        <p class="text-[10px] md:text-xs tracking-[0.8em] text-zinc-500 uppercase"><span>Motion Designer & Video Producer</span></p>
-                    </div>
-                </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none"></div>
             </div>
         </div>
     </section>
 
     <main class="relative z-20">
-        <section id="work" class="py-32">
+        
+        <section class="px-10 md:px-20 pt-20 pb-10">
+            <div class="max-w-6xl reveal-wrapper">
+                <h2 class="text-3xl md:text-6xl lg:text-7xl font-light leading-[1.15] text-zinc-400">
+                    <span class="reveal-line"><span>I help brands <span class="text-white italic font-normal">move</span></span></span>
+                    <span class="reveal-line"><span>through high-end motion design</span></span>
+                    <span class="reveal-line"><span>and strategic video production.</span></span>
+                </h2>
+            </div>
+        </section>
+
+        <section id="work" class="py-24">
             <div class="px-10 md:px-20 mb-16">
                 <div class="reveal">
-                    <h2 class="text-7xl font-black italic uppercase tracking-tighter"><span>Selected Work</span></h2>
+                    <h2 class="text-7xl font-black italic uppercase tracking-tighter reveal-inner">Selected Work</h2>
                 </div>
             </div>
 
@@ -149,7 +164,7 @@
 
         <section id="play" class="px-10 md:px-20 py-32 border-t border-white/5">
             <div class="reveal mb-20">
-                <h2 class="text-5xl font-black italic uppercase tracking-tighter"><span>Playground</span></h2>
+                <h2 class="text-5xl font-black italic uppercase tracking-tighter reveal-inner">Playground</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="aspect-square work-card !bg-[#0a0a0a]"></div>
@@ -158,15 +173,6 @@
             </div>
         </section>
 
-        <section id="about" class="px-10 md:px-20 py-60">
-            <div class="max-w-5xl">
-                <div class="reveal">
-                    <p class="text-3xl md:text-6xl font-light leading-tight text-zinc-400">
-                        <span>I help brands <span class="text-white italic">move</span> through high-end motion design and strategic video production.</span>
-                    </p>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer id="contact" class="py-60 text-center relative border-t border-white/5">
@@ -174,7 +180,7 @@
             <p class="text-[--accent] text-sm font-medium">• Available from April 7th, 2026</p>
         </div>
         <div class="reveal mb-8">
-            <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase"><span>Let's build together</span></p>
+            <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase reveal-inner">Let's build together</p>
         </div>
         <a href="mailto:lukaskus.motion@gmail.com" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
             lukaskus.motion@gmail.com
@@ -199,7 +205,7 @@
             stage.style.borderRadius = `${radius}px`;
         });
 
-        // Work Slider - Vypnutý grab, pouze mousewheel
+        // Work Slider - Pouze mousewheel
         const swiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto',
             spaceBetween: 50,
@@ -214,13 +220,14 @@
             },
         });
 
-        // Reveal Animations
+        // Reveal Animations (pro nadpisy i multiline text)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        document.querySelectorAll('.reveal, .reveal-wrapper').forEach(el => observer.observe(el));
 
         // Magnetic Menu
         document.querySelectorAll('.nav-link').forEach(link => {
