@@ -7,83 +7,37 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
 
     <style>
         :root { --bg: #050505; --accent: #ff5c00; --panel: #111; }
         body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
-        .site-container {
-            width: 100%;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 24px;
-            padding-right: 24px;
-        }
-        
-        .align-edge {
-            padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px));
-            padding-right: max(24px, calc((100vw - 1400px) / 2 + 24px));
-        }
-
-        @media (min-width: 768px) {
-            .site-container { padding-left: 48px; padding-right: 48px; }
-            .align-edge {
-                padding-left: max(48px, calc((100vw - 1400px) / 2 + 48px));
-                padding-right: max(48px, calc((100vw - 1400px) / 2 + 48px));
-            }
-        }
+        .site-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
         /* NAVIGATION */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 2.5rem 0; mix-blend-mode: difference;
-        }
-        .nav-link {
-            font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em;
-            text-transform: uppercase; color: #fff; transition: opacity 0.4s;
-        }
-        .nav-link:hover { opacity: 0.5; }
-        .nav-contact { color: var(--accent) !important; opacity: 1 !important; }
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2.5rem 0; mix-blend-mode: difference; }
+        .nav-link { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; transition: opacity 0.4s; }
+        .nav-contact { color: var(--accent) !important; }
 
-        /* HERO */
-        .hero { height: 180vh; position: relative; }
-        .sticky-hero {
-            position: sticky; top: 0; height: 100vh;
-            display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
-        #main-stage {
-            width: 100%; height: 100%; overflow: hidden;
-            background: var(--panel);
-            will-change: transform, border-radius;
-            transform-origin: center center;
-        }
-        .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        /* SCROLL ANIMATIONS */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
 
-        /* REVEAL ANIMATIONS */
-        .reveal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); display: inline-block; }
-        .reveal .reveal-inner {
-            display: block; transform: translateY(105%);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active .reveal-inner { transform: translateY(0); }
-
-        .reveal-line { overflow: hidden; display: block; }
-        .reveal-line span {
-            display: block; transform: translateY(110%);
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-wrapper.active .reveal-line span { transform: translateY(0); }
-
-        /* BENTO CARDS */
-        .work-card { width: 100%; height: 100%; background: #1a1a1a; border-radius: 0.5rem; overflow: hidden; position: relative; }
-        .work-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        /* WORK SECTION */
+        .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 0.8rem; overflow: hidden; position: relative; }
+        .work-video { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
         
-        .swiper-slide { opacity: 0.15; transition: opacity 0.8s ease; }
-        .swiper-slide-active { opacity: 1 !important; }
+        /* BENTO GRID SYSTEM */
+        .bento-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; }
+        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        /* Strict Aspect Ratios */
+        .aspect-square { aspect-ratio: 1 / 1; }
+        .aspect-video { aspect-ratio: 16 / 9; }
+        .aspect-vertical { aspect-ratio: 9 / 16; }
+
+        #main-stage { width: 100%; height: 100vh; will-change: transform, border-radius; }
     </style>
 </head>
 <body>
@@ -94,7 +48,7 @@
                 <span class="text-xl md:text-2xl font-black italic uppercase tracking-tighter leading-none">Lukas Kus</span>
                 <span class="text-[8px] md:text-[9px] tracking-[0.4em] text-zinc-400 uppercase mt-2">Motion Designer & Video Producer</span>
             </div>
-            <div class="flex space-x-12 items-center mt-2 hidden md:flex">
+            <div class="hidden md:flex space-x-12 items-center mt-2">
                 <a href="#work" class="nav-link">WORK</a>
                 <a href="#play" class="nav-link">PLAY</a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaskus.motion@gmail.com" target="_blank" class="nav-link nav-contact">CONTACT</a>
@@ -102,88 +56,79 @@
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="sticky-hero">
+    <section class="h-[140vh] relative">
+        <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
             <div id="main-stage">
-                <video autoplay muted loop playsinline class="hero-video absolute inset-0">
-                    <source src="showreel-preview.mp4" type="video/mp4">
-                </video>
+                <video autoplay muted loop playsinline class="w-full h-full object-cover"><source src="showreel-preview.mp4" type="video/mp4"></video>
             </div>
         </div>
     </section>
 
     <main class="relative z-20">
-        <section class="w-full pt-20 pb-10">
-            <div class="site-container reveal-wrapper">
-                <h2 class="text-3xl md:text-6xl lg:text-7xl font-light leading-[1.15] text-zinc-400">
-                    <span class="reveal-line"><span>I help brands <span class="text-white italic font-normal">move</span></span></span>
-                    <span class="reveal-line"><span>through high-end motion design</span></span>
-                    <span class="reveal-line"><span>and strategic video production.</span></span>
-                </h2>
+        <section id="work" class="py-24">
+            <div class="site-container mb-16 reveal-up">
+                <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Selected Work</h2>
             </div>
-        </section>
-
-        <section id="work" class="py-24 w-full">
-            <div class="site-container mb-16">
-                <div class="reveal">
-                    <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter reveal-inner">Selected Work</h2>
+            <div class="site-container grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="work-card aspect-video reveal-up">
+                    <video autoplay muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video>
                 </div>
-            </div>
-            <div class="swiper work-swiper w-full align-edge">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
-                        <div class="work-card"><video autoplay muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video></div>
-                    </div>
-                    <div class="swiper-slide !w-[85%] md:!w-[65%] aspect-video">
-                        <div class="work-card"><video autoplay muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video></div>
-                    </div>
+                <div class="work-card aspect-video reveal-up" style="transition-delay: 0.1s;">
+                    <video autoplay muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video>
                 </div>
             </div>
         </section>
 
-        <section id="play" class="py-32 w-full border-t border-white/5">
+        <section id="play" class="py-32 border-t border-white/5">
             <div class="site-container">
-                <div class="reveal mb-16">
-                    <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter reveal-inner">Playground</h2>
+                <div class="mb-16 reveal-up">
+                    <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Playground</h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1 row-span-2 work-card">
-                            <video autoplay muted loop playsinline class="work-video">
-                                <source src="playground/botte-secrete-1.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="col-span-1 aspect-video work-card">
-                            <video autoplay muted loop playsinline class="work-video">
-                                <source src="playground/3D-tube.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="col-span-1 aspect-video work-card bg-zinc-900 flex items-center justify-center">
-                            <span class="text-[8px] tracking-widest text-zinc-500 uppercase italic">Slot 3</span>
-                        </div>
-                        <div class="col-span-1 aspect-square work-card bg-zinc-900"></div>
-                        <div class="col-span-1 aspect-square work-card bg-zinc-900"></div>
+                <div class="bento-grid">
+                    <div class="md:col-span-2 md:row-span-2 work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video>
                     </div>
 
-                    <div class="flex flex-col gap-4">
-                        <div class="w-full aspect-video work-card bg-zinc-900"></div>
-                        <div class="grid grid-cols-3 gap-4 h-full">
-                            <div class="work-card bg-zinc-900"></div>
-                            <div class="work-card bg-zinc-900"></div>
-                            <div class="work-card bg-zinc-900"></div>
-                        </div>
+                    <div class="md:col-span-2 work-card aspect-video reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video>
+                    </div>
+
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video>
+                    </div>
+
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video>
+                    </div>
+
+                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video>
+                    </div>
+
+                    <div class="md:col-span-2 work-card aspect-video reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video>
+                    </div>
+
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video>
+                    </div>
+
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video>
+                    </div>
+                    
+                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contact" class="py-60 relative w-full border-t border-white/5">
-        <div class="site-container text-center">
-            <div class="reveal mb-8">
-                <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase reveal-inner">Let's build together</p>
-            </div>
+    <footer id="contact" class="py-60 border-t border-white/5">
+        <div class="site-container text-center reveal-up">
+            <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase mb-8">Let's build together</p>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaskus.motion@gmail.com" target="_blank" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
                 lukaskus.motion@gmail.com
             </a>
@@ -195,37 +140,19 @@
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        const stage = document.getElementById('main-stage');
-        function updateHeroScale() {
-            const scroll = window.scrollY;
-            const W = window.innerWidth;
-            const sidePadding = W >= 768 ? 48 : 24; 
-            const maxContainerW = 1400;
-            const contentWidth = Math.min(W, maxContainerW) - (sidePadding * 2);
-            const minScale = contentWidth / W;
-            let scale = 1 - (scroll / 1200); 
-            if (scale < minScale) scale = minScale;
-            let visualRadius = scroll / 10;
-            if (visualRadius > 24) visualRadius = 24;
-            stage.style.transform = `scale(${scale})`;
-            stage.style.borderRadius = `${visualRadius / scale}px`;
-        }
-
-        lenis.on('scroll', updateHeroScale);
-        window.addEventListener('resize', updateHeroScale);
-        updateHeroScale();
-
-        const swiper = new Swiper('.work-swiper', {
-            slidesPerView: 'auto',
-            spaceBetween: 40,
-            speed: 1000,
-            mousewheel: { forceToAxis: true, releaseOnEdges: true },
-        });
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal, .reveal-wrapper').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+        const stage = document.getElementById('main-stage');
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const scale = Math.max(0.88, 1 - (scroll / 2500));
+            const radius = Math.min(32, scroll / 8);
+            stage.style.transform = `scale(${scale})`;
+            stage.style.borderRadius = `${radius}px`;
+        });
     </script>
 </body>
 </html>
