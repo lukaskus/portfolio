@@ -7,8 +7,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
 
     <style>
@@ -29,24 +27,8 @@
         /* CARDS & VIDEOS */
         .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 0.8rem; overflow: hidden; position: relative; }
         .work-video { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
-
-        /* SELECTED WORK - Swiper Logic */
-        .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); }
-        .swiper-slide { opacity: 0; transition: opacity 0.6s ease; }
-        .swiper-slide-active { opacity: 0.9 !important; }
-        .swiper-slide-next { opacity: 0.2 !important; } /* Náhled 20% opacity */
-        .swiper-slide-prev { opacity: 0 !important; }
-
-        /* Custom Arrow Button */
-        .custom-next-btn {
-            position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
-            width: 65px; height: 65px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 50; transition: all 0.3s; background: rgba(5,5,5,0.2);
-        }
-        .custom-next-btn:hover { border-color: white; background: rgba(255,255,255,0.1); }
-
-        /* BENTO GRID - Fixed Aspect Ratios */
+        
+        /* BENTO GRID */
         .bento-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; grid-auto-flow: dense; }
         @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
         
@@ -55,9 +37,31 @@
         .aspect-vertical { aspect-ratio: 9 / 16 !important; }
 
         #main-stage { width: 100%; height: 100vh; will-change: transform, border-radius; }
+
+        /* --- SVG MASK LOGIC --- */
+        .profile-masked {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Definujeme cestu k SVG masce */
+            mask-image: url('#profileMask');
+            -webkit-mask-image: url('#profileMask');
+            /* Nastavení masky */
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            mask-position: center;
+        }
     </style>
 </head>
 <body>
+
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <mask id="profileMask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                <path d="M 0.5 0.05 C 0.6 0.05 0.65 0.1 0.71 0.15 C 0.77 0.2 0.82 0.26 0.85 0.32 C 0.88 0.38 0.9 0.44 0.9 0.5 C 0.9 0.56 0.88 0.62 0.85 0.68 C 0.82 0.74 0.77 0.8 0.71 0.85 C 0.65 0.9 0.6 0.95 0.5 0.95 C 0.4 0.95 0.35 0.9 0.29 0.85 C 0.23 0.8 0.18 0.74 0.15 0.68 C 0.12 0.62 0.1 0.56 0.1 0.5 C 0.1 0.44 0.12 0.38 0.15 0.32 C 0.18 0.26 0.23 0.2 0.29 0.15 C 0.35 0.1 0.4 0.05 0.5 0.05 Z" fill="white"/>
+            </mask>
+        </defs>
+    </svg>
 
     <nav>
         <div class="site-container flex justify-between items-start">
@@ -83,93 +87,64 @@
 
     <main class="relative z-20">
         <section class="py-40">
-            <div class="site-container reveal-up">
-                <h2 class="text-3xl md:text-6xl font-light leading-[1.1] text-zinc-500">
-                    Based in Prague, creating for the world. <br>
-                    <span class="text-white">10+ years</span> of making things <span class="text-white italic">move</span>, <br>
-                    exploring AI, and <span class="text-white font-normal">generally being awesome</span>. 
-                </h2>
-                <p class="text-zinc-600 mt-10 tracking-[0.3em] uppercase text-[9px] font-medium italic">Positive vibes included as standard.</p>
+            <div class="site-container grid md:grid-cols-[1fr,2fr] gap-12 items-center reveal-up">
+                
+                <div class="relative w-full aspect-square md:w-[85%] mx-auto">
+                    <img src="lukaskus-photo.jpg" alt="Lukas Kus" class="profile-masked">
+                </div>
+                
+                <div class="flex flex-col">
+                    <h2 class="text-3xl md:text-6xl font-light leading-tight text-zinc-500">
+                        Based in Prague, creating for the world. <br>
+                        <span class="text-white">10+ years</span> of making things <span class="text-white italic">move</span>, <br>
+                        exploring AI, and <span class="text-white font-normal">generally being awesome</span>. 
+                    </h2>
+                    <p class="text-zinc-600 mt-10 tracking-[0.3em] uppercase text-[9px] font-medium italic">Positive vibes included as standard.</p>
+                </div>
             </div>
         </section>
 
-        <section id="work" class="py-24 relative overflow-hidden">
-            <div class="site-container mb-16 reveal-up">
+        <section id="work" class="py-24 relative overflow-hidden site-container">
+            <div class="mb-16 reveal-up">
                 <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Selected Work</h2>
             </div>
-            
-            <div class="swiper work-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide !w-[85%] md:!w-[70%] aspect-video">
-                        <div class="work-card"><video muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video></div>
-                    </div>
-                    <div class="swiper-slide !w-[85%] md:!w-[70%] aspect-video">
-                        <div class="work-card"><video muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video></div>
-                    </div>
-                    <div class="swiper-slide !w-[85%] md:!w-[70%] aspect-video">
-                        <div class="work-card"><video muted loop playsinline class="work-video"><source src="boards.mp4" type="video/mp4"></video></div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="work-card aspect-video reveal-up">
+                    <video autoplay muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video>
                 </div>
-            </div>
-
-            <div class="custom-next-btn reveal-up">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div class="work-card aspect-video reveal-up" style="transition-delay: 0.1s;">
+                    <video autoplay muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video>
+                </div>
             </div>
         </section>
 
-        <section id="play" class="py-32 border-t border-white/5">
-            <div class="site-container">
-                <div class="mb-16 reveal-up">
-                    <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Playground</h2>
+        <section id="play" class="py-32 border-t border-white/5 site-container">
+            <div class="mb-16 reveal-up">
+                <h2 class="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">Playground</h2>
+            </div>
+            <div class="bento-grid">
+                <div class="md:col-span-2 md:row-span-2 work-card aspect-square reveal-up">
+                    <video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video>
                 </div>
-
-                <div class="bento-grid">
-                    <div class="md:col-span-2 md:row-span-2 work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/UGC.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/3D-2.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="md:col-span-2 work-card aspect-video reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/rr.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="md:col-span-2 work-card aspect-video reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video>
-                    </div>
-                    <div class="work-card aspect-square reveal-up">
-                        <video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video>
-                    </div>
+                <div class="md:col-span-2 work-card aspect-video reveal-up">
+                    <video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video>
                 </div>
+                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video></div>
+                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video></div>
+                <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
+                <div class="md:col-span-2 work-card aspect-video reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video></div>
+                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video></div>
+                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video></div>
+                <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video></div>
             </div>
         </section>
     </main>
 
-    <footer class="py-60 border-t border-white/5">
+    <footer id="contact" class="py-60 border-t border-white/5">
         <div class="site-container text-center reveal-up">
             <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase mb-8">Let's build together</p>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaskus.motion@gmail.com" target="_blank" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
-                LUKASKUS.MOTION@GMAIL.COM
+                lukaskus.motion@gmail.com
             </a>
         </div>
     </footer>
@@ -191,26 +166,6 @@
             const radius = Math.min(32, scroll / 8);
             stage.style.transform = `scale(${scale})`;
             stage.style.borderRadius = `${radius}px`;
-        });
-
-        const workSwiper = new Swiper('.work-swiper', {
-            slidesPerView: 'auto',
-            spaceBetween: 40,
-            speed: 900,
-            loop: true,
-            navigation: { nextEl: '.custom-next-btn' },
-            on: {
-                init: function() { 
-                    this.slides.forEach(s => { let v = s.querySelector('video'); if(v) v.pause(); });
-                    let activeV = this.slides[this.activeIndex].querySelector('video');
-                    if(activeV) activeV.play();
-                },
-                slideChangeTransitionStart: function() {
-                    this.slides.forEach(s => { let v = s.querySelector('video'); if(v) v.pause(); });
-                    let activeV = this.slides[this.activeIndex].querySelector('video');
-                    if(activeV) activeV.play();
-                }
-            }
         });
     </script>
 </body>
