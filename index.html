@@ -26,49 +26,35 @@
         .reveal-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
 
-        /* HERO STAGE */
-        #main-stage { width: 100%; height: 100vh; will-change: transform, border-radius; }
-
-        /* SELECTED WORK - Swiper & Custom Navigation */
+        /* CARDS & VIDEOS */
         .work-card { width: 100%; height: 100%; background: var(--panel); border-radius: 0.8rem; overflow: hidden; position: relative; }
         .work-video { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
 
-        /* Swiper container adjustments */
+        /* SELECTED WORK - Swiper Logic */
         .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); }
-        @media (min-width: 768px) { .work-swiper { padding-left: max(48px, calc((100vw - 1400px) / 2 + 48px)); } }
-        
-        /* Swiper Opacity Logic - Plynulá změna opacity podle tvého požadavku */
         .swiper-slide { opacity: 0; transition: opacity 0.6s ease; }
-        
-        /* Aktivní slide - plná opacita (90%) */
         .swiper-slide-active { opacity: 0.9 !important; }
-        
-        /* Následující slide (náhled) - opacita 20% (tvůj nákres) */
-        .swiper-slide-next { opacity: 0.2 !important; }
-        
-        /* Slide, který zmizí vlevo - opacita 0% */
+        .swiper-slide-next { opacity: 0.2 !important; } /* Náhled 20% opacity */
         .swiper-slide-prev { opacity: 0 !important; }
 
-        /* Custom Navigation Button (Kolečko se šipkou) */
+        /* Custom Arrow Button */
         .custom-next-btn {
-            position: absolute; right: calc(15% + 24px); top: 50%; transform: translateY(-50%);
-            width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
+            position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+            width: 65px; height: 65px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 10; transition: all 0.3s;
+            cursor: pointer; z-index: 50; transition: all 0.3s; background: rgba(5,5,5,0.2);
         }
-        .custom-next-btn:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
-        
-        @media (max-width: 768px) { 
-            .custom-next-btn { width: 40px; height: 40px; right: 12px; }
-            .work-swiper { padding-left: 12px; }
-        }
+        .custom-next-btn:hover { border-color: white; background: rgba(255,255,255,0.1); }
 
-        /* Bento Grid styles - Zůstávají beze změny */
+        /* BENTO GRID - Fixed Aspect Ratios */
         .bento-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; grid-auto-flow: dense; }
         @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
+        
         .aspect-square { aspect-ratio: 1 / 1 !important; }
         .aspect-video { aspect-ratio: 16 / 9 !important; }
         .aspect-vertical { aspect-ratio: 9 / 16 !important; }
+
+        #main-stage { width: 100%; height: 100vh; will-change: transform, border-radius; }
     </style>
 </head>
 <body>
@@ -98,7 +84,7 @@
     <main class="relative z-20">
         <section class="py-40">
             <div class="site-container reveal-up">
-                <h2 class="text-3xl md:text-6xl font-light leading-tight text-zinc-400">
+                <h2 class="text-3xl md:text-6xl font-light leading-[1.1] text-zinc-500">
                     Based in Prague, creating for the world. <br>
                     <span class="text-white">10+ years</span> of making things <span class="text-white italic">move</span>, <br>
                     exploring AI, and <span class="text-white font-normal">generally being awesome</span>. 
@@ -126,8 +112,8 @@
                 </div>
             </div>
 
-            <div class="custom-next-btn reveal-up" style="transition-delay: 0.2s;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div class="custom-next-btn reveal-up">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
         </section>
 
@@ -141,22 +127,45 @@
                     <div class="md:col-span-2 md:row-span-2 work-card aspect-square reveal-up">
                         <video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video>
                     </div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/UGC.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/3D-2.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video>
+                    </div>
                     <div class="md:col-span-2 work-card aspect-video reveal-up">
                         <video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video>
                     </div>
-                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video></div>
-                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video></div>
-                    <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
-                    <div class="md:col-span-2 work-card aspect-video reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video></div>
-                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video></div>
-                    <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video></div>
-                    <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video></div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/rr.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="md:col-span-2 work-card aspect-video reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="md:row-span-2 work-card aspect-vertical reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="work-card aspect-square reveal-up">
+                        <video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contact" class="py-60 border-t border-white/5">
+    <footer class="py-60 border-t border-white/5">
         <div class="site-container text-center reveal-up">
             <p class="text-[10px] tracking-[0.6em] text-zinc-600 uppercase mb-8">Let's build together</p>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=lukaskus.motion@gmail.com" target="_blank" class="text-3xl md:text-8xl font-black uppercase italic tracking-tighter hover:text-zinc-500 transition-colors">
@@ -170,13 +179,11 @@
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Intersection Observer pro plynulé odhalení
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
-        // Hero Scale Logic
         const stage = document.getElementById('main-stage');
         window.addEventListener('scroll', () => {
             const scroll = window.scrollY;
@@ -186,27 +193,22 @@
             stage.style.borderRadius = `${radius}px`;
         });
 
-        // 1. Swiper s novou logikou navigace a opacity
         const workSwiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto',
             spaceBetween: 40,
-            speed: 1000,
-            loop: true, // Infinite loop
-            mousewheel: { forceToAxis: true, releaseOnEdges: true },
-            
-            // Propojení custom kolečka se šipkou
+            speed: 900,
+            loop: true,
             navigation: { nextEl: '.custom-next-btn' },
-            
-            // 2. Logika autoplay/play pro videa (aby hrálo jen to aktivní)
             on: {
-                init: function() { this.slides.each(function(){ let v=this.querySelector('video'); if(v)v.pause(); }); let av=this.slides[this.activeIndex].querySelector('video'); if(av) av.play(); },
-                slideChangeTransitionStart: function() { this.slides.each(function(){ let v=this.querySelector('video'); if(v)v.pause(); }); let av=this.slides[this.activeIndex].querySelector('video'); if(av) av.play(); },
-                slideChangeTransitionEnd: function() { 
-                    // 3. Po skončení animace zajistíme, aby slide, co zmizel vlevo, měl opacitu 0 (tvůj požadavek)
-                    if(this.slides[this.previousIndex]) this.slides[this.previousIndex].style.opacity = '0';
-                    // Slide uprostřed má plnou (90%) opacitu
-                    this.slides[this.activeIndex].style.opacity = '0.9';
-                    // Náhled vpravo má 20% opacitu (přes CSS `swiper-slide-next`)
+                init: function() { 
+                    this.slides.forEach(s => { let v = s.querySelector('video'); if(v) v.pause(); });
+                    let activeV = this.slides[this.activeIndex].querySelector('video');
+                    if(activeV) activeV.play();
+                },
+                slideChangeTransitionStart: function() {
+                    this.slides.forEach(s => { let v = s.querySelector('video'); if(v) v.pause(); });
+                    let activeV = this.slides[this.activeIndex].querySelector('video');
+                    if(activeV) activeV.play();
                 }
             }
         });
