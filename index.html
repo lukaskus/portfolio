@@ -19,13 +19,21 @@
 
         .site-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
         nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2.5rem 0; mix-blend-mode: difference; }
-
-        /* MASKED PHOTO */
-        .profile-masked {
-            width: 100%; height: 100%; object-fit: cover;
-            mask-image: url('#profileMask'); -webkit-mask-image: url('#profileMask');
-            mask-size: contain; mask-repeat: no-repeat; mask-position: center;
-        }
+        
+  /* Tímto propojíme fotku s tím SVG ID, co jsi vložil do HTML */
+.profile-masked {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+    /* Propojení na ID #profileMask v tvém SVG bloku */
+    mask-image: url('#profileMask');
+    -webkit-mask-image: url('#profileMask');
+    
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
 
         /* SWIPER */
         .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); overflow: visible; }
