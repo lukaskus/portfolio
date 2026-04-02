@@ -9,55 +9,47 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root { --bg: #050505; --accent: #ff5c00; --panel: #111; }
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
-        body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
         .site-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2.5rem 0; mix-blend-mode: difference; }
         
-  /* Tímto propojíme fotku s tím SVG ID, co jsi vložil do HTML */
-.profile-masked {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    
-    /* Propojení na ID #profileMask v tvém SVG bloku */
-    mask-image: url('#profileMask');
-    -webkit-mask-image: url('#profileMask');
-    
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-}
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2rem 0; mix-blend-mode: difference; }
 
-        /* SWIPER */
-        .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); overflow: visible; }
-        .swiper-slide { opacity: 0.1; transition: opacity 0.6s ease; }
-        .swiper-slide-active { opacity: 0.9 !important; }
-        .swiper-slide-next { opacity: 0.2 !important; }
-
-        .custom-next-btn {
-            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
-            width: 65px; height: 65px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 50; background: rgba(5,5,5,0.4);
+        /* MASKA PRO FOTKU */
+        .profile-masked {
+            width: 100%; height: 100%; object-fit: cover;
+            mask-image: url('#profileMask'); -webkit-mask-image: url('#profileMask');
+            mask-size: contain; mask-repeat: no-repeat; mask-position: center;
         }
 
-        /* BENTO */
-        .bento-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; }
-        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); } }
+        /* WORK SWIPER */
+        .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); overflow: visible; }
+        .swiper-slide { opacity: 0.1; transition: opacity 0.6s ease; }
+        .swiper-slide-active { opacity: 1 !important; }
+        .custom-next-btn {
+            position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+            width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 50; background: rgba(5,5,5,0.5);
+        }
+
+        /* BENTO GRID - OPRAVA POMĚRŮ */
+        .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
         
-        .work-card { background: var(--panel); border-radius: 0.8rem; overflow: hidden; }
-        .work-video { width: 100%; height: 100%; object-fit: cover; }
+        .work-card { background: var(--panel); border-radius: 12px; overflow: hidden; position: relative; }
+        .work-video { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        .aspect-square { aspect-ratio: 1 / 1; }
-        .aspect-video { aspect-ratio: 16 / 9; }
-        .aspect-vertical { aspect-ratio: 9 / 16; }
+        /* Formáty karet */
+        .card-sq { aspect-ratio: 1 / 1; }
+        .card-vid { aspect-ratio: 16 / 9; grid-column: span 2; }
+        .card-vert { aspect-ratio: 9 / 16; grid-row: span 2; }
 
         .reveal-up { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
@@ -65,18 +57,21 @@
 </head>
 <body>
 
-   <svg width="0" height="0" style="position:absolute;">
+    <svg width="0" height="0" style="position:absolute;">
         <defs>
             <mask id="profileMask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
                 <path d="M0.5,0.062 C0.575,0.062,0.638,0.111,0.697,0.16 C0.756,0.209,0.811,0.258,0.86,0.317 C0.909,0.376,0.938,0.439,0.938,0.5 C0.938,0.561,0.909,0.624,0.86,0.683 C0.811,0.742,0.756,0.791,0.697,0.84 C0.638,0.889,0.575,0.938,0.5,0.938 C0.425,0.938,0.362,0.889,0.303,0.84 C0.244,0.791,0.189,0.742,0.14,0.683 C0.091,0.624,0.062,0.561,0.062,0.5 C0.062,0.439,0.091,0.376,0.14,0.317 C0.189,0.258,0.244,0.209,0.303,0.16 C0.362,0.111,0.425,0.062,0.5,0.062 Z" fill="white"/>
             </mask>
         </defs>
     </svg>
-    
+
     <nav>
-        <div class="site-container flex justify-between items-center">
-            <span class="text-xl font-black italic uppercase">Lukas Kus</span>
-            <div class="hidden md:flex space-x-8 text-[10px] tracking-widest">
+        <div class="site-container flex justify-between items-start">
+            <div>
+                <span class="text-xl font-black italic uppercase block leading-none">Lukas Kus</span>
+                <span class="text-[8px] tracking-[0.3em] text-zinc-500 uppercase">Motion Designer & Video Producer</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-[10px] tracking-widest mt-1">
                 <a href="#work">WORK</a>
                 <a href="#play">PLAY</a>
                 <a href="mailto:lukaskus.motion@gmail.com" style="color:var(--accent)">CONTACT</a>
@@ -86,7 +81,7 @@
 
     <section class="h-[120vh] relative">
         <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-            <div id="main-stage" class="w-full h-full">
+            <div id="main-stage" class="w-full h-full transition-transform duration-300">
                 <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60">
                     <source src="showreel-preview.mp4" type="video/mp4">
                 </video>
@@ -95,50 +90,53 @@
     </section>
 
     <main class="relative z-10 bg-[#050505]">
-      <section class="py-40">
-            <div class="site-container grid md:grid-cols-[1fr,2fr] gap-12 items-center reveal-up">
-                <div class="relative w-full aspect-square md:w-[80%] mx-auto">
+        <section class="py-40 site-container">
+            <div class="grid md:grid-cols-[1fr,2fr] gap-16 items-center reveal-up">
+                <div class="aspect-square w-full max-w-[400px] mx-auto">
                     <img src="lukaskus-photo.jpg" alt="Lukas Kus" class="profile-masked">
                 </div>
-                
-                <div class="flex flex-col">
-                    <h2 class="text-3xl md:text-6xl font-light leading-[1.1] text-zinc-500">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-light text-zinc-500 leading-tight italic">
                         Based in Prague, creating for the world. <br>
-                        <span class="text-white">10+ years</span> of making things <span class="text-white italic">move</span>, <br>
-                        exploring AI, and <span class="text-white font-normal">generally being awesome</span>. 
+                        <span class="text-white not-italic font-bold">10+ years</span> of making things <span class="text-white italic font-black">move</span>, <br>
+                        exploring AI, and <span class="text-white not-italic font-bold">generally being awesome.</span>
                     </h2>
-                    <p class="text-zinc-600 mt-10 tracking-[0.3em] uppercase text-[9px] font-medium italic">Positive vibes included as standard.</p>
                 </div>
             </div>
         </section>
 
         <section id="work" class="py-24 relative overflow-hidden">
-            <div class="site-container mb-12"><h2 class="text-6xl font-black italic uppercase">Selected Work</h2></div>
+            <div class="site-container mb-12">
+                <h2 class="text-6xl font-black italic uppercase tracking-tighter">Selected Work</h2>
+            </div>
             <div class="swiper work-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide !w-[80%] aspect-video"><div class="work-card"><video muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video></div></div>
-                    <div class="swiper-slide !w-[80%] aspect-video"><div class="work-card"><video muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video></div></div>
-                    <div class="swiper-slide !w-[80%] aspect-video"><div class="work-card"><video muted loop playsinline class="work-video"><source src="boards.mp4" type="video/mp4"></video></div></div>
+                    <div class="swiper-slide !w-[85%] md:!w-[70%]"><div class="work-card aspect-video"><video muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video></div></div>
+                    <div class="swiper-slide !w-[85%] md:!w-[70%]"><div class="work-card aspect-video"><video muted loop playsinline class="work-video"><source src="Main Video 1.02-Vo.mp4" type="video/mp4"></video></div></div>
+                    <div class="swiper-slide !w-[85%] md:!w-[70%]"><div class="work-card aspect-video"><video muted loop playsinline class="work-video"><source src="boards.mp4" type="video/mp4"></video></div></div>
                 </div>
             </div>
             <div class="custom-next-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </section>
 
         <section id="play" class="py-32 site-container">
-            <h2 class="text-6xl font-black italic uppercase mb-16">Playground</h2>
+            <h2 class="text-6xl font-black italic uppercase mb-16 tracking-tighter">Playground</h2>
             <div class="bento-grid">
-                <div class="md:col-span-2 md:row-span-2 work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video></div>
-                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/UGC.mp4" type="video/mp4"></video></div>
-                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-2.mp4" type="video/mp4"></video></div>
-                <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
-                <div class="md:col-span-2 work-card aspect-video reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video></div>
-                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/rr.mp4" type="video/mp4"></video></div>
-                <div class="md:col-span-2 work-card aspect-video reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
-                <div class="md:col-span-2 work-card aspect-video reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video></div>
-                <div class="md:row-span-2 work-card aspect-vertical reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video></div>
-                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video></div>
-                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video></div>
-                <div class="work-card aspect-square reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/botte-secrete-1.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/UGC.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-vert reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-2.mp4" type="video/mp4"></video></div>
+
+                <div class="work-card card-vid reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/rr.mp4" type="video/mp4"></video></div>
+
+                <div class="work-card card-vid reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-vert reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video></div>
+
+                <div class="work-card card-vid reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video></div>
+                <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video></div>
             </div>
         </section>
     </main>
@@ -150,15 +148,18 @@
     </footer>
 
     <script>
+        // Smooth Scroll
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
+        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
+        // Swiper Work
         const workSwiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto', spaceBetween: 30, speed: 800, loop: true,
             navigation: { nextEl: '.custom-next-btn' },
@@ -171,11 +172,12 @@
             }
         });
 
+        // Hero Scale effect
         window.addEventListener('scroll', () => {
             const scroll = window.scrollY;
             const stage = document.getElementById('main-stage');
-            if(stage) {
-                const scale = Math.max(0.9, 1 - (scroll / 3000));
+            if(stage && scroll < 1000) {
+                const scale = Math.max(0.9, 1 - (scroll / 5000));
                 stage.style.transform = `scale(${scale})`;
                 stage.style.borderRadius = `${Math.min(40, scroll/10)}px`;
             }
