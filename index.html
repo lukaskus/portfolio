@@ -39,9 +39,11 @@
 
     a { color: inherit; text-decoration: none; }
 
-    .site-wrap {
+    /* max-width container — used inside sections, not wrapping full-bleed elements */
+    .inner {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 0 3rem;
     }
 
     /* NAV */
@@ -56,10 +58,10 @@
     .nav-inner {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 1.4rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 1.4rem 3rem;
     }
 
     .nav-logo-name {
@@ -255,6 +257,8 @@
       display: grid;
       grid-template-columns: 1fr 1.8fr;
       border-bottom: 1px solid var(--gray-light);
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .about-left {
@@ -328,6 +332,8 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--gray-light);
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .work-heading {
@@ -521,6 +527,11 @@
       padding: 8rem 3rem;
     }
 
+    .contact-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
     .contact-label {
       font-size: 11px;
       font-weight: 600;
@@ -698,8 +709,6 @@
     </div>
   </nav>
 
-  <div class="site-wrap">
-
   <!-- HERO -->
   <section id="hero">
     <div class="hero-video-wrap">
@@ -868,29 +877,30 @@
   </section>
 
   <!-- CONTACT -->
+  <!-- CONTACT -->
   <section id="contact">
-    <span class="contact-label reveal">Let's work together</span>
-    <h2 class="contact-heading" data-split>Have a project?</h2>
-    <div class="contact-row">
-      <div class="contact-block reveal">
-        <span class="contact-block-label">Email</span>
-        <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="09657c62687a627c7a2764667d606667496e64686065276a6664">[email&#160;protected]</span></a>
-      </div>
-      <div class="contact-block reveal">
-        <span class="contact-block-label">Find me on</span>
-        <div class="contact-socials">
-          <a href="https://www.instagram.com/tenlukasjekus/" target="_blank" rel="noopener">Instagram — Personal ↗</a>
-          <a href="https://www.instagram.com/lukaskus.motion/" target="_blank" rel="noopener">Instagram — Work ↗</a>
-          <a href="https://www.linkedin.com/in/lukaskus/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <div class="contact-inner">
+      <span class="contact-label reveal">Let's work together</span>
+      <h2 class="contact-heading" data-split>Have a project?</h2>
+      <div class="contact-row">
+        <div class="contact-block reveal">
+          <span class="contact-block-label">Email</span>
+          <a id="contact-email-link" class="contact-email">lukaskus.motion@gmail.com</a>
         </div>
-      </div>
-      <div class="contact-block reveal">
-        <a id="contact-chat-link" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);color:#fff;">Let's Chat ↗</a>
+        <div class="contact-block reveal">
+          <span class="contact-block-label">Find me on</span>
+          <div class="contact-socials">
+            <a href="https://www.instagram.com/tenlukasjekus/" target="_blank" rel="noopener">Instagram — Personal ↗</a>
+            <a href="https://www.instagram.com/lukaskus.motion/" target="_blank" rel="noopener">Instagram — Work ↗</a>
+            <a href="https://www.linkedin.com/in/lukaskus/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+        <div class="contact-block reveal">
+          <a id="contact-chat-link" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);color:#fff;">Let's Chat ↗</a>
+        </div>
       </div>
     </div>
   </section>
-
-  </div><!-- /site-wrap -->
 
   <footer>
     <div class="footer-inner">
