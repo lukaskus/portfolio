@@ -39,17 +39,27 @@
 
     a { color: inherit; text-decoration: none; }
 
+    .site-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
     /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       padding: 1.4rem 3rem;
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-light);
     }
 
     .nav-logo-name {
@@ -592,6 +602,11 @@
     footer {
       background: var(--black);
       border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
       padding: 1.5rem 3rem;
       display: flex;
       justify-content: space-between;
@@ -640,7 +655,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 1.1rem 1.5rem; }
+      .nav-inner { padding: 1.1rem 1.5rem; }
       .nav-available { display: none; }
       .nav-links { gap: 1.5rem; }
 
@@ -665,21 +680,25 @@
 
   <!-- NAV -->
   <nav>
-    <div>
-      <span class="nav-logo-name">Lukas Kus</span>
-      <span class="nav-logo-sub">Motion Designer & Video Producer</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#play">Play</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-available">
-      <span class="dot"></span>
-      Available for projects
+    <div class="nav-inner">
+      <div>
+        <span class="nav-logo-name">Lukas Kus</span>
+        <span class="nav-logo-sub">Motion Designer & Video Producer</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#play">Play</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-available">
+        <span class="dot"></span>
+        Available for projects
+      </div>
     </div>
   </nav>
+
+  <div class="site-wrap">
 
   <!-- HERO -->
   <section id="hero">
@@ -855,7 +874,7 @@
     <div class="contact-row">
       <div class="contact-block reveal">
         <span class="contact-block-label">Email</span>
-        <a href="/cdn-cgi/l/email-protection#a0ccd5cbc1d3cbd5d38ecdcfd4c9cfcee0c7cdc1c9cc8ec3cfcd" class="contact-email"><span class="__cf_email__" data-cfemail="3e524b555f4d554b4d1053514a5751507e59535f5752105d5153">[email&#160;protected]</span></a>
+        <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="09657c62687a627c7a2764667d606667496e64686065276a6664">[email&#160;protected]</span></a>
       </div>
       <div class="contact-block reveal">
         <span class="contact-block-label">Find me on</span>
@@ -866,17 +885,27 @@
         </div>
       </div>
       <div class="contact-block reveal">
-        <a href="/cdn-cgi/l/email-protection#ee829b858f9d859b9dc083819a878180ae89838f8782c08d8183" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);color:#fff;">Let's Chat ↗</a>
+        <a id="contact-chat-link" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);color:#fff;">Let's Chat ↗</a>
       </div>
     </div>
   </section>
 
+  </div><!-- /site-wrap -->
+
   <footer>
-    <span>© 2026 Lukas Kus</span>
-    <span>Prague — Available Worldwide</span>
+    <div class="footer-inner">
+      <span>© 2026 Lukas Kus</span>
+      <span>Prague — Available Worldwide</span>
+    </div>
   </footer>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function(){
+      var u="lukaskus.motion",d="gmail.com",h="mailto:"+u+"@"+d;
+      var a=document.getElementById("contact-email-link");
+      var b=document.getElementById("contact-chat-link");
+      if(a){a.href=h;}if(b){b.href=h;}
+    })();
     /* ── 1. WORD SPLIT ── */
     function splitWords(el) {
       // collect all text nodes, preserving <br> positions
@@ -950,11 +979,4 @@
     onScroll();
 
     /* ── 5. SWIPER ── */
-    const workSwiper = new Swiper('.work-swiper', {
-      slidesPerView: 'auto',
-      spaceBetween: 24,
-      speed: 900,
-      loop: true,
-      navigation: { nextEl: '#workNext' },
-      on: {
-        slideChange() {
+    const wor
