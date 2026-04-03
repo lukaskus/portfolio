@@ -20,10 +20,11 @@
         .site-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
         nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2rem 0; mix-blend-mode: difference; }
 
-        /* HERO STAGE */
+        /* HERO STAGE - OPRAVENÉ ZMENŠOVÁNÍ */
         #main-stage {
             width: 100vw; height: 100vh; overflow: hidden; position: relative;
-            transform-origin: center center; will-change: transform, border-radius;
+            transform-origin: top center; will-change: transform, border-radius;
+            z-index: 1;
         }
         #main-stage video { width: 100%; height: 100%; object-fit: cover; }
 
@@ -34,7 +35,7 @@
             mask-size: contain; mask-repeat: no-repeat; mask-position: center;
         }
 
-        /* SWIPER */
+        /* WORK SWIPER */
         .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); overflow: visible; }
         .swiper-slide { opacity: 0.1; transition: opacity 0.6s ease; }
         .swiper-slide-active { opacity: 1 !important; }
@@ -45,10 +46,10 @@
             cursor: pointer; z-index: 50; background: rgba(5,5,5,0.5);
         }
 
-        /* BENTO GRID */
+        /* BENTO GRID - AKTUALIZOVANÝ */
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
         @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-        .work-card { background: var(--panel); border-radius: 12px; overflow: hidden; }
+        .work-card { background: var(--panel); border-radius: 12px; overflow: hidden; position: relative; }
         .work-video { width: 100%; height: 100%; object-fit: cover; display: block; }
         
         .card-sq { aspect-ratio: 1 / 1; }
@@ -85,7 +86,7 @@
 
     <section class="h-[120vh] relative">
         <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-            <div id="main-stage">
+            <div id="main-stage" class="transition-all duration-75 ease-out">
                 <video autoplay muted loop playsinline class="opacity-60">
                     <source src="showreel-preview.mp4" type="video/mp4">
                 </video>
@@ -149,15 +150,18 @@
     </footer>
 
     <script>
+        // Smooth Scroll
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
+        // Intersection Observer pro reveal efekty
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
+        // Swiper Work
         const workSwiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto', spaceBetween: 30, speed: 800, loop: true,
             navigation: { nextEl: '.custom-next-btn' },
@@ -170,12 +174,14 @@
             }
         });
 
+        // HERO SCROLL EFEKT
         window.addEventListener('scroll', () => {
             const scroll = window.scrollY;
             const stage = document.getElementById('main-stage');
             if (stage) {
                 const progress = Math.min(scroll / 600, 1);
-                const scale = 1 - (progress * 0.1); 
+                // Zmenšení na 85% a zakulacení na 40px
+                const scale = 1 - (progress * 0.15); 
                 const radius = progress * 40;
                 stage.style.transform = `scale(${scale})`;
                 stage.style.borderRadius = `${radius}px`;
