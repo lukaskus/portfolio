@@ -35,20 +35,32 @@
       overflow-x: hidden;
     }
 
+    .site-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
     a { color: inherit; text-decoration: none; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 1.4rem 3rem;
       background: var(--white);
       border-bottom: 1px solid var(--gray-light);
     }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3rem;
+    }
+
+    .nav-logo { display: block; }
 
     .nav-logo-name {
       font-family: var(--sans);
@@ -79,23 +91,21 @@
       text-transform: uppercase;
       color: var(--gray-mid);
       transition: color 0.18s;
-      margin-top: 2px;
     }
 
     .nav-back:hover { color: var(--black); }
-
     .nav-back svg { transition: transform 0.2s; }
     .nav-back:hover svg { transform: translateX(-3px); }
 
-    /* HEADER */
-    .play-header {
+    /* ── PAGE HEADER ── */
+    .page-header {
       margin-top: 70px;
       padding: 5rem 3rem 4rem;
       border-bottom: 1px solid var(--gray-light);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
     }
 
     .section-label {
@@ -108,21 +118,21 @@
       display: block;
     }
 
-    .play-title {
+    .page-title {
       font-family: var(--display);
-      font-size: clamp(4rem, 9vw, 9rem);
+      font-size: clamp(5rem, 10vw, 10rem);
       line-height: 0.9;
       text-transform: uppercase;
       letter-spacing: 0.01em;
     }
 
-    /* Word split */
+    /* word split */
     .split-word {
       display: inline-block;
       overflow: hidden;
       vertical-align: bottom;
       margin-right: 0.18em;
-      line-height: 1.05;
+      line-height: 1;
     }
     .split-word-inner {
       display: inline-block;
@@ -131,53 +141,128 @@
     }
     .split-word.in .split-word-inner { transform: translateY(0); }
 
-    .play-desc {
+    .page-desc {
       font-size: 15px;
       color: var(--gray-dark);
-      max-width: 36ch;
-      line-height: 1.75;
-      text-align: right;
+      line-height: 1.8;
+      max-width: 40ch;
+      align-self: end;
     }
 
-    /* BENTO GRID */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--gray-light);
+    /* ── FEED ── */
+    .feed {
+      padding: 0;
     }
 
-    .bento-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--off-white);
+    .feed-item {
+      border-bottom: 1px solid var(--gray-light);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .bento-card video {
+    .feed-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .feed-item-meta {
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--gray-light);
+      gap: 2rem;
+    }
+
+    .feed-item-title {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .feed-item-tag {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      font-family: var(--mono);
+      flex-shrink: 0;
+    }
+
+    /* ── VIDEO LAYOUTS ── */
+
+    /* Full width 16:9 */
+    .layout-full video,
+    .layout-full-sq video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.55s ease;
     }
 
-    .bento-card:hover video { transform: scale(1.05); }
-
-    .bento-sq   { aspect-ratio: 1 / 1; }
-    .bento-wide { aspect-ratio: 16 / 9; grid-column: span 2; }
-    .bento-vert { aspect-ratio: 9 / 16; grid-row: span 2; }
-
-    /* REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    .layout-full {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--off-white);
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* FOOTER */
+    /* Two-column: wide left, narrow right */
+    .layout-two-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    /* Two equal columns */
+    .layout-two-eq {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    /* Three equal columns */
+    .layout-three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    .layout-col {
+      overflow: hidden;
+      background: var(--off-white);
+    }
+
+    .layout-col video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .layout-col:hover video { transform: scale(1.03); }
+
+    /* aspect helpers */
+    .ar-16-9  { aspect-ratio: 16 / 9; }
+    .ar-9-16  { aspect-ratio: 9 / 16; }
+    .ar-1-1   { aspect-ratio: 1 / 1; }
+    .ar-4-3   { aspect-ratio: 4 / 3; }
+
+    /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--gray-light);
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
       padding: 2rem 3rem;
       display: flex;
       justify-content: space-between;
@@ -207,15 +292,18 @@
     }
 
     .footer-back:hover { color: var(--gray-mid); border-color: var(--gray-mid); }
+    .footer-back svg { transition: transform 0.2s; }
+    .footer-back:hover svg { transform: translateX(-3px); }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 1.1rem 1.5rem; }
-      .play-header { flex-direction: column; align-items: flex-start; padding: 3rem 1.5rem 2rem; }
-      .play-desc { text-align: left; }
-      .bento-grid { grid-template-columns: repeat(2, 1fr); }
-      .bento-wide { grid-column: span 2; }
-      .bento-vert { grid-row: span 1; aspect-ratio: 1 / 1; }
+      .nav-inner { padding: 1.1rem 1.5rem; }
+      .page-header { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem 2.5rem; }
+      .feed-item-meta { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.25rem; }
+      .layout-two-col,
+      .layout-two-eq,
+      .layout-three-col { grid-template-columns: 1fr; gap: 2px; }
+      .layout-col.ar-9-16 { aspect-ratio: 4 / 3; }
       footer { padding: 1.5rem; }
     }
   </style>
@@ -224,108 +312,174 @@
 
   <!-- NAV -->
   <nav>
-    <div>
-      <a href="index.html">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
         <span class="nav-logo-name">Lukas Kus</span>
         <span class="nav-logo-sub">Motion Designer & Video Producer</span>
       </a>
+      <a href="index.html" class="nav-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </a>
     </div>
-    <a href="index.html" class="nav-back">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Back
-    </a>
   </nav>
 
-  <!-- HEADER -->
-  <header class="play-header">
+  <div class="site-wrap">
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
     <div>
       <span class="section-label">Lukas Kus — Playground</span>
-      <h1 class="play-title" data-split>Playground</h1>
+      <h1 class="page-title" data-split>Play</h1>
     </div>
-    <p class="play-desc">
-      Experiments, personal work & motion snippets.
-      No briefs, no constraints — just play.
+    <p class="page-desc">
+      Exploration is vital to my creative process.
+      Evolving ideas, testing techniques, and crafting visuals —
+      no briefs, no constraints.
     </p>
   </header>
 
-  <!-- BENTO GRID -->
-  <div class="bento-grid">
+  <!-- ── FEED ── -->
+  <div class="feed">
 
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/botte-secrete-1.mp4" type="video/mp4" />
-      </video>
+    <!-- 1. Stoix — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Stoix</span>
+        <span class="feed-item-tag">Motion — Brand</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/Stoix.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
 
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/UGC.mp4" type="video/mp4" />
-      </video>
+    <!-- 2. CNN — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">CNN</span>
+        <span class="feed-item-tag">Motion — Editorial</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/CNN.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
 
-    <div class="bento-card bento-vert reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/platform-01.mp4" type="video/mp4" />
-      </video>
+    <!-- 3. Botte Secrète — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Botte Secrète</span>
+        <span class="feed-item-tag">Motion — Product</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/botte-secrete-1.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
 
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/3D-2.mp4" type="video/mp4" />
-      </video>
+    <!-- 4. 3D-2 + Vanguard — two equal 16:9 cols -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">3D Exploration</span>
+        <span class="feed-item-tag">Motion — 3D</span>
+      </div>
+      <div class="layout-two-eq">
+        <div class="layout-col ar-16-9">
+          <video autoplay muted loop playsinline>
+            <source src="playground/3D-2.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="layout-col ar-16-9">
+          <video autoplay muted loop playsinline>
+            <source src="playground/vanguard.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
     </div>
 
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/rr.mp4" type="video/mp4" />
-      </video>
+    <!-- 5. 3D Tube — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">3D Tube</span>
+        <span class="feed-item-tag">Motion — 3D</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/3D-tube.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
 
-    <div class="bento-card bento-wide reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/Stoix.mp4" type="video/mp4" />
-      </video>
+    <!-- 6. Rr — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Rr</span>
+        <span class="feed-item-tag">Motion — Type</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/rr.mp4" type="video/mp4" />
+        </video>
+      </div>
     </div>
 
-    <div class="bento-card bento-vert reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/platform-02.mp4" type="video/mp4" />
-      </video>
+    <!-- 7. UGC + Sportlito — two equal 1:1 cols -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Social Content</span>
+        <span class="feed-item-tag">Motion — Social</span>
+      </div>
+      <div class="layout-two-eq">
+        <div class="layout-col ar-1-1">
+          <video autoplay muted loop playsinline>
+            <source src="playground/UGC.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="layout-col ar-1-1">
+          <video autoplay muted loop playsinline>
+            <source src="playground/Sportlito-01.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
     </div>
 
-    <div class="bento-card bento-wide reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/CNN.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/3D-tube.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/Sportlito-01.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/vanguard.mp4" type="video/mp4" />
-      </video>
+    <!-- 8. Platform-01 + Platform-02 — two 9:16 cols -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Platform</span>
+        <span class="feed-item-tag">Motion — UI</span>
+      </div>
+      <div class="layout-two-eq">
+        <div class="layout-col ar-9-16">
+          <video autoplay muted loop playsinline>
+            <source src="playground/platform-01.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="layout-col ar-9-16">
+          <video autoplay muted loop playsinline>
+            <source src="playground/platform-02.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
     </div>
 
   </div>
 
+  </div><!-- /site-wrap -->
+
   <!-- FOOTER -->
   <footer>
-    <span>© 2026 Lukas Kus</span>
-    <a href="index.html" class="footer-back">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Back to Portfolio
-    </a>
+    <div class="footer-inner">
+      <span>© 2026 Lukas Kus</span>
+      <a href="index.html" class="footer-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Portfolio
+      </a>
+    </div>
   </footer>
 
   <script>
@@ -338,27 +492,27 @@
     }
     document.querySelectorAll('[data-split]').forEach(splitWords);
 
-    /* Reveal observers */
     const wordObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.querySelectorAll('.split-word').forEach((w, i) => {
-          setTimeout(() => w.classList.add('in'), i * 60);
+          setTimeout(() => w.classList.add('in'), i * 80);
         });
         wordObs.unobserve(entry.target);
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.3 });
     document.querySelectorAll('[data-split]').forEach(el => wordObs.observe(el));
 
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+    /* Feed item reveal */
+    const feedObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
-          revealObs.unobserve(entry.target);
+          entry.target.classList.add('visible');
+          feedObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+    document.querySelectorAll('.feed-item').forEach(el => feedObs.observe(el));
   </script>
 </body>
 </html>
