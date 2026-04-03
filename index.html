@@ -18,17 +18,23 @@
         body { background-color: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
 
         .site-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-        
         nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 2rem 0; mix-blend-mode: difference; }
 
-        /* MASKA PRO FOTKU */
+        /* HERO STAGE */
+        #main-stage {
+            width: 100vw; height: 100vh; overflow: hidden; position: relative;
+            transform-origin: center center; will-change: transform, border-radius;
+        }
+        #main-stage video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* MASKA FOTKY */
         .profile-masked {
             width: 100%; height: 100%; object-fit: cover;
             mask-image: url('#profileMask'); -webkit-mask-image: url('#profileMask');
             mask-size: contain; mask-repeat: no-repeat; mask-position: center;
         }
 
-        /* WORK SWIPER */
+        /* SWIPER */
         .work-swiper { width: 100%; padding-left: max(24px, calc((100vw - 1400px) / 2 + 24px)); overflow: visible; }
         .swiper-slide { opacity: 0.1; transition: opacity 0.6s ease; }
         .swiper-slide-active { opacity: 1 !important; }
@@ -39,14 +45,12 @@
             cursor: pointer; z-index: 50; background: rgba(5,5,5,0.5);
         }
 
-        /* BENTO GRID - OPRAVA POMĚRŮ */
+        /* BENTO GRID */
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
         @media (min-width: 768px) { .bento-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-        
-        .work-card { background: var(--panel); border-radius: 12px; overflow: hidden; position: relative; }
+        .work-card { background: var(--panel); border-radius: 12px; overflow: hidden; }
         .work-video { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        /* Formáty karet */
         .card-sq { aspect-ratio: 1 / 1; }
         .card-vid { aspect-ratio: 16 / 9; grid-column: span 2; }
         .card-vert { aspect-ratio: 9 / 16; grid-row: span 2; }
@@ -81,8 +85,8 @@
 
     <section class="h-[120vh] relative">
         <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-            <div id="main-stage" class="w-full h-full transition-transform duration-300">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60">
+            <div id="main-stage">
+                <video autoplay muted loop playsinline class="opacity-60">
                     <source src="showreel-preview.mp4" type="video/mp4">
                 </video>
             </div>
@@ -106,9 +110,7 @@
         </section>
 
         <section id="work" class="py-24 relative overflow-hidden">
-            <div class="site-container mb-12">
-                <h2 class="text-6xl font-black italic uppercase tracking-tighter">Selected Work</h2>
-            </div>
+            <div class="site-container mb-12"><h2 class="text-6xl font-black italic uppercase tracking-tighter">Selected Work</h2></div>
             <div class="swiper work-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide !w-[85%] md:!w-[70%]"><div class="work-card aspect-video"><video muted loop playsinline class="work-video"><source src="1-click Property.mp4" type="video/mp4"></video></div></div>
@@ -126,15 +128,14 @@
                 <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/UGC.mp4" type="video/mp4"></video></div>
                 <div class="work-card card-vert reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-01.mp4" type="video/mp4"></video></div>
                 <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-2.mp4" type="video/mp4"></video></div>
-
+                
                 <div class="work-card card-vid reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Stoix.mp4" type="video/mp4"></video></div>
                 <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/rr.mp4" type="video/mp4"></video></div>
 
                 <div class="work-card card-vid reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/CNN.mp4" type="video/mp4"></video></div>
                 <div class="work-card card-vert reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/platform-02.mp4" type="video/mp4"></video></div>
+                
                 <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/3D-tube.mp4" type="video/mp4"></video></div>
-
-                <div class="work-card card-vid reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/creative-studio.mp4" type="video/mp4"></video></div>
                 <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/Sportlito-01.mp4" type="video/mp4"></video></div>
                 <div class="work-card card-sq reveal-up"><video autoplay muted loop playsinline class="work-video"><source src="playground/vanguard.mp4" type="video/mp4"></video></div>
             </div>
@@ -148,18 +149,15 @@
     </footer>
 
     <script>
-        // Smooth Scroll
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
-        // Swiper Work
         const workSwiper = new Swiper('.work-swiper', {
             slidesPerView: 'auto', spaceBetween: 30, speed: 800, loop: true,
             navigation: { nextEl: '.custom-next-btn' },
@@ -172,14 +170,15 @@
             }
         });
 
-        // Hero Scale effect
         window.addEventListener('scroll', () => {
             const scroll = window.scrollY;
             const stage = document.getElementById('main-stage');
-            if(stage && scroll < 1000) {
-                const scale = Math.max(0.9, 1 - (scroll / 5000));
+            if (stage) {
+                const progress = Math.min(scroll / 600, 1);
+                const scale = 1 - (progress * 0.1); 
+                const radius = progress * 40;
                 stage.style.transform = `scale(${scale})`;
-                stage.style.borderRadius = `${Math.min(40, scroll/10)}px`;
+                stage.style.borderRadius = `${radius}px`;
             }
         });
     </script>
