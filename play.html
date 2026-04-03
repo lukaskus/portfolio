@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lukas Kus — Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --gray-light: #ebebeb;
+      --gray-mid: #999;
+      --gray-dark: #444;
+      --sans: 'Syne', sans-serif;
+      --display: 'Bebas Neue', sans-serif;
+      --mono: 'Syne Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.4rem 3rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .nav-logo-name {
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      line-height: 1;
+    }
+
+    .nav-logo-sub {
+      font-size: 8px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      transition: color 0.18s;
+      margin-top: 2px;
+    }
+
+    .nav-back:hover { color: var(--black); }
+
+    .nav-back svg { transition: transform 0.2s; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* HEADER */
+    .play-header {
+      margin-top: 70px;
+      padding: 5rem 3rem 4rem;
+      border-bottom: 1px solid var(--gray-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .play-title {
+      font-family: var(--display);
+      font-size: clamp(4rem, 9vw, 9rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    /* Word split */
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.18em;
+      line-height: 1.05;
+    }
+    .split-word-inner {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .split-word.in .split-word-inner { transform: translateY(0); }
+
+    .play-desc {
+      font-size: 15px;
+      color: var(--gray-dark);
+      max-width: 36ch;
+      line-height: 1.75;
+      text-align: right;
+    }
+
+    /* BENTO GRID */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    .bento-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+
+    .bento-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s ease;
+    }
+
+    .bento-card:hover video { transform: scale(1.05); }
+
+    .bento-sq   { aspect-ratio: 1 / 1; }
+    .bento-wide { aspect-ratio: 16 / 9; grid-column: span 2; }
+    .bento-vert { aspect-ratio: 9 / 16; grid-row: span 2; }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--gray-light);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer span {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+    }
+
+    .footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .footer-back:hover { color: var(--gray-mid); border-color: var(--gray-mid); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .play-header { flex-direction: column; align-items: flex-start; padding: 3rem 1.5rem 2rem; }
+      .play-desc { text-align: left; }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-wide { grid-column: span 2; }
+      .bento-vert { grid-row: span 1; aspect-ratio: 1 / 1; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div>
+      <a href="index.html">
+        <span class="nav-logo-name">Lukas Kus</span>
+        <span class="nav-logo-sub">Motion Designer & Video Producer</span>
+      </a>
+    </div>
+    <a href="index.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back
+    </a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="play-header">
+    <div>
+      <span class="section-label">Lukas Kus — Playground</span>
+      <h1 class="play-title" data-split>Playground</h1>
+    </div>
+    <p class="play-desc">
+      Experiments, personal work & motion snippets.
+      No briefs, no constraints — just play.
+    </p>
+  </header>
+
+  <!-- BENTO GRID -->
+  <div class="bento-grid">
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/botte-secrete-1.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/UGC.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-vert reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/platform-01.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/3D-2.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/rr.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-wide reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/Stoix.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-vert reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/platform-02.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-wide reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/CNN.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/3D-tube.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/Sportlito-01.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <div class="bento-card bento-sq reveal">
+      <video autoplay muted loop playsinline>
+        <source src="playground/vanguard.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Lukas Kus</span>
+    <a href="index.html" class="footer-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Portfolio
+    </a>
+  </footer>
+
+  <script>
+    /* Word split */
+    function splitWords(el) {
+      const words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map(w =>
+        `<span class="split-word"><span class="split-word-inner">${w}</span></span>`
+      ).join(' ');
+    }
+    document.querySelectorAll('[data-split]').forEach(splitWords);
+
+    /* Reveal observers */
+    const wordObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.split-word').forEach((w, i) => {
+          setTimeout(() => w.classList.add('in'), i * 60);
+        });
+        wordObs.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('[data-split]').forEach(el => wordObs.observe(el));
+
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  </script>
+</body>
+</html>
