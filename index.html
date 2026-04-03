@@ -127,6 +127,8 @@
       overflow: hidden;
       background: var(--off-white);
       flex-shrink: 0;
+      transform-origin: top center;
+      will-change: transform, opacity;
     }
 
     .hero-video-wrap video {
@@ -155,8 +157,6 @@
       letter-spacing: 0.01em;
       text-transform: uppercase;
       max-width: 14ch;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.45s forwards;
     }
 
     .hero-bottom {
@@ -412,65 +412,61 @@
     .swiper-nav-btn:hover svg { stroke: var(--white); }
     .swiper-nav-btn svg { stroke: var(--black); transition: stroke 0.2s; }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* PLAYGROUND */
+    #play { border-bottom: 1px solid var(--gray-light); }
+
+    .play-header {
+      padding: 3.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--gray-light);
+      gap: 2rem;
     }
 
-    .project-card {
+    .play-heading {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-top: 0.5rem;
+    }
+
+    .play-sub {
+      font-size: 13px;
+      color: var(--gray-mid);
+      max-width: 28ch;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--gray-light);
+    }
+
+    .bento-card {
       position: relative;
       overflow: hidden;
-      cursor: pointer;
-      border-right: 1px solid var(--gray-light);
-      border-bottom: 1px solid var(--gray-light);
       background: var(--off-white);
-      aspect-ratio: 4/3;
     }
 
-    .project-card:nth-child(2n) { border-right: none; }
-
-    .project-card:nth-child(3) {
-      grid-column: span 2;
-      aspect-ratio: 16/7;
-      border-right: none;
-    }
-
-    .project-card video {
+    .bento-card video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.5s ease;
     }
 
-    .project-card:hover video { transform: scale(1.04); }
+    .bento-card:hover video { transform: scale(1.04); }
 
-    .project-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 0.85rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(10,10,10,0.52);
-      backdrop-filter: blur(6px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .project-bar-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #fff;
-    }
-
-    .project-bar-cat {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-    }
+    .bento-sq   { aspect-ratio: 1 / 1; }
+    .bento-wide { aspect-ratio: 16 / 9; grid-column: span 2; }
+    .bento-vert { aspect-ratio: 9 / 16; grid-row: span 2; }
 
     /* CONTACT */
     #contact {
@@ -584,6 +580,21 @@
 
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* WORD MASK */
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.22em;
+      line-height: 1.05;
+    }
+    .split-word-inner {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .split-word.in .split-word-inner { transform: translateY(0); }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -607,9 +618,11 @@
       .work-header { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
       .work-swiper { padding-left: 1.5rem; }
 
-      .projects-grid { grid-template-columns: 1fr; }
-      .project-card { border-right: none; }
-      .project-card:nth-child(3) { grid-column: span 1; aspect-ratio: 4/3; }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-wide { grid-column: span 2; }
+      .bento-vert { grid-row: span 1; aspect-ratio: 1 / 1; }
+      .play-header { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+      .play-sub { text-align: left; }
 
       #contact { padding: 5rem 1.5rem; }
       footer { padding: 1.25rem 1.5rem; }
@@ -627,6 +640,7 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#work">Work</a></li>
+      <li><a href="#play">Play</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-available">
@@ -643,7 +657,7 @@
       </video>
     </div>
     <p class="hero-label">Motion Design & Video Production — Prague</p>
-    <h1 class="hero-headline">Design that<br/>moves people.</h1>
+    <h1 class="hero-headline" data-split>Design that moves people.</h1>
     <div class="hero-bottom">
       <p class="hero-sub">
         I collaborate with brands and studios to craft motion identities
@@ -679,7 +693,7 @@
   <section id="about">
     <div class="about-left reveal">
       <span class="section-label">About</span>
-      <h2 class="about-heading">Rooted<br/>in Motion.</h2>
+      <h2 class="about-heading" data-split>Rooted in Motion.</h2>
     </div>
     <div class="about-right reveal">
       <span class="section-label">01 — Background</span>
@@ -708,7 +722,7 @@
   <!-- WORK -->
   <section id="work">
     <div class="work-header reveal">
-      <h2 class="work-heading">Selected Work</h2>
+      <h2 class="work-heading" data-split>Selected Work</h2>
       <div>
         <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
         <a href="#work" class="view-all">View All Cases ↗</a>
@@ -776,46 +790,37 @@
         </svg>
       </button>
     </div>
+  </section>
 
-    <div class="projects-grid">
-
-      <div class="project-card reveal">
-        <video autoplay muted loop playsinline>
-          <source src="1-click Property.mp4" type="video/mp4" />
-        </video>
-        <div class="project-bar">
-          <span class="project-bar-title">1-Click Property</span>
-          <span class="project-bar-cat">Brand Identity</span>
-        </div>
+  <!-- PLAYGROUND -->
+  <section id="play">
+    <div class="play-header reveal">
+      <div>
+        <span class="section-label">03 — Playground</span>
+        <h2 class="play-heading" data-split>Playground</h2>
       </div>
+      <p class="play-sub">Experiments, personal work & motion snippets.</p>
+    </div>
 
-      <div class="project-card reveal">
-        <video autoplay muted loop playsinline>
-          <source src="boards.mp4" type="video/mp4" />
-        </video>
-        <div class="project-bar">
-          <span class="project-bar-title">Boards</span>
-          <span class="project-bar-cat">Motion — UI</span>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <video autoplay muted loop playsinline>
-          <source src="Main Video 1.02-Vo.mp4" type="video/mp4" />
-        </video>
-        <div class="project-bar">
-          <span class="project-bar-title">Main Showreel</span>
-          <span class="project-bar-cat">Video Direction</span>
-        </div>
-      </div>
-
+    <div class="bento-grid">
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/botte-secrete-1.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/UGC.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-vert reveal"><video autoplay muted loop playsinline><source src="playground/platform-01.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/3D-2.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/rr.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-wide reveal"><video autoplay muted loop playsinline><source src="playground/Stoix.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-vert reveal"><video autoplay muted loop playsinline><source src="playground/platform-02.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-wide reveal"><video autoplay muted loop playsinline><source src="playground/CNN.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/3D-tube.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/Sportlito-01.mp4" type="video/mp4"/></video></div>
+      <div class="bento-card bento-sq reveal"><video autoplay muted loop playsinline><source src="playground/vanguard.mp4" type="video/mp4"/></video></div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
     <span class="contact-label reveal">Let's work together</span>
-    <h2 class="contact-heading reveal">Have a<br/>project?</h2>
+    <h2 class="contact-heading" data-split>Have a project?</h2>
     <div class="contact-row">
       <div class="contact-block reveal">
         <span class="contact-block-label">Email</span>
@@ -843,16 +848,59 @@
   </footer>
 
   <script>
-    const obs = new IntersectionObserver((entries) => {
+    /* 1. WORD SPLIT */
+    function splitWords(el) {
+      const html = el.innerHTML;
+      const withSentinel = html.replace(/<br\s*\/?>/gi, ' |||BR||| ');
+      const text = withSentinel.replace(/<[^>]+>/g, '');
+      const words = text.split(/\s+/).filter(Boolean);
+      el.innerHTML = words.map(w => {
+        if (w === '|||BR|||') return '<br/>';
+        return `<span class="split-word"><span class="split-word-inner">${w}</span></span>`;
+      }).join(' ');
+    }
+    document.querySelectorAll('[data-split]').forEach(splitWords);
+
+    /* 2. WORD REVEAL ON SCROLL */
+    const wordObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.split-word').forEach((w, i) => {
+          setTimeout(() => w.classList.add('in'), i * 60);
+        });
+        wordObs.unobserve(entry.target);
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('[data-split]').forEach(el => wordObs.observe(el));
+
+    /* 3. GENERAL REVEAL */
+    const revealObs = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           setTimeout(() => entry.target.classList.add('visible'), i * 70);
-          obs.unobserve(entry.target);
+          revealObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
+    /* 4. HERO VIDEO SCROLL SHRINK + FADE */
+    const heroVideo = document.querySelector('.hero-video-wrap');
+    function onScroll() {
+      if (!heroVideo) return;
+      const rect   = heroVideo.getBoundingClientRect();
+      const videoH = heroVideo.offsetHeight;
+      const shrinkP = Math.min(Math.max(0, -rect.top) / videoH, 1);
+      const scale   = 1 - shrinkP * 0.3;
+      const fadeP   = Math.min(Math.max(0, -rect.top) / (videoH * 0.6), 1);
+      const opacity = 1 - fadeP;
+      heroVideo.style.transform = `scale(${scale})`;
+      heroVideo.style.opacity   = opacity;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* 5. SWIPER */
     const workSwiper = new Swiper('.work-swiper', {
       slidesPerView: 'auto',
       spaceBetween: 24,
@@ -861,10 +909,7 @@
       navigation: { nextEl: '#workNext' },
       on: {
         slideChange() {
-          this.slides.forEach(s => {
-            const v = s.querySelector('video');
-            if (v) v.pause();
-          });
+          this.slides.forEach(s => { const v = s.querySelector('video'); if (v) v.pause(); });
           const active = this.slides[this.activeIndex]?.querySelector('video');
           if (active) active.play();
         }
