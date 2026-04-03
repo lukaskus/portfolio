@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lukas Kus — Playground</title>
+  <title>Lukas Kus — Motion Designer & Video Producer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -69,34 +71,188 @@
       margin-top: 4px;
     }
 
-    .nav-back {
+    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      gap: 2.5rem;
+      list-style: none;
+      margin-top: 2px;
+    }
+
+    .nav-links a {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gray-mid);
       transition: color 0.18s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-available {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--gray-mid);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       margin-top: 2px;
     }
 
-    .nav-back:hover { color: var(--black); }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
 
-    .nav-back svg { transition: transform 0.2s; }
-    .nav-back:hover svg { transform: translateX(-3px); }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
 
-    /* HEADER */
-    .play-header {
-      margin-top: 70px;
-      padding: 5rem 3rem 4rem;
+    /* HERO */
+    #hero {
+      padding: 0 3rem 6rem;
+      display: flex;
+      flex-direction: column;
       border-bottom: 1px solid var(--gray-light);
+    }
+
+    .hero-video-wrap {
+      width: 100%;
+      margin-top: 70px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--off-white);
+      flex-shrink: 0;
+      transform-origin: top center;
+      will-change: transform, opacity;
+    }
+
+    .hero-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+
+    .hero-headline {
+      font-family: var(--display);
+      font-size: clamp(5rem, 13vw, 13.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      max-width: 14ch;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.45s forwards;
+    }
+
+    .hero-bottom {
+      margin-top: 3rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       gap: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.6s forwards;
     }
+
+    .hero-sub {
+      max-width: 38ch;
+      color: var(--gray-dark);
+      font-size: 15px;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      border: 1px solid var(--black);
+      cursor: pointer;
+    }
+
+    .btn-dark { background: var(--black); color: var(--white); }
+    .btn-dark:hover { background: var(--gray-dark); border-color: var(--gray-dark); }
+    .btn-outline { background: transparent; color: var(--black); }
+    .btn-outline:hover { background: var(--black); color: var(--white); }
+    #contact .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.25); }
+    #contact .btn-outline:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+    /* TICKER */
+    .ticker-wrap {
+      overflow: hidden;
+      border-bottom: 1px solid var(--gray-light);
+      padding: 0.9rem 0;
+      background: var(--off-white);
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 24s linear infinite;
+    }
+
+    .ticker-item {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+
+    .ticker-sep { color: var(--black); }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ABOUT */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .about-left {
+      padding: 5rem 3rem;
+      border-right: 1px solid var(--gray-light);
+    }
+
+    .about-right { padding: 5rem 4rem; }
 
     .section-label {
       font-size: 11px;
@@ -104,81 +260,339 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gray-mid);
-      margin-bottom: 1rem;
+      margin-bottom: 2.5rem;
       display: block;
     }
 
-    .play-title {
+    .about-heading {
       font-family: var(--display);
-      font-size: clamp(4rem, 9vw, 9rem);
-      line-height: 0.9;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 0.95;
       text-transform: uppercase;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
     }
 
-    /* Word split */
-    .split-word {
-      display: inline-block;
-      overflow: hidden;
-      vertical-align: bottom;
-      margin-right: 0.18em;
-      line-height: 1.05;
-    }
-    .split-word-inner {
-      display: inline-block;
-      transform: translateY(110%);
-      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .split-word.in .split-word-inner { transform: translateY(0); }
-
-    .play-desc {
+    .about-body {
       font-size: 15px;
+      line-height: 1.85;
       color: var(--gray-dark);
-      max-width: 36ch;
-      line-height: 1.75;
-      text-align: right;
     }
 
-    /* BENTO GRID */
-    .bento-grid {
+    .about-body p + p { margin-top: 1.25rem; }
+
+    .about-skills {
+      margin-top: 3rem;
+      border-top: 1px solid var(--gray-light);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--gray-light);
+      grid-template-columns: 1fr 1fr;
     }
 
-    .bento-card {
-      position: relative;
-      overflow: hidden;
+    .skill-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .skill-item:nth-child(odd)  { padding-right: 1.5rem; border-right: 1px solid var(--gray-light); }
+    .skill-item:nth-child(even) { padding-left: 1.5rem; }
+
+    .skill-num {
+      font-size: 10px;
+      color: var(--gray-mid);
+      font-family: var(--mono);
+    }
+
+    /* WORK */
+    #work { border-bottom: 1px solid var(--gray-light); }
+
+    .work-header {
+      padding: 3.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .work-heading {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .view-all {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .view-all:hover { color: var(--gray-mid); border-color: var(--gray-mid); }
+
+    /* Swiper */
+    .work-swiper-wrap { position: relative; padding: 3rem 0; }
+
+    .work-swiper {
+      width: 100%;
+      padding-left: max(3rem, calc((100vw - 1400px) / 2 + 3rem));
+      overflow: visible;
+    }
+
+    .swiper-slide {
+      opacity: 0.15;
+      transition: opacity 0.5s ease;
+    }
+
+    .swiper-slide-active { opacity: 1 !important; }
+
+    .work-card {
       background: var(--off-white);
+      overflow: hidden;
+      position: relative;
     }
 
-    .bento-card video {
+    .work-card video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.55s ease;
     }
 
-    .bento-card:hover video { transform: scale(1.05); }
-
-    .bento-sq   { aspect-ratio: 1 / 1; }
-    .bento-wide { aspect-ratio: 16 / 9; grid-column: span 2; }
-    .bento-vert { aspect-ratio: 9 / 16; grid-row: span 2; }
-
-    /* REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    .work-card-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,10,10,0.52);
+      backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .work-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .work-card-cat {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .swiper-nav-btn {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      border: 1px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      background: var(--white);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .swiper-nav-btn:hover {
+      border-color: var(--black);
+      background: var(--black);
+    }
+
+    .swiper-nav-btn:hover svg { stroke: var(--white); }
+
+    .swiper-nav-btn svg { stroke: var(--black); transition: stroke 0.2s; }
+
+    /* PLAYGROUND TEASER */
+    #play { border-bottom: 1px solid var(--gray-light); }
+
+    .play-teaser {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .play-teaser:hover { background: var(--off-white); }
+
+    .play-teaser-left {
+      padding: 5rem 3rem;
+      border-right: 1px solid var(--gray-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .play-heading {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .play-sub {
+      font-size: 13px;
+      color: var(--gray-mid);
+      line-height: 1.6;
+      max-width: 32ch;
+      margin-bottom: 3rem;
+    }
+
+    .play-teaser-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      width: fit-content;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .play-teaser:hover .play-teaser-cta { color: var(--gray-mid); border-color: var(--gray-mid); }
+
+    .play-teaser-right {
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .play-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .play-preview-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--gray-light);
+    }
+
+    .play-preview-item video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .play-teaser:hover .play-preview-item video { transform: scale(1.06); }
+
+    #contact {
+      background: var(--black);
+      color: var(--white);
+      padding: 8rem 3rem;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .contact-heading {
+      font-family: var(--display);
+      font-size: clamp(4rem, 10vw, 10rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: 3.5rem;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 4rem;
+      align-items: flex-start;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-block { flex: 1; min-width: 220px; }
+
+    .contact-block-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .contact-email {
+      font-family: var(--display);
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+      word-break: break-all;
+    }
+
+    .contact-email:hover { border-color: var(--white); }
+
+    .contact-socials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .contact-socials a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      transition: color 0.2s;
+    }
+
+    .contact-socials a:hover { color: var(--white); }
+
+    .contact-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+    }
 
     /* FOOTER */
     footer {
-      border-top: 1px solid var(--gray-light);
-      padding: 2rem 3rem;
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -190,33 +604,60 @@
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--gray-mid);
+      color: rgba(255,255,255,0.22);
     }
 
-    .footer-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--black);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
     }
 
-    .footer-back:hover { color: var(--gray-mid); border-color: var(--gray-mid); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── WORD MASK REVEAL ── */
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.22em;
+      line-height: 1.05;
+    }
+    .split-word-inner {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .split-word.in .split-word-inner {
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: 1.1rem 1.5rem; }
-      .play-header { flex-direction: column; align-items: flex-start; padding: 3rem 1.5rem 2rem; }
-      .play-desc { text-align: left; }
-      .bento-grid { grid-template-columns: repeat(2, 1fr); }
-      .bento-wide { grid-column: span 2; }
-      .bento-vert { grid-row: span 1; aspect-ratio: 1 / 1; }
-      footer { padding: 1.5rem; }
+      .nav-available { display: none; }
+      .nav-links { gap: 1.5rem; }
+
+      #hero { padding: 0 1.5rem 4rem; }
+      .hero-video-wrap { margin-top: 58px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; }
+      .hero-cta { flex-direction: row; }
+
+      #about { grid-template-columns: 1fr; }
+      .about-left { border-right: none; border-bottom: 1px solid var(--gray-light); padding: 3rem 1.5rem; }
+      .about-right { padding: 3rem 1.5rem; }
+
+      .work-header { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .work-swiper { padding-left: 1.5rem; }
+
+      #contact { padding: 5rem 1.5rem; }
+      footer { padding: 1.25rem 1.5rem; }
     }
   </style>
 </head>
@@ -225,140 +666,295 @@
   <!-- NAV -->
   <nav>
     <div>
-      <a href="index.html">
-        <span class="nav-logo-name">Lukas Kus</span>
-        <span class="nav-logo-sub">Motion Designer & Video Producer</span>
-      </a>
+      <span class="nav-logo-name">Lukas Kus</span>
+      <span class="nav-logo-sub">Motion Designer & Video Producer</span>
     </div>
-    <a href="index.html" class="nav-back">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Back
-    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#play">Play</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-available">
+      <span class="dot"></span>
+      Available for projects
+    </div>
   </nav>
 
-  <!-- HEADER -->
-  <header class="play-header">
-    <div>
-      <span class="section-label">Lukas Kus — Playground</span>
-      <h1 class="play-title" data-split>Playground</h1>
-    </div>
-    <p class="play-desc">
-      Experiments, personal work & motion snippets.
-      No briefs, no constraints — just play.
-    </p>
-  </header>
-
-  <!-- BENTO GRID -->
-  <div class="bento-grid">
-
-    <div class="bento-card bento-sq reveal">
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-video-wrap">
       <video autoplay muted loop playsinline>
-        <source src="playground/botte-secrete-1.mp4" type="video/mp4" />
+        <source src="showreel-preview.mp4" type="video/mp4" />
       </video>
     </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/UGC.mp4" type="video/mp4" />
-      </video>
+    <p class="hero-label">Motion Design & Video Production — Prague</p>
+    <h1 class="hero-headline" data-split>Design that<br/>moves people.</h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">
+        I collaborate with brands and studios to craft motion identities
+        and video experiences — built from strategy, not templates.
+        10+ years of making things move.
+      </p>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-dark">View Work ↗</a>
+        <a href="#contact" class="btn btn-outline">Let's Talk</a>
+      </div>
     </div>
+  </section>
 
-    <div class="bento-card bento-vert reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/platform-01.mp4" type="video/mp4" />
-      </video>
+  <!-- TICKER -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Motion Design <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">3D Animation <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Video Production <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Brand Visuals <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Art Direction <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">AI Exploration <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Motion Design <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">3D Animation <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Video Production <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Brand Visuals <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">Art Direction <span class="ticker-sep">✦</span></span>
+      <span class="ticker-item">AI Exploration <span class="ticker-sep">✦</span></span>
     </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/3D-2.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/rr.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-wide reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/Stoix.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-vert reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/platform-02.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-wide reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/CNN.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/3D-tube.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/Sportlito-01.mp4" type="video/mp4" />
-      </video>
-    </div>
-
-    <div class="bento-card bento-sq reveal">
-      <video autoplay muted loop playsinline>
-        <source src="playground/vanguard.mp4" type="video/mp4" />
-      </video>
-    </div>
-
   </div>
 
-  <!-- FOOTER -->
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-left reveal">
+      <span class="section-label">About</span>
+      <h2 class="about-heading" data-split>Rooted<br/>in Motion.</h2>
+    </div>
+    <div class="about-right reveal">
+      <span class="section-label">01 — Background</span>
+      <div class="about-body">
+        <p>
+          Based in Prague, creating for the world. I'm a motion designer and video producer
+          with 10+ years of experience building visual languages that move — literally.
+          My work lives at the intersection of brand strategy and craft.
+        </p>
+        <p>
+          I collaborate with agencies and brands to create motion systems from strategy,
+          not trends. So the visuals feel native to your brand and scale across every touchpoint.
+        </p>
+      </div>
+      <div class="about-skills">
+        <div class="skill-item"><span class="skill-num">01</span> Motion Design</div>
+        <div class="skill-item"><span class="skill-num">02</span> 3D Animation</div>
+        <div class="skill-item"><span class="skill-num">03</span> Video Production</div>
+        <div class="skill-item"><span class="skill-num">04</span> Art Direction</div>
+        <div class="skill-item"><span class="skill-num">05</span> Brand Visuals</div>
+        <div class="skill-item"><span class="skill-num">06</span> AI Exploration</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK — Swiper -->
+  <section id="work">
+    <div class="work-header reveal">
+      <h2 class="work-heading" data-split>Selected Work</h2>
+      <div>
+        <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
+        <a href="#work" class="view-all">View All Cases ↗</a>
+      </div>
+    </div>
+
+    <div class="work-swiper-wrap">
+      <div class="swiper work-swiper">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide" style="width:75%;">
+            <div class="work-card" style="aspect-ratio:16/9;">
+              <video muted loop playsinline>
+                <source src="showreel-preview.mp4" type="video/mp4" />
+              </video>
+              <div class="work-card-bar">
+                <span class="work-card-title">Showreel 2025</span>
+                <span class="work-card-cat">Motion — Direction</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide" style="width:75%;">
+            <div class="work-card" style="aspect-ratio:16/9;">
+              <video muted loop playsinline>
+                <source src="1-click Property.mp4" type="video/mp4" />
+              </video>
+              <div class="work-card-bar">
+                <span class="work-card-title">1-Click Property</span>
+                <span class="work-card-cat">Motion — Brand</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide" style="width:75%;">
+            <div class="work-card" style="aspect-ratio:16/9;">
+              <video muted loop playsinline>
+                <source src="Main Video 1.02-Vo.mp4" type="video/mp4" />
+              </video>
+              <div class="work-card-bar">
+                <span class="work-card-title">Main Showreel</span>
+                <span class="work-card-cat">Video — Direction</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide" style="width:75%;">
+            <div class="work-card" style="aspect-ratio:16/9;">
+              <video muted loop playsinline>
+                <source src="boards.mp4" type="video/mp4" />
+              </video>
+              <div class="work-card-bar">
+                <span class="work-card-title">Boards</span>
+                <span class="work-card-cat">Motion — UI</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="swiper-nav-btn" id="workNext" aria-label="Next">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+  </section>
+
+  <!-- PLAYGROUND TEASER -->
+  <section id="play">
+    <a href="play.html" class="play-teaser reveal">
+      <div class="play-teaser-left">
+        <span class="section-label">03 — Playground</span>
+        <h2 class="play-heading" data-split>Playground</h2>
+        <p class="play-sub">Experiments, personal work & motion snippets.</p>
+        <div class="play-teaser-cta">
+          <span>View All</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="play-teaser-right">
+        <div class="play-preview-grid">
+          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/botte-secrete-1.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/Stoix.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/3D-2.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/vanguard.mp4" type="video/mp4"/></video></div>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="contact-label reveal">Let's work together</span>
+    <h2 class="contact-heading" data-split>Have a project?</h2>
+    <div class="contact-row">
+      <div class="contact-block reveal">
+        <span class="contact-block-label">Email</span>
+        <a href="/cdn-cgi/l/email-protection#a0ccd5cbc1d3cbd5d38ecdcfd4c9cfcee0c7cdc1c9cc8ec3cfcd" class="contact-email"><span class="__cf_email__" data-cfemail="3e524b555f4d554b4d1053514a5751507e59535f5752105d5153">[email&#160;protected]</span></a>
+      </div>
+      <div class="contact-block reveal">
+        <span class="contact-block-label">Find me on</span>
+        <div class="contact-socials">
+          <a href="https://www.instagram.com/tenlukasjekus/" target="_blank" rel="noopener">Instagram — Personal ↗</a>
+          <a href="https://www.instagram.com/lukaskus.motion/" target="_blank" rel="noopener">Instagram — Work ↗</a>
+          <a href="https://www.linkedin.com/in/lukaskus/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="contact-block reveal">
+        <a href="/cdn-cgi/l/email-protection#ee829b858f9d859b9dc083819a878180ae89838f8782c08d8183" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);color:#fff;">Let's Chat ↗</a>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <span>© 2026 Lukas Kus</span>
-    <a href="index.html" class="footer-back">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Back to Portfolio
-    </a>
+    <span>Prague — Available Worldwide</span>
   </footer>
 
-  <script>
-    /* Word split */
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ── 1. WORD SPLIT ── */
     function splitWords(el) {
-      const words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map(w =>
-        `<span class="split-word"><span class="split-word-inner">${w}</span></span>`
-      ).join(' ');
+      // collect all text nodes, preserving <br> positions
+      const html = el.innerHTML;
+      // replace <br> with a sentinel
+      const withSentinel = html.replace(/<br\s*\/?>/gi, ' |||BR||| ');
+      // strip remaining tags (none expected in headlines)
+      const text = withSentinel.replace(/<[^>]+>/g, '');
+      const words = text.split(/\s+/).filter(Boolean);
+
+      el.innerHTML = words.map(w => {
+        if (w === '|||BR|||') return '<br/>';
+        return `<span class="split-word"><span class="split-word-inner">${w}</span></span>`;
+      }).join(' ');
     }
+
     document.querySelectorAll('[data-split]').forEach(splitWords);
 
-    /* Reveal observers */
+    /* ── 2. WORD REVEAL OBSERVER ── */
     const wordObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        entry.target.querySelectorAll('.split-word').forEach((w, i) => {
+        const words = entry.target.querySelectorAll('.split-word');
+        words.forEach((w, i) => {
           setTimeout(() => w.classList.add('in'), i * 60);
         });
         wordObs.unobserve(entry.target);
       });
     }, { threshold: 0.2 });
+
     document.querySelectorAll('[data-split]').forEach(el => wordObs.observe(el));
 
+    /* ── 3. GENERAL REVEAL ── */
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          setTimeout(() => entry.target.classList.add('visible'), i * 70);
           revealObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08 });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-  </script>
-</body>
-</html>
+
+    /* ── 4. HERO VIDEO SCROLL SHRINK + FADE ── */
+    const heroVideo = document.querySelector('.hero-video-wrap');
+
+    function onScroll() {
+      if (!heroVideo) return;
+      const rect   = heroVideo.getBoundingClientRect();
+      const vh     = window.innerHeight;
+
+      // Shrink: as bottom of video approaches top of viewport
+      const videoH  = heroVideo.offsetHeight;
+      // progress 0→1 as video scrolls out upward
+      const scrolled = Math.max(0, -rect.top);
+      const shrinkP  = Math.min(scrolled / videoH, 1);
+
+      // scale 1 → 0.7
+      const scale   = 1 - shrinkP * 0.3;
+
+      // Fade: once the video's bottom goes above viewport bottom
+      // fade starts when top goes below 0, completes when fully off screen
+      const fadeP   = Math.max(0, Math.min((-rect.top) / (videoH * 0.6), 1));
+      const opacity = 1 - fadeP;
+
+      heroVideo.style.transform = `scale(${scale})`;
+      heroVideo.style.opacity   = opacity;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ── 5. SWIPER ── */
+    const workSwiper = new Swiper('.work-swiper', {
+      slidesPerView: 'auto',
+      spaceBetween: 24,
+      speed: 900,
+      loop: true,
+      navigation: { nextEl: '#workNext' },
+      on: {
+        slideChange() {
