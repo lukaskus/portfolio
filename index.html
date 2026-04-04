@@ -30,9 +30,7 @@
       --mono: 'Syne Mono', monospace;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--white);
@@ -44,10 +42,7 @@
       overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     nav {
       position: fixed;
@@ -55,7 +50,7 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--gray-light);
     }
@@ -106,9 +101,7 @@
       transition: color 0.18s;
     }
 
-    .nav-links a:hover {
-      color: var(--black);
-    }
+    .nav-links a:hover { color: var(--black); }
 
     .nav-available {
       font-size: 11px;
@@ -152,45 +145,64 @@
       backface-visibility: hidden;
       transform: translate3d(0, 0, 0) scale(1);
       opacity: 1;
+      position: relative;
     }
 
-    .hero-video-wrap video {
+    .video-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .video-shell video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    .ticker-wrap {
-      overflow: hidden;
-      border-bottom: 1px solid var(--gray-light);
-      padding: 0.9rem 0;
       background: var(--off-white);
     }
 
-    .ticker-track {
-      display: flex;
-      width: max-content;
-      animation: ticker 24s linear infinite;
-    }
-
-    .ticker-item {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
+    .video-fab {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 76px;
+      height: 76px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(10,10,10,0.58);
+      backdrop-filter: blur(10px);
+      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gray-mid);
-      padding: 0 2.5rem;
-      white-space: nowrap;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      z-index: 3;
     }
 
-    .ticker-sep {
-      color: var(--black);
+    .video-shell:hover .video-fab,
+    .video-shell:focus-within .video-fab,
+    .video-shell.is-paused .video-fab {
+      opacity: 1;
+      transform: scale(1);
     }
 
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    .video-fab:hover {
+      background: rgba(10,10,10,0.78);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .video-shell.is-paused video {
+      filter: saturate(0.95) brightness(0.96);
     }
 
     #about {
@@ -206,9 +218,7 @@
       border-right: 1px solid var(--gray-light);
     }
 
-    .about-right {
-      padding: 5rem 4rem;
-    }
+    .about-right { padding: 5rem 4rem; }
 
     .section-label {
       font-size: 11px;
@@ -234,9 +244,7 @@
       color: var(--gray-dark);
     }
 
-    .about-body p + p {
-      margin-top: 1.25rem;
-    }
+    .about-body p + p { margin-top: 1.25rem; }
 
     .about-skills {
       margin-top: 3rem;
@@ -263,9 +271,7 @@
       border-right: 1px solid var(--gray-light);
     }
 
-    .skill-item:nth-child(even) {
-      padding-left: 1.5rem;
-    }
+    .skill-item:nth-child(even) { padding-left: 1.5rem; }
 
     .skill-num {
       font-size: 10px;
@@ -273,9 +279,37 @@
       font-family: var(--mono);
     }
 
-    #work {
+    .ticker-wrap {
+      overflow: hidden;
       border-bottom: 1px solid var(--gray-light);
+      padding: 0.9rem 0;
+      background: var(--off-white);
     }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 24s linear infinite;
+    }
+
+    .ticker-item {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      padding: 0 2.5rem;
+      white-space: nowrap;
+    }
+
+    .ticker-sep { color: var(--black); }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    #work { border-bottom: 1px solid var(--gray-light); }
 
     .work-header {
       padding: 3.5rem 3rem;
@@ -330,9 +364,7 @@
       height: auto;
     }
 
-    .swiper-slide-active {
-      opacity: 1 !important;
-    }
+    .swiper-slide-active { opacity: 1 !important; }
 
     .work-card {
       background: var(--off-white);
@@ -341,13 +373,7 @@
       aspect-ratio: 16 / 9;
     }
 
-    .work-card video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      background: var(--off-white);
-    }
+    .work-card .video-shell { background: var(--off-white); }
 
     .work-card-bar {
       position: absolute;
@@ -363,6 +389,7 @@
       backdrop-filter: blur(6px);
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       flex-wrap: wrap;
+      z-index: 2;
     }
 
     .work-card-title {
@@ -378,6 +405,33 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.45);
+    }
+
+    .work-card-double,
+    .work-card-vertical {
+      aspect-ratio: auto;
+    }
+
+    .work-double-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding-bottom: 56px;
+    }
+
+    .work-double-grid .video-shell {
+      aspect-ratio: 9 / 16;
+    }
+
+    .work-vertical-grid {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 8px;
+      padding-bottom: 56px;
+    }
+
+    .work-vertical-grid .video-shell {
+      aspect-ratio: 16 / 9;
     }
 
     .swiper-nav-btn {
@@ -403,32 +457,24 @@
       background: var(--black);
     }
 
-    .swiper-nav-btn:hover svg {
-      stroke: var(--white);
-    }
+    .swiper-nav-btn:hover svg { stroke: var(--white); }
 
     .swiper-nav-btn svg {
       stroke: var(--black);
       transition: stroke 0.2s;
     }
 
-    #playground {
-      border-bottom: 1px solid var(--gray-light);
-    }
+    #playground { border-bottom: 1px solid var(--gray-light); }
 
     .play-teaser {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
       text-decoration: none;
       color: inherit;
-      cursor: pointer;
+      cursor: default;
       transition: background 0.3s;
       max-width: 1400px;
       margin: 0 auto;
-    }
-
-    .play-teaser:hover {
-      background: var(--off-white);
     }
 
     .play-teaser-left {
@@ -467,12 +513,8 @@
       border-bottom: 1px solid var(--black);
       padding-bottom: 2px;
       width: fit-content;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    .play-teaser:hover .play-teaser-cta {
       color: var(--gray-mid);
-      border-color: var(--gray-mid);
+      cursor: default;
     }
 
     .play-teaser-right {
@@ -495,17 +537,14 @@
       border-radius: 24px;
     }
 
-    .play-preview-item video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-      border-radius: 24px;
+    .play-preview-wide {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 9;
     }
 
-    .play-teaser:hover .play-preview-item video {
-      transform: scale(1.06);
+    .play-preview-item .video-shell,
+    .play-preview-item .video-shell video {
+      border-radius: 24px;
     }
 
     #contact {
@@ -542,7 +581,7 @@
       display: flex;
       gap: 4rem;
       align-items: flex-start;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255,255,255,0.1);
       padding-top: 2.5rem;
       flex-wrap: wrap;
     }
@@ -568,15 +607,13 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--white);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
       padding-bottom: 2px;
       transition: border-color 0.2s;
       word-break: break-all;
     }
 
-    .contact-email:hover {
-      border-color: var(--white);
-    }
+    .contact-email:hover { border-color: var(--white); }
 
     .contact-socials {
       display: flex;
@@ -593,13 +630,11 @@
       transition: color 0.2s;
     }
 
-    .contact-socials a:hover {
-      color: var(--white);
-    }
+    .contact-socials a:hover { color: var(--white); }
 
     footer {
       background: var(--black);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
     .footer-inner {
@@ -617,7 +652,7 @@
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.22);
+      color: rgba(255,255,255,0.22);
     }
 
     .reveal {
@@ -646,95 +681,45 @@
       will-change: transform;
     }
 
-    .split-word.in .split-word-inner {
-      transform: translateY(0);
-    }
+    .split-word.in .split-word-inner { transform: translateY(0); }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
+      html { scroll-behavior: auto; }
       .ticker-track,
       .dot,
       .split-word-inner,
       .reveal,
-      .play-preview-item video {
+      .video-fab {
         animation: none !important;
         transition: none !important;
       }
     }
 
     @media (max-width: 1024px) {
-      .nav-inner {
-        padding: 1.2rem 1.5rem;
-      }
-
-      #hero {
-        padding: 0 1.5rem 0;
-      }
-
-      .hero-video-wrap {
-        margin-top: 68px;
-      }
-
-      .work-header {
-        padding: 2.5rem 1.5rem;
-      }
-
-      .work-swiper {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-
-      .swiper-nav-btn {
-        right: 1.5rem;
-      }
-
-      #contact {
-        padding: 5rem 1.5rem;
-      }
-
-      .footer-inner {
-        padding: 1.25rem 1.5rem;
-      }
+      .nav-inner { padding: 1.2rem 1.5rem; }
+      #hero { padding: 0 1.5rem 0; }
+      .hero-video-wrap { margin-top: 68px; }
+      .work-header { padding: 2.5rem 1.5rem; }
+      .work-swiper { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .swiper-nav-btn { right: 1.5rem; }
+      #contact { padding: 5rem 1.5rem; }
+      .footer-inner { padding: 1.25rem 1.5rem; }
     }
 
     @media (max-width: 768px) {
-      .nav-inner {
-        align-items: flex-start;
-      }
+      .nav-inner { align-items: flex-start; }
+      .nav-available { display: none; }
+      .nav-links { gap: 1.25rem; }
+      .hero-video-wrap { margin-top: 58px; }
 
-      .nav-available {
-        display: none;
-      }
-
-      .nav-links {
-        gap: 1.25rem;
-      }
-
-      .hero-video-wrap {
-        margin-top: 58px;
-      }
-
-      #about {
-        grid-template-columns: 1fr;
-      }
-
+      #about { grid-template-columns: 1fr; }
       .about-left {
         border-right: none;
         border-bottom: 1px solid var(--gray-light);
         padding: 3rem 1.5rem;
       }
-
-      .about-right {
-        padding: 3rem 1.5rem;
-      }
-
-      .about-skills {
-        grid-template-columns: 1fr;
-      }
-
+      .about-right { padding: 3rem 1.5rem; }
+      .about-skills { grid-template-columns: 1fr; }
       .skill-item:nth-child(odd),
       .skill-item:nth-child(even) {
         padding-left: 0;
@@ -748,23 +733,27 @@
         gap: 1rem;
       }
 
-      .swiper-nav-btn {
-        width: 48px;
-        height: 48px;
-      }
+      .swiper-nav-btn { width: 48px; height: 48px; }
 
-      .play-teaser {
+      .work-double-grid,
+      .play-preview-grid {
         grid-template-columns: 1fr;
       }
 
+      .play-teaser { grid-template-columns: 1fr; }
       .play-teaser-left {
         border-right: none;
         border-bottom: 1px solid var(--gray-light);
         padding: 3rem 1.5rem;
       }
+      .play-teaser-right { padding: 1.5rem; }
+      .play-preview-wide { aspect-ratio: 16 / 10; }
 
-      .play-teaser-right {
-        padding: 1.5rem;
+      .video-fab {
+        width: 64px;
+        height: 64px;
+        top: 0.75rem;
+        right: 0.75rem;
       }
     }
 
@@ -773,21 +762,12 @@
         flex-direction: column;
         gap: 1rem;
       }
-
-      .nav-links {
-        gap: 1rem;
-      }
-
-      .work-card-bar {
-        padding: 0.75rem 1rem;
-      }
-
-      .contact-email {
-        font-size: 1.3rem;
-      }
-
+      .nav-links { gap: 1rem; }
+      .work-card-bar { padding: 0.75rem 1rem; }
+      .contact-email { font-size: 1.3rem; }
       .play-preview-item,
-      .play-preview-item video {
+      .play-preview-item .video-shell,
+      .play-preview-item .video-shell video {
         border-radius: 20px;
       }
     }
@@ -805,7 +785,7 @@
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="play.html">Playground</a></li>
+        <li><a href="#playground">Playground</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
 
@@ -817,10 +797,11 @@
   </nav>
 
   <section id="hero">
-    <div class="hero-video-wrap">
+    <div class="hero-video-wrap video-shell">
       <video autoplay muted loop playsinline preload="metadata">
         <source src="showreel-preview.mp4" type="video/mp4" />
       </video>
+      <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
     </div>
   </section>
 
@@ -875,11 +856,11 @@
 
   <section id="work">
     <div class="work-header reveal">
-      <h2 class="work-heading" data-split>Selected Work</h2>
+      <h2 class="work-heading" data-split>Product Videos</h2>
 
       <div>
         <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
-        <a href="#work" class="view-all">View All Cases ↗</a>
+        <span class="view-all">Selected Cases</span>
       </div>
     </div>
 
@@ -889,9 +870,12 @@
 
           <div class="swiper-slide">
             <div class="work-card">
-              <video muted loop playsinline preload="metadata">
-                <source src="showreel-preview.mp4" type="video/mp4" />
-              </video>
+              <div class="video-shell">
+                <video muted loop playsinline preload="metadata">
+                  <source src="showreel-preview.mp4" type="video/mp4" />
+                </video>
+                <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+              </div>
               <div class="work-card-bar">
                 <span class="work-card-title">Showreel 2025</span>
                 <span class="work-card-cat">Motion — Direction</span>
@@ -901,9 +885,12 @@
 
           <div class="swiper-slide">
             <div class="work-card">
-              <video muted loop playsinline preload="metadata">
-                <source src="1-click Property.mp4" type="video/mp4" />
-              </video>
+              <div class="video-shell">
+                <video muted loop playsinline preload="metadata">
+                  <source src="1-click Property.mp4" type="video/mp4" />
+                </video>
+                <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+              </div>
               <div class="work-card-bar">
                 <span class="work-card-title">1-Click Property</span>
                 <span class="work-card-cat">Motion — Brand</span>
@@ -912,24 +899,48 @@
           </div>
 
           <div class="swiper-slide">
-            <div class="work-card">
-              <video muted loop playsinline preload="metadata">
-                <source src="Main Video 1.02-Vo.mp4" type="video/mp4" />
-              </video>
+            <div class="work-card work-card-double">
+              <div class="work-double-grid">
+                <div class="video-shell">
+                  <video muted loop playsinline preload="metadata">
+                    <source src="sportlito-1.mp4" type="video/mp4" />
+                  </video>
+                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+                </div>
+
+                <div class="video-shell">
+                  <video muted loop playsinline preload="metadata">
+                    <source src="sportlito-2.mp4" type="video/mp4" />
+                  </video>
+                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+                </div>
+              </div>
               <div class="work-card-bar">
-                <span class="work-card-title">Main Showreel</span>
-                <span class="work-card-cat">Video — Direction</span>
+                <span class="work-card-title">Sportlito</span>
+                <span class="work-card-cat">Motion — Social</span>
               </div>
             </div>
           </div>
 
           <div class="swiper-slide">
-            <div class="work-card">
-              <video muted loop playsinline preload="metadata">
-                <source src="boards.mp4" type="video/mp4" />
-              </video>
+            <div class="work-card work-card-vertical">
+              <div class="work-vertical-grid">
+                <div class="video-shell">
+                  <video muted loop playsinline preload="metadata">
+                    <source src="platform-1.mp4" type="video/mp4" />
+                  </video>
+                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+                </div>
+
+                <div class="video-shell">
+                  <video muted loop playsinline preload="metadata">
+                    <source src="platform-2.mp4" type="video/mp4" />
+                  </video>
+                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+                </div>
+              </div>
               <div class="work-card-bar">
-                <span class="work-card-title">Boards</span>
+                <span class="work-card-title">Platform</span>
                 <span class="work-card-cat">Motion — UI</span>
               </div>
             </div>
@@ -947,45 +958,77 @@
   </section>
 
   <section id="playground">
-    <a href="play.html" class="play-teaser reveal">
+    <div class="play-teaser reveal">
       <div class="play-teaser-left">
         <span class="section-label">03 — Playground</span>
         <h2 class="play-heading" data-split>Playground</h2>
         <p class="play-sub">Experiments, personal work & motion snippets.</p>
 
         <div class="play-teaser-cta">
-          <span>View Playground</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
+          <span>Personal Motion Studies</span>
         </div>
       </div>
 
       <div class="play-teaser-right">
         <div class="play-preview-grid">
-          <div class="play-preview-item">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="playground/botte-secrete-1.mp4" type="video/mp4" />
-            </video>
+
+          <div class="play-preview-item play-preview-wide">
+            <div class="video-shell">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="playground/creative-studio.mp4" type="video/mp4" />
+              </video>
+              <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+            </div>
           </div>
+
           <div class="play-preview-item">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="playground/Stoix.mp4" type="video/mp4" />
-            </video>
+            <div class="video-shell">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="playground/CNN.mp4" type="video/mp4" />
+              </video>
+              <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+            </div>
           </div>
+
           <div class="play-preview-item">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="playground/3D-2.mp4" type="video/mp4" />
-            </video>
+            <div class="video-shell">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="playground/3D-tube.mp4" type="video/mp4" />
+              </video>
+              <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+            </div>
           </div>
-          <div class="play-preview-item">
-            <video autoplay muted loop playsinline preload="metadata">
-              <source src="playground/vanguard.mp4" type="video/mp4" />
-            </video>
+
+          <div class="play-preview-item play-preview-wide">
+            <div class="video-shell">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="playground/rr.mp4" type="video/mp4" />
+              </video>
+              <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+            </div>
           </div>
+
+          <div class="play-preview-item play-preview-wide">
+            <div class="video-shell">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="playground/platform-1.mp4" type="video/mp4" />
+              </video>
+              <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+            </div>
+          </div>
+
+          <div class="play-preview-item play-preview-wide">
+            <div class="video-shell">
+              <video autoplay muted loop playsinline preload="metadata">
+                <source src="playground/platform-2.mp4" type="video/mp4" />
+              </video>
+              <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+            </div>
+          </div>
+
         </div>
       </div>
-    </a>
+    </div>
   </section>
 
   <section id="contact">
@@ -1011,7 +1054,7 @@
         </div>
 
         <div class="contact-block reveal">
-          <a href="mailto:lukaskus.motion@gmail.com" id="contact-chat-link" class="btn btn-outline">
+          <a href="mailto:lukaskus.motion@gmail.com" id="contact-chat-link" class="btn btn-outline" style="display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.75rem;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);color:#fff;">
             Let's Chat ↗
           </a>
         </div>
@@ -1095,6 +1138,47 @@
     window.addEventListener('load', requestHeroUpdate);
     requestHeroUpdate();
 
+    function setupVideoControls(scope = document) {
+      scope.querySelectorAll('.video-shell').forEach((shell) => {
+        if (shell.dataset.controlsReady === 'true') return;
+
+        const video = shell.querySelector('video');
+        const button = shell.querySelector('.video-fab');
+        if (!video || !button) return;
+
+        function syncLabel() {
+          const paused = video.paused;
+          shell.classList.toggle('is-paused', paused);
+          button.textContent = paused ? 'Play' : 'Pause';
+          button.setAttribute('aria-label', paused ? 'Play video' : 'Pause video');
+        }
+
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          if (video.paused) {
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+              playPromise.catch(() => {});
+            }
+          } else {
+            video.pause();
+          }
+          syncLabel();
+        });
+
+        video.addEventListener('play', syncLabel);
+        video.addEventListener('pause', syncLabel);
+        video.addEventListener('mouseenter', syncLabel);
+
+        syncLabel();
+        shell.dataset.controlsReady = 'true';
+      });
+    }
+
+    setupVideoControls();
+
     const workSwiperEl = document.querySelector('.work-swiper');
 
     if (workSwiperEl && typeof Swiper !== 'undefined') {
@@ -1132,21 +1216,24 @@
         const slides = document.querySelectorAll('.work-swiper .swiper-slide');
 
         slides.forEach((slide, index) => {
-          const video = slide.querySelector('video');
-          if (!video) return;
+          const videos = slide.querySelectorAll('video');
 
-          if (index === swiperInstance.activeIndex) {
-            const playPromise = video.play();
-            if (playPromise && typeof playPromise.catch === 'function') {
-              playPromise.catch(() => {});
+          videos.forEach((video) => {
+            if (index === swiperInstance.activeIndex) {
+              const playPromise = video.play();
+              if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => {});
+              }
+            } else {
+              video.pause();
+              try {
+                video.currentTime = 0;
+              } catch (e) {}
             }
-          } else {
-            video.pause();
-            try {
-              video.currentTime = 0;
-            } catch (e) {}
-          }
+          });
         });
+
+        setupVideoControls(workSwiperEl);
       }
     }
   </script>
