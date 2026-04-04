@@ -1158,7 +1158,7 @@ html.lenis body {
       if (video) tryPlay(video);
     });
 
-    window.addEventListener('scroll', requestHeroUpdate, { passive: true });
+    
     window.addEventListener('resize', requestHeroUpdate);
     window.addEventListener('load', requestHeroUpdate);
     requestHeroUpdate();
@@ -1250,19 +1250,26 @@ html.lenis body {
       window.addEventListener('resize', () => positionWorkNextButton(workSwiper));
       window.addEventListener('load', () => positionWorkNextButton(workSwiper));
     }
-  <script>
-  const lenis = new Lenis({
-    duration: 1.15,
-    smoothWheel: true,
-    wheelMultiplier: 0.9,
-    touchMultiplier: 1.1,
-    infinite: false
-  });
 
-  function raf(time) {
-    lenis.raf(time);
+ const lenis = new Lenis({
+  duration: 1.6,
+  smoothWheel: true,
+  wheelMultiplier: 1.15,
+  touchMultiplier: 1.0,
+  infinite: false
+});
+
+    lenis.on('scroll', requestHeroUpdate);
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
     requestAnimationFrame(raf);
-  }
+  </script>
+</body>
+</html>
 
   requestAnimationFrame(raf);
 </script>
