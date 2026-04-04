@@ -342,47 +342,6 @@ html.lenis body {
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
-  gap: 0.02em;
-  line-height: 0.9;
-}
-
-.char-wrap {
-  overflow: hidden;
-  display: inline-block;
-}
-
-.char-inner {
-  display: block;
-  position: relative;
-}
-
-.char {
-  display: block;
-  will-change: transform;
-}
-
-/* initial state */
-.char-top {
-  transform: translateY(110%);
-  animation: charIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.char-bottom {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* stagger on load */
-.char-wrap:nth-child(1) .char-top { animation-delay: 0.05s; }
-.char-wrap:nth-child(2) .char-top { animation-delay: 0.1s; }
-.char-wrap:nth-child(3) .char-top { animation-delay: 0.15s; }
-/* pokračuj podle délky textu */
-
-.product-lettering {
-  display: flex;
-  flex-wrap: nowrap;
-  white-space: nowrap;
   align-items: flex-end;
   gap: 0.01em;
   line-height: 0.9;
@@ -503,146 +462,58 @@ html.lenis body {
   100% { transform: translateY(0%); }
 }
 
-/* pokračuj dál */
-
-/* KEYFRAMES */
-
-@keyframes charIn {
-  from { transform: translateY(110%); }
-  to   { transform: translateY(0%); }
+.work-stack {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-@keyframes charOutUp {
-  from { transform: translateY(0%); }
-  to   { transform: translateY(-110%); }
+.work-stack-item {
+  opacity: 0.5;
+  transition: opacity 0.35s ease;
 }
 
-@keyframes charInUp {
-  0%   { transform: translateY(110%); }
-  80%  { transform: translateY(-6%); }
-  100% { transform: translateY(0%); }
+.work-stack-item.is-active {
+  opacity: 1;
 }
 
-    .view-all {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--black);
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
+.work-stack-item .work-card {
+  width: 100%;
+}
 
-    .work-swiper-wrap {
-      position: relative;
-      padding: 3rem 0;
-      overflow: hidden;
-    }
+.work-card-double {
+  aspect-ratio: auto;
+}
 
-    .work-swiper {
-      width: 100%;
-      padding-left: max(3rem, calc((100vw - 1400px) / 2 + 3rem));
-      padding-right: 3rem;
-      overflow: visible;
-    }
+.work-double-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding-bottom: 56px;
+}
 
-    .swiper-slide {
-      opacity: 0.18;
-      transition: opacity 0.45s ease;
-      height: auto;
-    }
+.work-double-grid .video-shell {
+  aspect-ratio: 9 / 16;
+}
 
-    .swiper-slide-active { opacity: 1 !important; }
+@media (max-width: 1024px) {
+  .work-stack {
+    padding: 2rem 1.5rem;
+  }
+}
 
-    .work-card {
-      background: var(--off-white);
-      overflow: hidden;
-      position: relative;
-      aspect-ratio: 16 / 9;
-    }
+@media (max-width: 768px) {
+  .work-stack {
+    gap: 1.25rem;
+  }
 
-    .work-card-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 0.85rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      background: rgba(10,10,10,0.52);
-      backdrop-filter: blur(6px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      flex-wrap: wrap;
-      z-index: 2;
-    }
-
-    .work-card-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #fff;
-    }
-
-    .work-card-cat {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-    }
-
-    .work-card-double,
-    .work-card-vertical {
-      aspect-ratio: auto;
-    }
-
-    .work-double-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      padding-bottom: 56px;
-    }
-
-    .work-double-grid .video-shell { aspect-ratio: 9 / 16; }
-
-    .work-vertical-grid {
-      display: grid;
-      grid-template-rows: auto auto;
-      gap: 8px;
-      padding-bottom: 56px;
-    }
-
-    .work-vertical-grid .video-shell { aspect-ratio: 16 / 9; }
-
-    .swiper-nav-btn {
-      position: absolute;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      border: 1px solid var(--gray-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 60;
-      background: var(--white);
-      transition: border-color 0.2s, background 0.2s, opacity 0.2s;
-    }
-
-    .swiper-nav-btn:hover {
-      border-color: var(--black);
-      background: var(--black);
-    }
-
-    .swiper-nav-btn:hover svg { stroke: var(--white); }
-
-    .swiper-nav-btn svg {
-      stroke: var(--black);
-      transition: stroke 0.2s;
-    }
-
-    #playground { border-bottom: 1px solid var(--gray-light); }
-
+  .work-double-grid {
+    grid-template-columns: 1fr;
+  }
+}
     .play-teaser {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
@@ -1023,24 +894,24 @@ html.lenis body {
 
  <section id="work">
   <div class="work-header reveal">
-	<h2 class="work-heading product-lettering" aria-label="Product Videos">
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">P</span><span class="char char-bottom">P</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">R</span><span class="char char-bottom">R</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">O</span><span class="char char-bottom">O</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">D</span><span class="char char-bottom">D</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">U</span><span class="char char-bottom">U</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">C</span><span class="char char-bottom">C</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">T</span><span class="char char-bottom">T</span></span></span>
+    <h2 class="work-heading product-lettering" aria-label="Product Videos">
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">P</span><span class="char char-bottom">P</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">R</span><span class="char char-bottom">R</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">O</span><span class="char char-bottom">O</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">D</span><span class="char char-bottom">D</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">U</span><span class="char char-bottom">U</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">C</span><span class="char char-bottom">C</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">T</span><span class="char char-bottom">T</span></span></span>
 
-  <span class="char-space" aria-hidden="true"></span>
+      <span class="char-space" aria-hidden="true"></span>
 
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">V</span><span class="char char-bottom">V</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">I</span><span class="char char-bottom">I</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">D</span><span class="char char-bottom">D</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">E</span><span class="char char-bottom">E</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">O</span><span class="char char-bottom">O</span></span></span>
-  <span class="char-wrap"><span class="char-inner"><span class="char char-top">S</span><span class="char char-bottom">S</span></span></span>
-</h2>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">V</span><span class="char char-bottom">V</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">I</span><span class="char char-bottom">I</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">D</span><span class="char char-bottom">D</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">E</span><span class="char char-bottom">E</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">O</span><span class="char char-bottom">O</span></span></span>
+      <span class="char-wrap"><span class="char-inner"><span class="char char-top">S</span><span class="char char-bottom">S</span></span></span>
+    </h2>
 
     <div>
       <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
@@ -1386,72 +1257,6 @@ requestWorkStackUpdate();
 
 
 
-
-      const workSwiper = new Swiper('.work-swiper', {
-        slidesPerView: 1.08,
-        spaceBetween: 14,
-        speed: 850,
-        grabCursor: true,
-        loop: false,
-        watchSlidesProgress: true,
-        navigation: {
-          nextEl: '#workNext'
-        },
-        breakpoints: {
-          768: {
-            slidesPerView: 1.18,
-            spaceBetween: 20
-          },
-          1200: {
-            slidesPerView: 1.24,
-            spaceBetween: 28
-          }
-        },
-        on: {
-          init() {
-            toggleWorkVideos(this);
-            positionWorkNextButton(this);
-          },
-          slideChangeTransitionStart() {
-            toggleWorkVideos(this);
-          },
-          slideChangeTransitionEnd() {
-            positionWorkNextButton(this);
-          },
-          resize() {
-            positionWorkNextButton(this);
-          },
-          setTranslate() {
-            positionWorkNextButton(this);
-          }
-        }
-      });
-
-      function toggleWorkVideos(swiperInstance) {
-        const slides = document.querySelectorAll('.work-swiper .swiper-slide');
-
-        slides.forEach((slide, index) => {
-          const videos = slide.querySelectorAll('video');
-
-          videos.forEach((video) => {
-            if (index === swiperInstance.activeIndex) {
-              tryPlay(video);
-            } else {
-              video.pause();
-              try {
-                video.currentTime = 0;
-              } catch (e) {}
-            }
-          });
-        });
-
-        setupVideoControls(workSwiperEl);
-      }
-
-      window.addEventListener('resize', () => positionWorkNextButton(workSwiper));
-      window.addEventListener('load', () => positionWorkNextButton(workSwiper));
-    }
-
  const lenis = new Lenis({
   duration: 1.6,
   smoothWheel: true,
@@ -1469,10 +1274,5 @@ requestWorkStackUpdate();
 
     requestAnimationFrame(raf);
   </script>
-</body>
-</html>
-
-  requestAnimationFrame(raf);
-</script>
 </body>
 </html>
