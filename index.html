@@ -338,6 +338,83 @@ html.lenis body {
       line-height: 1;
     }
 
+.product-lettering {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  gap: 0.02em;
+  line-height: 0.9;
+}
+
+.char-wrap {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.char-inner {
+  display: block;
+  position: relative;
+}
+
+.char {
+  display: block;
+  will-change: transform;
+}
+
+/* initial state */
+.char-top {
+  transform: translateY(110%);
+  animation: charIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.char-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* stagger on load */
+.char-wrap:nth-child(1) .char-top { animation-delay: 0.05s; }
+.char-wrap:nth-child(2) .char-top { animation-delay: 0.1s; }
+.char-wrap:nth-child(3) .char-top { animation-delay: 0.15s; }
+/* pokračuj podle délky textu */
+
+.product-lettering:hover .char-top {
+  animation: charOutUp 0.65s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+.product-lettering:hover .char-bottom {
+  animation: charInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.08s;
+}
+
+/* hover stagger */
+.product-lettering:hover .char-wrap:nth-child(1) .char-top,
+.product-lettering:hover .char-wrap:nth-child(1) .char-bottom { animation-delay: 0s; }
+
+.product-lettering:hover .char-wrap:nth-child(2) .char-top,
+.product-lettering:hover .char-wrap:nth-child(2) .char-bottom { animation-delay: 0.04s; }
+
+/* pokračuj dál */
+
+/* KEYFRAMES */
+
+@keyframes charIn {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0%); }
+}
+
+@keyframes charOutUp {
+  from { transform: translateY(0%); }
+  to   { transform: translateY(-110%); }
+}
+
+@keyframes charInUp {
+  0%   { transform: translateY(110%); }
+  80%  { transform: translateY(-6%); }
+  100% { transform: translateY(0%); }
+}
+
     .view-all {
       font-size: 11px;
       font-weight: 600;
@@ -838,13 +915,31 @@ html.lenis body {
 
   <section id="work">
     <div class="work-header reveal">
-      <h2 class="work-heading" data-split>Product Videos</h2>
+<h2 class="work-heading product-lettering" aria-label="Product Videos">
 
-      <div>
-        <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
-        <span class="view-all">Selected Cases</span>
-      </div>
-    </div>
+<span class="char-wrap">
+  <span class="char-inner">
+      <span class="char char-top">P</span>
+      <span class="char char-bottom">P</span>
+    </span>
+  </span>
+
+  <span class="char-wrap">
+    <span class="char-inner">
+      <span class="char char-top">R</span>
+      <span class="char char-bottom">R</span>
+    </span>
+  </span>
+
+  <span class="char-wrap">
+    <span class="char char-inner">
+      <span class="char char-top">O</span>
+      <span class="char char-bottom">O</span>
+    </span>
+  </span>
+
+  <!-- pokračuj pro celé "PRODUCT VIDEOS" -->
+</h2>
 
     <div class="work-swiper-wrap" id="workSwiperWrap">
       <div class="swiper work-swiper">
