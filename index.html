@@ -379,21 +379,129 @@ html.lenis body {
 .char-wrap:nth-child(3) .char-top { animation-delay: 0.15s; }
 /* pokračuj podle délky textu */
 
+.product-lettering {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  align-items: flex-end;
+  gap: 0.01em;
+  line-height: 0.9;
+}
+
+.char-space {
+  width: 0.22em;
+  flex: 0 0 0.22em;
+}
+
+.char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 0.9;
+}
+
+.char-inner {
+  display: block;
+  position: relative;
+}
+
+.char {
+  display: block;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.char-top {
+  transform: translateY(110%);
+  animation: charIn 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.char-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(110%);
+}
+
+/* load stagger */
+.char-wrap:nth-child(1) .char-top  { animation-delay: 0.02s; }
+.char-wrap:nth-child(2) .char-top  { animation-delay: 0.05s; }
+.char-wrap:nth-child(3) .char-top  { animation-delay: 0.08s; }
+.char-wrap:nth-child(4) .char-top  { animation-delay: 0.11s; }
+.char-wrap:nth-child(5) .char-top  { animation-delay: 0.14s; }
+.char-wrap:nth-child(6) .char-top  { animation-delay: 0.17s; }
+.char-wrap:nth-child(7) .char-top  { animation-delay: 0.20s; }
+
+.char-wrap:nth-child(9)  .char-top { animation-delay: 0.27s; }
+.char-wrap:nth-child(10) .char-top { animation-delay: 0.30s; }
+.char-wrap:nth-child(11) .char-top { animation-delay: 0.33s; }
+.char-wrap:nth-child(12) .char-top { animation-delay: 0.36s; }
+.char-wrap:nth-child(13) .char-top { animation-delay: 0.39s; }
+.char-wrap:nth-child(14) .char-top { animation-delay: 0.42s; }
+
+/* hover replay */
 .product-lettering:hover .char-top {
-  animation: charOutUp 0.65s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  animation: charOutUp 0.66s cubic-bezier(0.7, 0, 0.3, 1) forwards;
 }
 
 .product-lettering:hover .char-bottom {
-  animation: charInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 0.08s;
+  animation: charInUp 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* hover stagger */
-.product-lettering:hover .char-wrap:nth-child(1) .char-top,
-.product-lettering:hover .char-wrap:nth-child(1) .char-bottom { animation-delay: 0s; }
+/* hover stagger + micro delay */
+.product-lettering:hover .char-wrap:nth-child(1) .char-top  { animation-delay: 0.00s; }
+.product-lettering:hover .char-wrap:nth-child(1) .char-bottom { animation-delay: 0.08s; }
 
-.product-lettering:hover .char-wrap:nth-child(2) .char-top,
-.product-lettering:hover .char-wrap:nth-child(2) .char-bottom { animation-delay: 0.04s; }
+.product-lettering:hover .char-wrap:nth-child(2) .char-top  { animation-delay: 0.025s; }
+.product-lettering:hover .char-wrap:nth-child(2) .char-bottom { animation-delay: 0.105s; }
+
+.product-lettering:hover .char-wrap:nth-child(3) .char-top  { animation-delay: 0.05s; }
+.product-lettering:hover .char-wrap:nth-child(3) .char-bottom { animation-delay: 0.13s; }
+
+.product-lettering:hover .char-wrap:nth-child(4) .char-top  { animation-delay: 0.075s; }
+.product-lettering:hover .char-wrap:nth-child(4) .char-bottom { animation-delay: 0.155s; }
+
+.product-lettering:hover .char-wrap:nth-child(5) .char-top  { animation-delay: 0.10s; }
+.product-lettering:hover .char-wrap:nth-child(5) .char-bottom { animation-delay: 0.18s; }
+
+.product-lettering:hover .char-wrap:nth-child(6) .char-top  { animation-delay: 0.125s; }
+.product-lettering:hover .char-wrap:nth-child(6) .char-bottom { animation-delay: 0.205s; }
+
+.product-lettering:hover .char-wrap:nth-child(7) .char-top  { animation-delay: 0.15s; }
+.product-lettering:hover .char-wrap:nth-child(7) .char-bottom { animation-delay: 0.23s; }
+
+.product-lettering:hover .char-wrap:nth-child(9) .char-top  { animation-delay: 0.22s; }
+.product-lettering:hover .char-wrap:nth-child(9) .char-bottom { animation-delay: 0.30s; }
+
+.product-lettering:hover .char-wrap:nth-child(10) .char-top { animation-delay: 0.245s; }
+.product-lettering:hover .char-wrap:nth-child(10) .char-bottom { animation-delay: 0.325s; }
+
+.product-lettering:hover .char-wrap:nth-child(11) .char-top { animation-delay: 0.27s; }
+.product-lettering:hover .char-wrap:nth-child(11) .char-bottom { animation-delay: 0.35s; }
+
+.product-lettering:hover .char-wrap:nth-child(12) .char-top { animation-delay: 0.295s; }
+.product-lettering:hover .char-wrap:nth-child(12) .char-bottom { animation-delay: 0.375s; }
+
+.product-lettering:hover .char-wrap:nth-child(13) .char-top { animation-delay: 0.32s; }
+.product-lettering:hover .char-wrap:nth-child(13) .char-bottom { animation-delay: 0.40s; }
+
+.product-lettering:hover .char-wrap:nth-child(14) .char-top { animation-delay: 0.345s; }
+.product-lettering:hover .char-wrap:nth-child(14) .char-bottom { animation-delay: 0.425s; }
+
+@keyframes charIn {
+  0%   { transform: translateY(110%); }
+  100% { transform: translateY(0%); }
+}
+
+@keyframes charOutUp {
+  0%   { transform: translateY(0%); }
+  100% { transform: translateY(-110%); }
+}
+
+@keyframes charInUp {
+  0%   { transform: translateY(110%); }
+  82%  { transform: translateY(-5%); }
+  100% { transform: translateY(0%); }
+}
 
 /* pokračuj dál */
 
@@ -913,126 +1021,89 @@ html.lenis body {
     </div>
   </div>
 
-  <section id="work">
-    <div class="work-header reveal">
-<h2 class="work-heading product-lettering" aria-label="Product Videos">
+ <section id="work">
+  <div class="work-header reveal">
+	<h2 class="work-heading product-lettering" aria-label="Product Videos">
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">P</span><span class="char char-bottom">P</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">R</span><span class="char char-bottom">R</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">O</span><span class="char char-bottom">O</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">D</span><span class="char char-bottom">D</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">U</span><span class="char char-bottom">U</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">C</span><span class="char char-bottom">C</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">T</span><span class="char char-bottom">T</span></span></span>
 
-<span class="char-wrap">
-  <span class="char-inner">
-      <span class="char char-top">P</span>
-      <span class="char char-bottom">P</span>
-    </span>
-  </span>
+  <span class="char-space" aria-hidden="true"></span>
 
-  <span class="char-wrap">
-    <span class="char-inner">
-      <span class="char char-top">R</span>
-      <span class="char char-bottom">R</span>
-    </span>
-  </span>
-
-  <span class="char-wrap">
-    <span class="char char-inner">
-      <span class="char char-top">O</span>
-      <span class="char char-bottom">O</span>
-    </span>
-  </span>
-
-  <!-- pokračuj pro celé "PRODUCT VIDEOS" -->
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">V</span><span class="char char-bottom">V</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">I</span><span class="char char-bottom">I</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">D</span><span class="char char-bottom">D</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">E</span><span class="char char-bottom">E</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">O</span><span class="char char-bottom">O</span></span></span>
+  <span class="char-wrap"><span class="char-inner"><span class="char char-top">S</span><span class="char char-bottom">S</span></span></span>
 </h2>
 
-    <div class="work-swiper-wrap" id="workSwiperWrap">
-      <div class="swiper work-swiper">
-        <div class="swiper-wrapper">
+    <div>
+      <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
+      <span class="view-all">Selected Cases</span>
+    </div>
+  </div>
 
-          <div class="swiper-slide">
-            <div class="work-card">
-              <div class="video-shell">
-                <video muted loop playsinline preload="metadata">
-                  <source src="showreel-preview.mp4" type="video/mp4" />
-                </video>
-                <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
-              </div>
-              <div class="work-card-bar">
-                <span class="work-card-title">Showreel 2025</span>
-                <span class="work-card-cat">Motion — Direction</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="work-card">
-              <div class="video-shell">
-                <video muted loop playsinline preload="metadata">
-                  <source src="1-click Property.mp4" type="video/mp4" />
-                </video>
-                <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
-              </div>
-              <div class="work-card-bar">
-                <span class="work-card-title">1-Click Property</span>
-                <span class="work-card-cat">Motion — Brand</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="work-card work-card-double">
-              <div class="work-double-grid">
-                <div class="video-shell">
-                  <video muted loop playsinline preload="metadata">
-                    <source src="sportlito-1.mp4" type="video/mp4" />
-                  </video>
-                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
-                </div>
-
-                <div class="video-shell">
-                  <video muted loop playsinline preload="metadata">
-                    <source src="sportlito-2.mp4" type="video/mp4" />
-                  </video>
-                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
-                </div>
-              </div>
-              <div class="work-card-bar">
-                <span class="work-card-title">Sportlito</span>
-                <span class="work-card-cat">Motion — Social</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide">
-            <div class="work-card work-card-vertical">
-              <div class="work-vertical-grid">
-                <div class="video-shell">
-                  <video muted loop playsinline preload="metadata">
-                    <source src="platform-1.mp4" type="video/mp4" />
-                  </video>
-                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
-                </div>
-
-                <div class="video-shell">
-                  <video muted loop playsinline preload="metadata">
-                    <source src="platform-2.mp4" type="video/mp4" />
-                  </video>
-                  <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
-                </div>
-              </div>
-              <div class="work-card-bar">
-                <span class="work-card-title">Platform</span>
-                <span class="work-card-cat">Motion — UI</span>
-              </div>
-            </div>
-          </div>
-
+  <div class="work-stack">
+    <article class="work-stack-item is-active" data-work-video>
+      <div class="work-card">
+        <div class="video-shell">
+          <video muted loop playsinline preload="none">
+            <source src="showreel-preview.mp4" type="video/mp4" />
+          </video>
+          <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+        </div>
+        <div class="work-card-bar">
+          <span class="work-card-title">Showreel 2025</span>
+          <span class="work-card-cat">Motion — Direction</span>
         </div>
       </div>
+    </article>
 
-      <button class="swiper-nav-btn" id="workNext" aria-label="Next">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button>
-    </div>
-  </section>
+    <article class="work-stack-item" data-work-video>
+      <div class="work-card">
+        <div class="video-shell">
+          <video muted loop playsinline preload="none">
+            <source src="1-click Property.mp4" type="video/mp4" />
+          </video>
+          <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+        </div>
+        <div class="work-card-bar">
+          <span class="work-card-title">1-Click Property</span>
+          <span class="work-card-cat">Motion — Brand</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="work-stack-item" data-work-video>
+      <div class="work-card work-card-double">
+        <div class="work-double-grid">
+          <div class="video-shell">
+            <video muted loop playsinline preload="none">
+              <source src="sportlito-1.mp4" type="video/mp4" />
+            </video>
+            <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+          </div>
+
+          <div class="video-shell">
+            <video muted loop playsinline preload="none">
+              <source src="sportlito-2.mp4" type="video/mp4" />
+            </video>
+            <button class="video-fab" type="button" aria-label="Pause video">Pause</button>
+          </div>
+        </div>
+        <div class="work-card-bar">
+          <span class="work-card-title">Sportlito</span>
+          <span class="work-card-cat">Motion — Social</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
 
  <section id="playground">
   <a href="play.html" class="play-teaser reveal">
@@ -1258,29 +1329,64 @@ html.lenis body {
     window.addEventListener('load', requestHeroUpdate);
     requestHeroUpdate();
 
-    const workSwiperEl = document.querySelector('.work-swiper');
-    const workNextBtn = document.getElementById('workNext');
-    const workSwiperWrap = document.getElementById('workSwiperWrap');
+const workItems = Array.from(document.querySelectorAll('[data-work-video]'));
 
-    function positionWorkNextButton(swiperInstance) {
-      if (!workNextBtn || !workSwiperWrap || !swiperInstance) return;
+function updateWorkStackPlayback() {
+  if (!workItems.length) return;
 
-      const activeSlide = swiperInstance.slides[swiperInstance.activeIndex];
-      if (!activeSlide) return;
+  let bestItem = null;
+  let bestDistance = Infinity;
+  const viewportCenter = window.innerHeight / 2;
 
-      const activeRect = activeSlide.getBoundingClientRect();
-      const wrapRect = workSwiperWrap.getBoundingClientRect();
-      const btnSize = workNextBtn.offsetWidth || 56;
+  workItems.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+    const itemCenter = rect.top + rect.height / 2;
+    const distance = Math.abs(viewportCenter - itemCenter);
 
-      const top = activeRect.top - wrapRect.top + (activeRect.height / 2) - (btnSize / 2);
-      const left = activeRect.right - wrapRect.left - (btnSize / 2);
-
-      workNextBtn.style.top = `${top}px`;
-      workNextBtn.style.left = `${left}px`;
-      workNextBtn.style.transform = 'none';
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestItem = item;
     }
+  });
 
-    if (workSwiperEl && typeof Swiper !== 'undefined') {
+  workItems.forEach((item) => {
+    const isActive = item === bestItem;
+    item.classList.toggle('is-active', isActive);
+
+    const videos = item.querySelectorAll('video');
+    videos.forEach((video) => {
+      if (isActive) {
+        if (video.preload !== 'auto') video.preload = 'auto';
+        if (video.readyState < 2) video.load();
+        tryPlay(video);
+      } else {
+        video.pause();
+      }
+    });
+  });
+}
+
+let workStackTicking = false;
+
+function requestWorkStackUpdate() {
+  if (workStackTicking) return;
+  workStackTicking = true;
+
+  requestAnimationFrame(() => {
+    updateWorkStackPlayback();
+    workStackTicking = false;
+  });
+}
+
+window.addEventListener('scroll', requestWorkStackUpdate, { passive: true });
+window.addEventListener('resize', requestWorkStackUpdate);
+window.addEventListener('load', requestWorkStackUpdate);
+
+requestWorkStackUpdate();
+
+
+
+
       const workSwiper = new Swiper('.work-swiper', {
         slidesPerView: 1.08,
         spaceBetween: 14,
