@@ -25,10 +25,14 @@
 
 .play-lettering {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   line-height: 0.9;
 }
 
+.play-lettering {
+  white-space: nowrap;
+}
+    
 .play-char {
   display: inline-block;
   transform: translateY(110%);
@@ -378,18 +382,18 @@
     <div>
       <span class="section-label">Lukas Kus — Playground</span>
 
-      <h1 class="page-title play-lettering" aria-label="Playground">
-        <span class="play-char">P</span>
-        <span class="play-char">L</span>
-        <span class="play-char">A</span>
-        <span class="play-char">Y</span>
-        <span class="play-char">G</span>
-        <span class="play-char">R</span>
-        <span class="play-char">O</span>
-        <span class="play-char">U</span>
-        <span class="play-char">N</span>
-        <span class="play-char">D</span>
-      </h1>
+    <h1 class="page-title play-lettering" aria-label="Playground">
+  <span class="play-char-mask"><span class="play-char">P</span></span>
+  <span class="play-char-mask"><span class="play-char">L</span></span>
+  <span class="play-char-mask"><span class="play-char">A</span></span>
+  <span class="play-char-mask"><span class="play-char">Y</span></span>
+  <span class="play-char-mask"><span class="play-char">G</span></span>
+  <span class="play-char-mask"><span class="play-char">R</span></span>
+  <span class="play-char-mask"><span class="play-char">O</span></span>
+  <span class="play-char-mask"><span class="play-char">U</span></span>
+  <span class="play-char-mask"><span class="play-char">N</span></span>
+  <span class="play-char-mask"><span class="play-char">D</span></span>
+</h1>
     </div>
 
     <p class="page-desc">
