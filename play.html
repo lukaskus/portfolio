@@ -23,6 +23,53 @@
       --mono: 'Syne Mono', monospace;
     }
 
+.play-lettering {
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 0.9;
+}
+
+.play-char {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  animation: playCharUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.play-char {
+  will-change: transform;
+}
+    
+/* postupné delaye */
+.play-char:nth-child(1)  { animation-delay: 0.05s; }
+.play-char:nth-child(2)  { animation-delay: 0.1s; }
+.play-char:nth-child(3)  { animation-delay: 0.15s; }
+.play-char:nth-child(4)  { animation-delay: 0.2s; }
+.play-char:nth-child(5)  { animation-delay: 0.25s; }
+.play-char:nth-child(6)  { animation-delay: 0.3s; }
+.play-char:nth-child(7)  { animation-delay: 0.35s; }
+.play-char:nth-child(8)  { animation-delay: 0.4s; }
+.play-char:nth-child(9)  { animation-delay: 0.45s; }
+.play-char:nth-child(10) { animation-delay: 0.5s; }
+
+@keyframes playCharUp {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* aby se to neořezávalo */
+.play-page-title {
+  overflow: hidden;
+}
+
+
+    
     html { scroll-behavior: smooth; }
 
     body {
