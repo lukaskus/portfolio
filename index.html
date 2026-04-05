@@ -702,7 +702,7 @@
   <section id="hero">
     <div class="hero-video-wrap">
       <video id="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="videos/showreel-preview.mp4" type="video/mp4" />
+        <source src="showreel-preview.mp4" type="video/mp4" />
       </video>
     </div>
     <p class="hero-label">Motion Design & Video Production — Prague</p>
@@ -921,16 +921,28 @@
 
     document.querySelectorAll('[data-split]').forEach(splitLetters);
 
-    /* ── LETTER REVEAL ON SCROLL ── */
+    /* ── LETTER REVEAL ── */
     const letterObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.querySelectorAll('.split-word').forEach(w => w.classList.add('in'));
         letterObs.unobserve(entry.target);
       });
-    }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
 
-    document.querySelectorAll('[data-split]').forEach(el => letterObs.observe(el));
+    document.querySelectorAll('[data-split]').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        // Already visible — animate in shortly after page load
+        const baseDelay = parseFloat(el.dataset.lineDelay || 0) * 1000;
+        setTimeout(() => {
+          el.querySelectorAll('.split-word').forEach(w => w.classList.add('in'));
+        }, 300 + baseDelay);
+      } else {
+        letterObs.observe(el);
+      }
+    });
 
     /* ── GENERAL REVEAL ── */
     const revealObs = new IntersectionObserver((entries) => {
