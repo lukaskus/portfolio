@@ -489,7 +489,7 @@
       min-height: 400px;
     }
 
-    .play-teaser:hover { background: var(--off-white); }
+    .play-teaser:hover { background: var(--off-white); border-radius: 24px; }
 
     .play-teaser-left {
       padding: 5rem 3rem;
@@ -1068,50 +1068,37 @@
       const wrap = document.getElementById('flowerWrap');
       if (!path || !wrap) return;
 
-      // Build a smooth flower using cubic bezier curves
-      // 16 petals, smooth and rounded like a scallop
-      function buildPath(angleOffset) {
-        const petals  = 16;
+      function buildPath(rot) {
+        const petals = 16;
         const cx = 100, cy = 100;
-        const rOuter  = 88;
-        const rInner  = 66;
-        const step    = (Math.PI * 2) / petals;
-        let d = '';
+        const R = 82;   // outer radius
+        const r = 68;   // inner radius
+        const points = [];
 
-        for (let i = 0; i < petals; i++) {
-          const a0 = angleOffset + i * step - step * 0.5;
-          const a1 = angleOffset + i * step;
-          const a2 = angleOffset + i * step + step * 0.5;
+        for (let i = 0; i < petals * 2; i++) {
+          const angle = rot + (i * Math.PI) / petals;
+          const radius = i % 2 === 0 ? R : r;
+          points.push([
+            cx + radius * Math.cos(angle),
+            cy + radius * Math.sin(angle)
+          ]);
+        }
 
-          // valley point
-          const vx = cx + rInner * Math.cos(a0);
-          const vy = cy + rInner * Math.sin(a0);
-          // peak point
-          const px = cx + rOuter * Math.cos(a1);
-          const py = cy + rOuter * Math.sin(a1);
-          // next valley
-          const nx = cx + rInner * Math.cos(a2);
-          const ny = cy + rInner * Math.sin(a2);
-
-          // control points for smooth bezier
-          const ctrl = 0.4;
-          const cp1x = vx + (px - vx) * ctrl + (cy - vy) * ctrl * 0.3;
-          const cp1y = vy + (py - vy) * ctrl - (cx - vx) * ctrl * 0.3;
-          const cp2x = px + (nx - px) * ctrl - (cy - py) * ctrl * 0.3;
-          const cp2y = py + (ny - py) * ctrl + (cx - px) * ctrl * 0.3;
-          const cp3x = nx - (px - nx) * ctrl * 0.5;
-          const cp3y = ny - (py - ny) * ctrl * 0.5;
-
-          if (i === 0) d += `M${vx.toFixed(2)},${vy.toFixed(2)} `;
-          d += `C${cp1x.toFixed(2)},${cp1y.toFixed(2)} ${cp2x.toFixed(2)},${cp2y.toFixed(2)} ${px.toFixed(2)},${py.toFixed(2)} `;
-          d += `C${cp2x.toFixed(2)},${cp2y.toFixed(2)} ${cp3x.toFixed(2)},${cp3y.toFixed(2)} ${nx.toFixed(2)},${ny.toFixed(2)} `;
+        // Build smooth path using quadratic bezier between each point
+        let d = `M${points[0][0].toFixed(2)},${points[0][1].toFixed(2)}`;
+        for (let i = 0; i < points.length; i++) {
+          const curr = points[i];
+          const next = points[(i + 1) % points.length];
+          const mx = (curr[0] + next[0]) / 2;
+          const my = (curr[1] + next[1]) / 2;
+          d += ` Q${curr[0].toFixed(2)},${curr[1].toFixed(2)} ${mx.toFixed(2)},${my.toFixed(2)}`;
         }
         return d + 'Z';
       }
 
       let angle    = 0;
-      const NORMAL = 0.00003;   // very slow — ~350s per rotation
-      const FAST   = 0.00016;   // hover boost — ~25% in 1s
+      const NORMAL = 0.00003;
+      const FAST   = 0.00016;
       let isHover  = false;
       let boostEnd = 0;
       let last     = null;
