@@ -847,7 +847,7 @@
       <div class="contact-row">
         <div class="contact-block">
           <span class="contact-block-label">Email</span>
-          <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="96fae3fdf7e5fde3e5b8fbf9e2fff9f8d6f1fbf7fffab8f5f9fb">[email&#160;protected]</span></a>
+          <a id="contact-email-link" class="contact-email">lukaskus.motion@gmail.com</a>
         </div>
         <div class="contact-block">
           <span class="contact-block-label">Find me on</span>
@@ -872,7 +872,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     /* ── HERO VIDEO FORCE PLAY ── */
     const heroVid = document.getElementById('hero-video');
     if (heroVid) {
@@ -970,4 +970,11 @@
       const h     = heroVideo.offsetHeight;
       const p     = Math.min(Math.max(0, -rect.top) / h, 1);
       heroVideo.style.transform = `scale(${1 - p * 0.3})`;
-      heroVideo.style.opacity   = Str
+      heroVideo.style.opacity   = String(1 - p);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
