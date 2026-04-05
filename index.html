@@ -7,9 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -343,60 +340,56 @@
 
     .view-all:hover { color: var(--gray-mid); border-color: var(--gray-mid); }
 
-    /* Swiper */
-    .work-swiper-wrap { position: relative; padding: 3rem 0; }
-
-    .work-swiper {
-      width: 100%;
-      padding-left: max(3rem, calc((100vw - 1400px) / 2 + 3rem));
-      overflow: visible;
+    /* ── WORK STACK ── */
+    .work-stack {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 3rem 0;
     }
 
-    .swiper-slide { opacity: 0.15; transition: opacity 0.5s ease; }
-    .swiper-slide-active { opacity: 1 !important; }
+    .work-item {
+      border-bottom: 1px solid var(--gray-light);
+      padding-bottom: 3rem;
+    }
 
-    .work-card { background: var(--off-white); overflow: hidden; position: relative; border-radius: 24px; }
-    .work-card video { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .work-card-bar {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 0.85rem 1.5rem;
+    .work-item-meta {
+      padding: 1.5rem 0;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      background: rgba(10,10,10,0.52);
-      backdrop-filter: blur(6px);
-      border-top: 1px solid rgba(255,255,255,0.08);
+      align-items: baseline;
+      gap: 2rem;
+      border-bottom: 1px solid var(--gray-light);
+      margin-bottom: 1.5rem;
     }
 
-    .work-card-title {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #fff;
+    .work-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
     }
 
-    .work-card-cat {
-      font-size: 10px;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+    .work-item-cat {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      font-family: var(--mono);
     }
 
-    .swiper-nav-btn {
-      position: absolute;
-      right: 3rem; top: 50%;
-      transform: translateY(-50%);
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      border: 1px solid var(--gray-light);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 50;
-      background: var(--white);
-      transition: border-color 0.2s, background 0.2s;
+    .work-item-video {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 24px;
+      background: var(--off-white);
     }
 
-    .swiper-nav-btn:hover { border-color: var(--black); background: var(--black); }
-    .swiper-nav-btn:hover svg { stroke: var(--white); }
-    .swiper-nav-btn svg { stroke: var(--black); transition: stroke 0.2s; }
+    .work-item-video video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     /* ── PLAY TEASER ── */
     #play { border-bottom: 1px solid var(--gray-light); }
@@ -661,7 +654,7 @@
       .about-right { padding: 3rem 1.5rem; }
 
       .work-header { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .work-swiper { padding-left: 1.5rem; }
+      .work-stack { padding: 0 1.5rem; }
 
       .play-teaser { grid-template-columns: 1fr; }
       .play-teaser-left { border-right: none; border-bottom: 1px solid var(--gray-light); padding: 3rem 1.5rem; }
@@ -770,58 +763,47 @@
       <h2 class="work-heading" data-split>Selected Work</h2>
       <div>
         <span class="section-label" style="margin-bottom:0.5rem;">2022 – 2025</span>
-        <a href="#work" class="view-all">View All Cases ↗</a>
       </div>
     </div>
 
-    <div class="work-swiper-wrap">
-      <div class="swiper work-swiper">
-        <div class="swiper-wrapper">
+    <div class="work-stack">
 
-          <div class="swiper-slide" style="width:75%;">
-            <div class="work-card" style="aspect-ratio:16/9;">
-              <video muted loop playsinline>
-                <source src="videos/boards.mp4" type="video/mp4" />
-              </video>
-              <div class="work-card-bar">
-                <span class="work-card-title">Boards</span>
-                <span class="work-card-cat">Motion — UI</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide" style="width:75%;">
-            <div class="work-card" style="aspect-ratio:16/9;">
-              <video muted loop playsinline>
-                <source src="playground/creative-studio.mp4" type="video/mp4" />
-              </video>
-              <div class="work-card-bar">
-                <span class="work-card-title">Creative Studio</span>
-                <span class="work-card-cat">Motion — Brand</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide" style="width:75%;">
-            <div class="work-card" style="aspect-ratio:16/9;">
-              <video muted loop playsinline>
-                <source src="videos/reclaim.mp4" type="video/mp4" />
-              </video>
-              <div class="work-card-bar">
-                <span class="work-card-title">Reclaim</span>
-                <span class="work-card-cat">Motion — Brand</span>
-              </div>
-            </div>
-          </div>
-
+      <div class="work-item reveal">
+        <div class="work-item-meta">
+          <span class="work-item-title">Boards</span>
+          <span class="work-item-cat">Motion — UI</span>
+        </div>
+        <div class="work-item-video">
+          <video autoplay muted loop playsinline>
+            <source src="videos/boards.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
 
-      <button class="swiper-nav-btn" id="workNext" aria-label="Next">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </button>
+      <div class="work-item reveal">
+        <div class="work-item-meta">
+          <span class="work-item-title">Creative Studio</span>
+          <span class="work-item-cat">Motion — Brand</span>
+        </div>
+        <div class="work-item-video">
+          <video autoplay muted loop playsinline>
+            <source src="playground/creative-studio.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div class="work-item reveal">
+        <div class="work-item-meta">
+          <span class="work-item-title">Reclaim</span>
+          <span class="work-item-cat">Motion — Brand</span>
+        </div>
+        <div class="work-item-video">
+          <video autoplay muted loop playsinline>
+            <source src="videos/reclaim.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
     </div>
   </section>
 
