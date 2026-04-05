@@ -54,14 +54,14 @@
       align-items: flex-start;
     }
 
-.nav-logo-name {
-  font-family: var(--display);
-  font-size: 1.3rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  display: block;
-  line-height: 1;
-}
+    .nav-logo-name {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      line-height: 1;
+    }
 
     .nav-logo-sub {
       font-size: 8px;
@@ -281,6 +281,54 @@
       letter-spacing: 0.02em;
     }
 
+    /* ── FLOWER PHOTO ── */
+    .flower-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+    }
+
+    .flower-mask-svg { display: none; }
+
+    .flower-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      /* JS will animate this rotation */
+    }
+
+    .flower-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      display: block;
+      /* clip to flower shape using CSS clip-path — 8 petal flower */
+      clip-path: polygon(
+        50% 0%, 63% 13%, 79% 6%, 79% 22%,
+        94% 22%, 87% 37%, 100% 50%,
+        87% 63%, 94% 78%, 79% 78%,
+        79% 94%, 63% 87%, 50% 100%,
+        37% 87%, 21% 94%, 21% 78%,
+        6% 78%, 13% 63%, 0% 50%,
+        13% 37%, 6% 22%, 21% 22%,
+        21% 6%, 37% 13%
+      );
+    }
+
+    .flower-outline {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .petal-path { display: none; } /* outline handled by clip-path shape */
+
     .about-body {
       font-size: 15px;
       line-height: 1.85;
@@ -327,20 +375,10 @@
     </div>
   </header>
 
-
-    #work {
-  max-width: 1400px;
-  margin: 0 auto;
+    
+   .work-header {
+  padding: 0;
 }
-    .work-header {
-  padding: 3.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
 
     .work-heading {
       font-family: var(--display);
@@ -642,8 +680,8 @@
 
     .split-letter-inner {
       display: inline-block;
-      transform: translateY(110%);
-      transition: transform 0.9s cubic-bezier(0.45, 0.00, 0.25, 1);
+      transform: translateY(105%);
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
       transition-delay: var(--delay, 0s);
       will-change: transform;
     }
@@ -763,7 +801,33 @@
   <section id="about">
     <div class="about-left reveal">
       <span class="section-label">About</span>
-      <h2 class="about-heading" data-split>Rooted in Motion.</h2>
+      <div class="flower-wrap" id="flowerWrap">
+        <svg class="flower-mask-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="flowerClip" clipPathUnits="objectBoundingBox">
+              <path d="
+                M0.5,0.5
+                m0,-0.38
+                a0.12,0.2 0 0,1 0.12,0.12
+                a0.2,0.12 0 0,1 0.26,0
+                a0.12,0.2 0 0,1 0.12,0.12
+                a0.2,0.12 90 0,1 0,0.26
+                a0.12,0.2 0 0,1 -0.12,0.12
+                a0.2,0.12 0 0,1 -0.26,0
+                a0.12,0.2 0 0,1 -0.12,-0.12
+                a0.2,0.12 90 0,1 0,-0.26
+                Z
+              "/>
+            </clipPath>
+          </defs>
+        </svg>
+        <div class="flower-img-wrap">
+          <img src="lukaskus-photo.jpg" alt="Lukas Kus" class="flower-img" />
+          <svg class="flower-outline" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path class="petal-path" d="M100,100 m0,-60 a18,30 0 0,1 18,18 a30,18 0 0,1 42,0 a18,30 0 0,1 18,18 a30,18 90 0,1 0,42 a18,30 0 0,1 -18,18 a30,18 0 0,1 -42,0 a18,30 0 0,1 -18,-18 a30,18 90 0,1 0,-42 Z" fill="none" stroke="var(--black)" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
     </div>
     <div class="about-right reveal">
       <span class="section-label">01 — Background</span>
@@ -857,7 +921,7 @@
       <div class="contact-row">
         <div class="contact-block">
           <span class="contact-block-label">Email</span>
-          <a id="contact-email-link" class="contact-email">lukaskus.motion@gmail.com</a>
+          <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="09657c62687a627c7a2764667d606667496e64686065276a6664">[email&#160;protected]</span></a>
         </div>
         <div class="contact-block">
           <span class="contact-block-label">Find me on</span>
@@ -882,7 +946,7 @@
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── HERO VIDEO FORCE PLAY ── */
     const heroVid = document.getElementById('hero-video');
     if (heroVid) {
@@ -985,6 +1049,49 @@
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    /* ── FLOWER ROTATION ── */
+    (function() {
+      const wrap = document.getElementById('flowerWrap');
+      const img  = wrap ? wrap.querySelector('.flower-img-wrap') : null;
+      if (!img) return;
+
+      let angle    = 0;
+      const NORMAL = 0.04;   // deg/ms — full turn ~25s
+      const FAST   = 0.22;   // deg/ms — 90deg in ~1s (25% rotation)
+      let speed    = NORMAL;
+      let isHover  = false;
+      let boostEnd = 0;
+      let last     = null;
+
+      function tick(ts) {
+        if (last === null) last = ts;
+        const dt = ts - last;
+        last = ts;
+
+        if (isHover && ts < boostEnd) {
+          speed = FAST;
+        } else {
+          speed = NORMAL;
+        }
+
+        angle = (angle + speed * dt) % 360;
+        img.style.transform = `rotate(${angle}deg)`;
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+
+      wrap.addEventListener('mouseenter', () => {
+        isHover  = true;
+        boostEnd = performance.now() + 1000;
+      });
+
+      wrap.addEventListener('mouseleave', () => {
+        isHover = false;
+      });
+    })();
+
   </script>
 </body>
 </html>
