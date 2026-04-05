@@ -23,102 +23,6 @@
       --mono: 'Syne Mono', monospace;
     }
 
-..page-title {
-  font-family: var(--display);
-  font-size: clamp(4rem, 9vw, 9rem);
-  line-height: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  overflow: hidden;
-}
-
-.play-lettering {
-  display: flex;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  align-items: flex-end;
-  gap: 0.02em;
-}
-
-.play-char-mask {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 0.9;
-}
-
-.play-char {
-  display: inline-block;
-  transform: translateY(110%);
-  opacity: 0;
-  will-change: transform;
-  animation: playCharIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* initial stagger */
-.play-char-mask:nth-child(1) .play-char  { animation-delay: 0.05s; }
-.play-char-mask:nth-child(2) .play-char  { animation-delay: 0.10s; }
-.play-char-mask:nth-child(3) .play-char  { animation-delay: 0.15s; }
-.play-char-mask:nth-child(4) .play-char  { animation-delay: 0.20s; }
-.play-char-mask:nth-child(5) .play-char  { animation-delay: 0.25s; }
-.play-char-mask:nth-child(6) .play-char  { animation-delay: 0.30s; }
-.play-char-mask:nth-child(7) .play-char  { animation-delay: 0.35s; }
-.play-char-mask:nth-child(8) .play-char  { animation-delay: 0.40s; }
-.play-char-mask:nth-child(9) .play-char  { animation-delay: 0.45s; }
-.play-char-mask:nth-child(10) .play-char { animation-delay: 0.50s; }
-
-/* hover replay */
-.play-lettering:hover .play-char {
-  animation: playCharReplay 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.play-lettering:hover .play-char-mask:nth-child(1) .play-char  { animation-delay: 0.00s; }
-.play-lettering:hover .play-char-mask:nth-child(2) .play-char  { animation-delay: 0.04s; }
-.play-lettering:hover .play-char-mask:nth-child(3) .play-char  { animation-delay: 0.08s; }
-.play-lettering:hover .play-char-mask:nth-child(4) .play-char  { animation-delay: 0.12s; }
-.play-lettering:hover .play-char-mask:nth-child(5) .play-char  { animation-delay: 0.16s; }
-.play-lettering:hover .play-char-mask:nth-child(6) .play-char  { animation-delay: 0.20s; }
-.play-lettering:hover .play-char-mask:nth-child(7) .play-char  { animation-delay: 0.24s; }
-.play-lettering:hover .play-char-mask:nth-child(8) .play-char  { animation-delay: 0.28s; }
-.play-lettering:hover .play-char-mask:nth-child(9) .play-char  { animation-delay: 0.32s; }
-.play-lettering:hover .play-char-mask:nth-child(10) .play-char { animation-delay: 0.36s; }
-
-@keyframes playCharIn {
-  from {
-    transform: translateY(110%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-}
-
-@keyframes playCharReplay {
-  0% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-  38% {
-    transform: translateY(110%);
-    opacity: 1;
-  }
-  39% {
-    transform: translateY(-110%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-}
-
-/* aby se to neořezávalo */
-.page-title {
-  overflow: hidden;
-}
-
-
-    
     html { scroll-behavior: smooth; }
 
     body {
@@ -194,15 +98,15 @@
     .nav-back:hover svg { transform: translateX(-3px); }
 
     /* ── PAGE HEADER ── */
-  .page-header {
-  margin-top: 70px;
-  padding: 5rem 3rem 4rem;
-  border-bottom: 1px solid var(--gray-light);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
-}
+    .page-header {
+      margin-top: 70px;
+      padding: 5rem 3rem 4rem;
+      border-bottom: 1px solid var(--gray-light);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
 
     .section-label {
       font-size: 11px;
@@ -222,20 +126,29 @@
       letter-spacing: 0.01em;
     }
 
-    /* word split */
+    /* letter mask reveal — ExoApe style */
     .split-word {
       display: inline-block;
-      overflow: hidden;
-      vertical-align: bottom;
-      margin-right: 0.18em;
-      line-height: 1;
+      white-space: nowrap;
+      margin-right: 0.25em;
     }
-    .split-word-inner {
+    .split-letter {
       display: inline-block;
-      transform: translateY(110%);
-      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      padding-bottom: 0.1em;
+      margin-bottom: -0.1em;
+      vertical-align: bottom;
     }
-    .split-word.in .split-word-inner { transform: translateY(0); }
+    .split-letter-inner {
+      display: inline-block;
+      transform: translateY(105%);
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--delay, 0s);
+      will-change: transform;
+    }
+    .split-word.in .split-letter-inner {
+      transform: translateY(0);
+    }
 
     .page-desc {
       font-size: 15px;
@@ -426,25 +339,12 @@
   <header class="page-header">
     <div>
       <span class="section-label">Lukas Kus — Playground</span>
-
-    <h1 class="page-title play-lettering" aria-label="Playground">
-  <span class="play-char-mask"><span class="play-char">P</span></span>
-  <span class="play-char-mask"><span class="play-char">L</span></span>
-  <span class="play-char-mask"><span class="play-char">A</span></span>
-  <span class="play-char-mask"><span class="play-char">Y</span></span>
-  <span class="play-char-mask"><span class="play-char">G</span></span>
-  <span class="play-char-mask"><span class="play-char">R</span></span>
-  <span class="play-char-mask"><span class="play-char">O</span></span>
-  <span class="play-char-mask"><span class="play-char">U</span></span>
-  <span class="play-char-mask"><span class="play-char">N</span></span>
-  <span class="play-char-mask"><span class="play-char">D</span></span>
-</h1>
+      <h1 class="page-title" data-split>Play</h1>
     </div>
-
     <p class="page-desc">
       Exploration is vital to my creative process.
-      Evolving ideas, testing techniques, and crafting visuals.
-      Minimal briefs, all fun.
+      Evolving ideas, testing techniques, and crafting visuals —
+      no briefs, no constraints.
     </p>
   </header>
 
@@ -584,25 +484,37 @@
     </div>
   </footer>
 
-  <script>
-    /* Word split */
-    function splitWords(el) {
-      const words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map(w =>
-        `<span class="split-word"><span class="split-word-inner">${w}</span></span>`
-      ).join(' ');
-    }
-    document.querySelectorAll('[data-split]').forEach(splitWords);
 
+  <script>
+    /* Letter split — ExoApe style */
+    function splitLetters(el) {
+      const raw = el.innerHTML
+        .replace(/<br\s*\/?>/gi, ' |BR| ')
+        .replace(/<[^>]+>/g, '');
+
+      let i = 0;
+      const words = raw.split(/\s+/).filter(Boolean).map(word => {
+        if (word === '|BR|') return '<br />';
+        const letters = Array.from(word).map(char => {
+          const delay = (i++ * 0.025).toFixed(3) + 's';
+          const esc = char === '<' ? '&lt;' : char === '>' ? '&gt;' : char;
+          return `<span class="split-letter" style="--delay:${delay}"><span class="split-letter-inner">${esc}</span></span>`;
+        }).join('');
+        return `<span class="split-word">${letters}</span>`;
+      });
+      el.innerHTML = words.join(' ');
+    }
+
+    document.querySelectorAll('[data-split]').forEach(splitLetters);
+
+    /* Scroll reveal */
     const wordObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        entry.target.querySelectorAll('.split-word').forEach((w, i) => {
-          setTimeout(() => w.classList.add('in'), i * 80);
-        });
+        entry.target.querySelectorAll('.split-word').forEach(w => w.classList.add('in'));
         wordObs.unobserve(entry.target);
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('[data-split]').forEach(el => wordObs.observe(el));
 
     /* Feed item reveal */
