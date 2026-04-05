@@ -319,14 +319,13 @@
     }
 
     /* ── WORK ── */
-    #work { border-bottom: 1px solid var(--gray-light); }
+    #work {}
 
     .work-header {
       padding: 3.5rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--gray-light);
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -359,7 +358,6 @@
     }
 
     .work-item {
-      border-bottom: 1px solid var(--gray-light);
       padding-bottom: 3rem;
     }
 
@@ -369,7 +367,6 @@
       justify-content: space-between;
       align-items: baseline;
       gap: 2rem;
-      border-bottom: 1px solid var(--gray-light);
       margin-bottom: 1.5rem;
     }
 
@@ -468,16 +465,22 @@
 
     .play-preview-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      grid-template-columns: 1.4fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
       width: 100%;
     }
 
     .play-preview-item {
-      aspect-ratio: 1;
+      aspect-ratio: 16/9;
       overflow: hidden;
       background: var(--gray-light);
       border-radius: 16px;
+    }
+
+    .play-preview-item.wide {
+      grid-row: span 2;
+      aspect-ratio: unset;
     }
 
     .play-preview-item video {
@@ -825,10 +828,9 @@
       </div>
       <div class="play-teaser-right">
         <div class="play-preview-grid">
-          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="showreel-preview.mp4" type="video/mp4"/></video></div>
-          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="videos/boards.mp4" type="video/mp4"/></video></div>
-          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/rr.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item wide"><video autoplay muted loop playsinline><source src="playground/boards.mp4" type="video/mp4"/></video></div>
           <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/3D-tube.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/Wakun-1.mp4" type="video/mp4"/></video></div>
         </div>
       </div>
     </a>
