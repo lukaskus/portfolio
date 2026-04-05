@@ -411,6 +411,7 @@
       transition: background 0.3s;
       max-width: 1400px;
       margin: 0 auto;
+      min-height: 400px;
     }
 
     .play-teaser:hover { background: var(--off-white); }
@@ -459,7 +460,7 @@
     .play-teaser-right {
       padding: 2rem;
       display: flex;
-      align-items: center;
+      align-items: stretch;
       align-self: stretch;
     }
 
@@ -469,18 +470,18 @@
       grid-template-rows: 1fr 1fr;
       gap: 10px;
       width: 100%;
+      height: 100%;
     }
 
     .play-preview-item {
-      aspect-ratio: 16/9;
       overflow: hidden;
       background: var(--gray-light);
       border-radius: 16px;
+      aspect-ratio: unset;
     }
 
     .play-preview-item.wide {
       grid-row: span 2;
-      aspect-ratio: unset;
     }
 
     .play-preview-item video {
@@ -799,6 +800,18 @@
         </div>
       </div>
 
+<div class="work-item">
+        <div class="work-item-meta">
+          <span class="work-item-title">Creative Studio</span>
+          <span class="work-item-cat">Motion — SAAS product</span>
+        </div>
+        <div class="work-item-video">
+          <video autoplay muted loop playsinline>
+            <source src="playground/boards.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+      
       <div class="work-item">
         <div class="work-item-meta">
           <span class="work-item-title">Reclaim</span>
@@ -811,21 +824,6 @@
         </div>
       </div>
 
-      
- <div class="work-item">
-        <div class="work-item-meta">
-          <span class="work-item-title">Reclaim</span>
-          <span class="work-item-cat">Motion — Brand</span>
-        </div>
-        <div class="work-item-video">
-          <video autoplay muted loop playsinline>
-            <source src="showreel-preview.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
-
-
-      
     </div>
   </section>
 
@@ -859,7 +857,7 @@
       <div class="contact-row">
         <div class="contact-block">
           <span class="contact-block-label">Email</span>
-          <a id="contact-email-link" class="contact-email">lukaskus.motion@gmail.com</a>
+          <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="96fae3fdf7e5fde3e5b8fbf9e2fff9f8d6f1fbf7fffab8f5f9fb">[email&#160;protected]</span></a>
         </div>
         <div class="contact-block">
           <span class="contact-block-label">Find me on</span>
@@ -884,7 +882,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── HERO VIDEO FORCE PLAY ── */
     const heroVid = document.getElementById('hero-video');
     if (heroVid) {
@@ -982,12 +980,4 @@
       const h     = heroVideo.offsetHeight;
       const p     = Math.min(Math.max(0, -rect.top) / h, 1);
       heroVideo.style.transform = `scale(${1 - p * 0.3})`;
-      heroVideo.style.opacity   = String(1 - p);
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    /* ── SWIPER ── */
-    const workSwiper = new Swiper('.work-swiper', {
-      slidesPerView:
+      heroVideo.style.opacity   = Str
