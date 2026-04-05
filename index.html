@@ -285,14 +285,15 @@
     .flower-wrap {
       position: relative;
       width: 100%;
-      max-width: 280px;
+      max-width: 260px;
       margin-top: 1.5rem;
       cursor: pointer;
+      aspect-ratio: 1;
     }
 
     .flower-img-wrap {
       width: 100%;
-      aspect-ratio: 1;
+      height: 100%;
       position: relative;
     }
 
@@ -390,36 +391,19 @@
     }
 
     /* ── WORK ── */
-   #work {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-    .work-header {
-  padding: 3.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-    .work-heading {
-      font-family: var(--display);
-      font-size: clamp(2.5rem, 4.5vw, 4.5rem);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1;
+    #work {
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-  <header class="page-header">
-    <div>
-     <h2 data-split>Selected Work</h2>
-    </div>
-  </header>
-
-    
-   .work-header {
-  padding: 0;
-}
+    .work-header {
+      padding: 3.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
 
     .work-heading {
       font-family: var(--display);
@@ -843,29 +827,16 @@
     <div class="about-left reveal">
       <span class="section-label">About</span>
       <div class="flower-wrap" id="flowerWrap">
-        <svg class="flower-mask-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <clipPath id="flowerClip" clipPathUnits="objectBoundingBox">
-              <path d="
-                M0.5,0.5
-                m0,-0.38
-                a0.12,0.2 0 0,1 0.12,0.12
-                a0.2,0.12 0 0,1 0.26,0
-                a0.12,0.2 0 0,1 0.12,0.12
-                a0.2,0.12 90 0,1 0,0.26
-                a0.12,0.2 0 0,1 -0.12,0.12
-                a0.2,0.12 0 0,1 -0.26,0
-                a0.12,0.2 0 0,1 -0.12,-0.12
-                a0.2,0.12 90 0,1 0,-0.26
-                Z
-              "/>
-            </clipPath>
-          </defs>
-        </svg>
         <div class="flower-img-wrap">
-          <img src="lukaskus-photo.jpg" alt="Lukas Kus" class="flower-img" />
-          <svg class="flower-outline" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path class="petal-path" d="M100,100 m0,-60 a18,30 0 0,1 18,18 a30,18 0 0,1 42,0 a18,30 0 0,1 18,18 a30,18 90 0,1 0,42 a18,30 0 0,1 -18,18 a30,18 0 0,1 -42,0 a18,30 0 0,1 -18,-18 a30,18 90 0,1 0,-42 Z" fill="none" stroke="var(--black)" stroke-width="1.5"/>
+          <svg class="flower-svg" id="flowerSVG" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <mask id="petalMask">
+                <rect width="200" height="200" fill="black"/>
+                <path id="petalPath" fill="white"/>
+              </mask>
+            </defs>
+            <image href="lukaskus-photo.jpg" width="200" height="200"
+                   preserveAspectRatio="xMidYMin slice" mask="url(#petalMask)"/>
           </svg>
         </div>
       </div>
@@ -1091,31 +1062,56 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* ── FLOWER ROTATION — mask rotates, photo stays ── */
+    /* ── FLOWER ROTATION — smooth rounded petals, mask rotates, photo static ── */
     (function() {
       const path = document.getElementById('petalPath');
       const wrap = document.getElementById('flowerWrap');
       if (!path || !wrap) return;
 
-      const PETALS  = 16;
-      const CX = 100, CY = 100;
-      const R_OUTER = 90, R_INNER = 72;
-
-      function buildPath(offset) {
+      // Build a smooth flower using cubic bezier curves
+      // 16 petals, smooth and rounded like a scallop
+      function buildPath(angleOffset) {
+        const petals  = 16;
+        const cx = 100, cy = 100;
+        const rOuter  = 88;
+        const rInner  = 66;
+        const step    = (Math.PI * 2) / petals;
         let d = '';
-        for (let i = 0; i < PETALS * 2; i++) {
-          const ang = (Math.PI / PETALS) * i + offset;
-          const r   = i % 2 === 0 ? R_OUTER : R_INNER;
-          const x   = CX + r * Math.cos(ang);
-          const y   = CY + r * Math.sin(ang);
-          d += (i === 0 ? 'M' : 'L') + x.toFixed(2) + ',' + y.toFixed(2) + ' ';
+
+        for (let i = 0; i < petals; i++) {
+          const a0 = angleOffset + i * step - step * 0.5;
+          const a1 = angleOffset + i * step;
+          const a2 = angleOffset + i * step + step * 0.5;
+
+          // valley point
+          const vx = cx + rInner * Math.cos(a0);
+          const vy = cy + rInner * Math.sin(a0);
+          // peak point
+          const px = cx + rOuter * Math.cos(a1);
+          const py = cy + rOuter * Math.sin(a1);
+          // next valley
+          const nx = cx + rInner * Math.cos(a2);
+          const ny = cy + rInner * Math.sin(a2);
+
+          // control points for smooth bezier
+          const ctrl = 0.4;
+          const cp1x = vx + (px - vx) * ctrl + (cy - vy) * ctrl * 0.3;
+          const cp1y = vy + (py - vy) * ctrl - (cx - vx) * ctrl * 0.3;
+          const cp2x = px + (nx - px) * ctrl - (cy - py) * ctrl * 0.3;
+          const cp2y = py + (ny - py) * ctrl + (cx - px) * ctrl * 0.3;
+          const cp3x = nx - (px - nx) * ctrl * 0.5;
+          const cp3y = ny - (py - ny) * ctrl * 0.5;
+
+          if (i === 0) d += `M${vx.toFixed(2)},${vy.toFixed(2)} `;
+          d += `C${cp1x.toFixed(2)},${cp1y.toFixed(2)} ${cp2x.toFixed(2)},${cp2y.toFixed(2)} ${px.toFixed(2)},${py.toFixed(2)} `;
+          d += `C${cp2x.toFixed(2)},${cp2y.toFixed(2)} ${cp3x.toFixed(2)},${cp3y.toFixed(2)} ${nx.toFixed(2)},${ny.toFixed(2)} `;
         }
         return d + 'Z';
       }
 
-      let angle    = 0;          // radians
-      const NORMAL = 0.00004;    // rad/ms — ~250s per rotation
-      const FAST   = 0.00022;    // rad/ms — ~25% rotation in 1s
+      let angle    = 0;
+      const NORMAL = 0.00003;   // very slow — ~350s per rotation
+      const FAST   = 0.00016;   // hover boost — ~25% in 1s
       let isHover  = false;
       let boostEnd = 0;
       let last     = null;
@@ -1130,7 +1126,6 @@
         requestAnimationFrame(tick);
       }
 
-      // draw initial frame immediately
       path.setAttribute('d', buildPath(0));
       requestAnimationFrame(tick);
 
