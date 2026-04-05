@@ -281,6 +281,29 @@
       letter-spacing: 0.02em;
     }
 
+    /* ── FLOWER ── */
+    .flower-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+    }
+
+    .flower-img-wrap {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+    }
+
+    .flower-img { display: none; }
+
+    .flower-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
     /* ── FLOWER PHOTO ── */
     .flower-wrap {
       position: relative;
@@ -1050,16 +1073,31 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* ── FLOWER ROTATION ── */
+    /* ── FLOWER ROTATION — mask rotates, photo stays ── */
     (function() {
+      const path = document.getElementById('petalPath');
       const wrap = document.getElementById('flowerWrap');
-      const img  = wrap ? wrap.querySelector('.flower-img-wrap') : null;
-      if (!img) return;
+      if (!path || !wrap) return;
 
-      let angle    = 0;
-      const NORMAL = 0.04;   // deg/ms — full turn ~25s
-      const FAST   = 0.22;   // deg/ms — 90deg in ~1s (25% rotation)
-      let speed    = NORMAL;
+      const PETALS  = 16;
+      const CX = 100, CY = 100;
+      const R_OUTER = 90, R_INNER = 72;
+
+      function buildPath(offset) {
+        let d = '';
+        for (let i = 0; i < PETALS * 2; i++) {
+          const ang = (Math.PI / PETALS) * i + offset;
+          const r   = i % 2 === 0 ? R_OUTER : R_INNER;
+          const x   = CX + r * Math.cos(ang);
+          const y   = CY + r * Math.sin(ang);
+          d += (i === 0 ? 'M' : 'L') + x.toFixed(2) + ',' + y.toFixed(2) + ' ';
+        }
+        return d + 'Z';
+      }
+
+      let angle    = 0;          // radians
+      const NORMAL = 0.00004;    // rad/ms — ~250s per rotation
+      const FAST   = 0.00022;    // rad/ms — ~25% rotation in 1s
       let isHover  = false;
       let boostEnd = 0;
       let last     = null;
@@ -1068,28 +1106,21 @@
         if (last === null) last = ts;
         const dt = ts - last;
         last = ts;
-
-        if (isHover && ts < boostEnd) {
-          speed = FAST;
-        } else {
-          speed = NORMAL;
-        }
-
-        angle = (angle + speed * dt) % 360;
-        img.style.transform = `rotate(${angle}deg)`;
+        const speed = (isHover && ts < boostEnd) ? FAST : NORMAL;
+        angle += speed * dt;
+        path.setAttribute('d', buildPath(angle));
         requestAnimationFrame(tick);
       }
 
+      // draw initial frame immediately
+      path.setAttribute('d', buildPath(0));
       requestAnimationFrame(tick);
 
       wrap.addEventListener('mouseenter', () => {
         isHover  = true;
         boostEnd = performance.now() + 1000;
       });
-
-      wrap.addEventListener('mouseleave', () => {
-        isHover = false;
-      });
+      wrap.addEventListener('mouseleave', () => { isHover = false; });
     })();
 
   </script>
