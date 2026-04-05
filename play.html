@@ -168,6 +168,7 @@
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
+      padding-bottom: 2rem;
     }
 
     .feed-item.visible {
@@ -217,35 +218,34 @@
       aspect-ratio: 16 / 9;
       overflow: hidden;
       background: var(--off-white);
+      border-radius: 60px;
     }
 
     /* Two-column: wide left, narrow right */
     .layout-two-col {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 2px;
-      background: var(--gray-light);
+      gap: 16px;
     }
 
     /* Two equal columns */
     .layout-two-eq {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--gray-light);
+      gap: 16px;
     }
 
     /* Three equal columns */
     .layout-three-col {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 2px;
-      background: var(--gray-light);
+      gap: 16px;
     }
 
     .layout-col {
       overflow: hidden;
       background: var(--off-white);
+      border-radius: 24px;
     }
 
     .layout-col video {
@@ -351,79 +351,33 @@
   <!-- ── FEED ── -->
   <div class="feed">
 
-    <!-- 1. Stoix — 16:9 full width -->
+    <!-- 1. Showreel — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Stoix</span>
-        <span class="feed-item-tag">Motion — Brand</span>
+        <span class="feed-item-title">Showreel</span>
+        <span class="feed-item-tag">Motion — Direction</span>
       </div>
       <div class="layout-full ar-16-9">
         <video autoplay muted loop playsinline>
-          <source src="playground/Stoix.mp4" type="video/mp4" />
+          <source src="videos/showreel-preview.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-    <!-- 2. CNN — 16:9 full width -->
+    <!-- 2. Boards — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">CNN</span>
-        <span class="feed-item-tag">Motion — Editorial</span>
+        <span class="feed-item-title">Boards</span>
+        <span class="feed-item-tag">Motion — UI</span>
       </div>
       <div class="layout-full ar-16-9">
         <video autoplay muted loop playsinline>
-          <source src="playground/CNN.mp4" type="video/mp4" />
+          <source src="videos/boards.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-    <!-- 3. Botte Secrète — 16:9 full width -->
-    <div class="feed-item">
-      <div class="feed-item-meta">
-        <span class="feed-item-title">Botte Secrète</span>
-        <span class="feed-item-tag">Motion — Product</span>
-      </div>
-      <div class="layout-full ar-16-9">
-        <video autoplay muted loop playsinline>
-          <source src="playground/botte-secrete-1.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
-
-    <!-- 4. 3D-2 + Vanguard — two equal 16:9 cols -->
-    <div class="feed-item">
-      <div class="feed-item-meta">
-        <span class="feed-item-title">3D Exploration</span>
-        <span class="feed-item-tag">Motion — 3D</span>
-      </div>
-      <div class="layout-two-eq">
-        <div class="layout-col ar-16-9">
-          <video autoplay muted loop playsinline>
-            <source src="playground/3D-2.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="layout-col ar-16-9">
-          <video autoplay muted loop playsinline>
-            <source src="playground/vanguard.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. 3D Tube — 16:9 full width -->
-    <div class="feed-item">
-      <div class="feed-item-meta">
-        <span class="feed-item-title">3D Tube</span>
-        <span class="feed-item-tag">Motion — 3D</span>
-      </div>
-      <div class="layout-full ar-16-9">
-        <video autoplay muted loop playsinline>
-          <source src="playground/3D-tube.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
-
-    <!-- 6. Rr — 16:9 full width -->
+    <!-- 3. Rr — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Rr</span>
@@ -436,36 +390,95 @@
       </div>
     </div>
 
-    <!-- 7. Sportlito — 1:1 full width -->
+    <!-- 4. 3D Tube + 3D-2 — side by side 16:9 -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">3D</span>
+        <span class="feed-item-tag">Motion — 3D</span>
+      </div>
+      <div class="layout-two-eq">
+        <div class="layout-col ar-16-9">
+          <video autoplay muted loop playsinline>
+            <source src="playground/3D-tube.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="layout-col ar-16-9">
+          <video autoplay muted loop playsinline>
+            <source src="playground/3D-2.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Sportlito 1 + 2 — side by side 1:1 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Sportlito</span>
         <span class="feed-item-tag">Motion — Social</span>
       </div>
-      <div class="layout-full ar-1-1" style="max-width:600px;">
+      <div class="layout-two-eq">
+        <div class="layout-col ar-1-1">
+          <video autoplay muted loop playsinline>
+            <source src="playground/Sportlito-01.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="layout-col ar-1-1">
+          <video autoplay muted loop playsinline>
+            <source src="playground/sportlito-2.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Yoga — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Yoga</span>
+        <span class="feed-item-tag">Motion — Brand</span>
+      </div>
+      <div class="layout-full ar-16-9">
         <video autoplay muted loop playsinline>
-          <source src="playground/Sportlito-01.mp4" type="video/mp4" />
+          <source src="videos/yoga.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-    <!-- 8. Platform-01 + Platform-02 — two 9:16 cols -->
+    <!-- 7. Reclaim — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Platform</span>
+        <span class="feed-item-title">Reclaim</span>
+        <span class="feed-item-tag">Motion — Brand</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="videos/reclaim.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <!-- 8. Platform 01 — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Platform 01</span>
         <span class="feed-item-tag">Motion — UI</span>
       </div>
-      <div class="layout-two-eq">
-        <div class="layout-col ar-9-16">
-          <video autoplay muted loop playsinline>
-            <source src="playground/platform-01.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="layout-col ar-9-16">
-          <video autoplay muted loop playsinline>
-            <source src="playground/platform-02.mp4" type="video/mp4" />
-          </video>
-        </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/platform-01.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <!-- 9. Platform 02 — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Platform 02</span>
+        <span class="feed-item-tag">Motion — UI</span>
+      </div>
+      <div class="layout-full ar-16-9">
+        <video autoplay muted loop playsinline>
+          <source src="playground/platform-02.mp4" type="video/mp4" />
+        </video>
       </div>
     </div>
 
