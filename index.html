@@ -922,26 +922,31 @@
     document.querySelectorAll('[data-split]').forEach(splitLetters);
 
     /* ── LETTER REVEAL ── */
+    /* For elements already in view on load, trigger after a short delay.
+       For elements below the fold, use IntersectionObserver. */
     const letterObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.querySelectorAll('.split-word').forEach(w => w.classList.add('in'));
         letterObs.unobserve(entry.target);
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('[data-split]').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (inView) {
-        // Already visible — animate in shortly after page load
-        const baseDelay = parseFloat(el.dataset.lineDelay || 0) * 1000;
-        setTimeout(() => {
-          el.querySelectorAll('.split-word').forEach(w => w.classList.add('in'));
-        }, 300 + baseDelay);
-      } else {
-        letterObs.observe(el);
-      }
+      letterObs.observe(el);
+    });
+
+    // Also force-trigger anything already visible after paint
+    window.addEventListener('load', () => {
+      document.querySelectorAll('[data-split]').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          const delay = parseFloat(el.dataset.lineDelay || 0) * 1000;
+          setTimeout(() => {
+            el.querySelectorAll('.split-word').forEach(w => w.classList.add('in'));
+          }, 200 + delay);
+        }
+      });
     });
 
     /* ── GENERAL REVEAL ── */
