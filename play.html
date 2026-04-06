@@ -148,6 +148,19 @@
       transform: translateY(0);
     }
 
+    /* ── VIDEO ENTRANCE ── */
+    .video-reveal {
+      opacity: 0;
+      transform: translateY(100px) scale(0.8);
+      transition: opacity 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00), transform 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+      will-change: transform, opacity;
+    }
+
+    .video-reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
     .page-desc {
       font-size: 15px;
       color: var(--gray-dark);
@@ -351,11 +364,11 @@
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Showreel</span>
-        <span class="feed-item-tag">Motion — Product</span>
+        <span class="feed-item-tag">Motion — Direction</span>
       </div>
-      <div class="layout-full ar-16-9">
+      <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
-          <source src="playground/boards.mp4" type="video/mp4" />
+          <source src="videos/showreel-preview.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
@@ -364,11 +377,11 @@
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Boards</span>
-        <span class="feed-item-tag">Motion — Brand</span>
+        <span class="feed-item-tag">Motion — UI</span>
       </div>
-      <div class="layout-full ar-16-9">
+      <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
-          <source src="videos/media age.mp4" type="video/mp4" />
+          <source src="videos/boards.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
@@ -376,10 +389,10 @@
     <!-- 3. Rr — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Product Update</span>
-        <span class="feed-item-tag">Motion — Product </span>
+        <span class="feed-item-title">Rr</span>
+        <span class="feed-item-tag">Motion — Type</span>
       </div>
-      <div class="layout-full ar-16-9">
+      <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
           <source src="playground/rr.mp4" type="video/mp4" />
         </video>
@@ -392,7 +405,7 @@
         <span class="feed-item-title">3D</span>
         <span class="feed-item-tag">Motion — 3D</span>
       </div>
-      <div class="layout-two-eq">
+      <div class="layout-two-eq video-reveal">
         <div class="layout-col ar-16-9">
           <video autoplay muted loop playsinline>
             <source src="playground/3D-tube.mp4" type="video/mp4" />
@@ -412,7 +425,7 @@
         <span class="feed-item-title">Sportlito</span>
         <span class="feed-item-tag">Motion — Social</span>
       </div>
-      <div class="layout-two-eq">
+      <div class="layout-two-eq video-reveal">
         <div class="layout-col ar-1-1">
           <video autoplay muted loop playsinline>
             <source src="playground/Sportlito-01.mp4" type="video/mp4" />
@@ -432,56 +445,52 @@
         <span class="feed-item-title">Yoga</span>
         <span class="feed-item-tag">Motion — Brand</span>
       </div>
-      <div class="layout-full ar-16-9">
+      <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
           <source src="videos/yoga.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-
-    <!-- 7. Platform 01 — 16:9 full width -->
+    <!-- 7. Reclaim — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Platform Update</span>
+        <span class="feed-item-title">Reclaim</span>
+        <span class="feed-item-tag">Motion — Brand</span>
+      </div>
+      <div class="layout-full ar-16-9 video-reveal">
+        <video autoplay muted loop playsinline>
+          <source src="videos/reclaim.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <!-- 8. Platform 01 — 16:9 full width -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Platform 01</span>
         <span class="feed-item-tag">Motion — UI</span>
       </div>
-      <div class="layout-full ar-16-9">
+      <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
           <source src="playground/platform-01.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-    <!-- 8. Platform 02 — 16:9 full width -->
+    <!-- 9. Platform 02 — 16:9 full width -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Platform Update</span>
+        <span class="feed-item-title">Platform 02</span>
         <span class="feed-item-tag">Motion — UI</span>
       </div>
-      <div class="layout-full ar-16-9">
+      <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
           <source src="playground/platform-02.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-    <!-- 9. Platform — 16:9 full width -->
-    <div class="feed-item">
-      <div class="feed-item-meta">
-        <span class="feed-item-title">Platform Update</span>
-        <span class="feed-item-tag">Motion — UI</span>
-      </div>
-      <div class="layout-full ar-16-9">
-        <video autoplay muted loop playsinline>
-          <source src="playground/mockup-2.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
-
-
-
-    
   </div>
 
   </div><!-- /site-wrap -->
@@ -529,6 +538,18 @@
       });
     }, { threshold: 0.2, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('[data-split]').forEach(el => wordObs.observe(el));
+
+    /* ── VIDEO REVEAL OBSERVER ── */
+    const videoRevealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          videoRevealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.video-reveal').forEach(el => videoRevealObs.observe(el));
 
     /* Feed item reveal */
     const feedObs = new IntersectionObserver((entries) => {
