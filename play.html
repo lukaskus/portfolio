@@ -26,6 +26,15 @@
     html { scroll-behavior: smooth; }
 
     body {
+      animation: pageFadeIn 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00) both;
+    }
+
+    @keyframes pageFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    body {
       background: var(--white);
       color: var(--black);
       font-family: var(--sans);
@@ -353,18 +362,18 @@
     <p class="page-desc">
       Exploration is vital to my creative process.
       Evolving ideas, testing techniques, and crafting visuals —
-      no briefs, no constraints, all fun.
+      no briefs, no constraints.
     </p>
   </header>
 
   <!-- ── FEED ── -->
   <div class="feed">
 
-    <!-- 1. Showreel — 16:9 full width -->
+    <!-- 1. Mockup-3 — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Product Animation</span>
-        <span class="feed-item-tag">Motion — Product</span>
+        <span class="feed-item-title">Mockup 3</span>
+        <span class="feed-item-tag">Motion — Brand</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
@@ -373,7 +382,7 @@
       </div>
     </div>
 
- <!-- 2. Sportlito 1 + 2 — side by side 1:1 -->
+    <!-- 2. Sportlito 1+2 — side by side 1:1 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Sportlito</span>
@@ -393,10 +402,7 @@
       </div>
     </div>
 
-
-
-    
-    <!-- 3. Boards — 16:9 full width -->
+    <!-- 3. Boards — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Boards</span>
@@ -404,16 +410,16 @@
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
-          <source src="videos/boards.mp4" type="video/mp4" />
+          <source src="playground/boards.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-    <!-- 4. Rr — 16:9 full width -->
+    <!-- 4. Rr — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Product Motion</span>
-        <span class="feed-item-tag">Motion — Product</span>
+        <span class="feed-item-title">Rr Product Motion</span>
+        <span class="feed-item-tag">Motion — Type</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
@@ -422,8 +428,7 @@
       </div>
     </div>
 
-
-    <!-- 6. Yoga — 16:9 full width -->
+    <!-- 5. Yoga — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Yoga</span>
@@ -436,8 +441,7 @@
       </div>
     </div>
 
-    
-    <!-- 4. 3D Tube + 3D-2 — side by side 16:9 -->
+    <!-- 6. 3D 1+2 — side by side 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">3D</span>
@@ -457,24 +461,20 @@
       </div>
     </div>
 
-   
-
-    <!-- 7. Reclaim — 16:9 full width -->
+    <!-- 7. Reclaim — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Reclaim</span>
-        <span class="feed-item-tag">Motion — Explainer</span>
+        <span class="feed-item-tag">Motion — Brand</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
-          <source src="reclaim.mp4" type="video/mp4" />
+          <source src="videos/reclaim.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
 
-
-    
-    <!-- 8. Platform 01 — 16:9 full width -->
+    <!-- 8. Platform 01 — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Platform 01</span>
@@ -487,17 +487,16 @@
       </div>
     </div>
 
-
-    <!-- 4. 3D Tube + 3D-2 — side by side 16:9 -->
+    <!-- 9. Summer + CNN — side by side 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">3D</span>
-        <span class="feed-item-tag">Motion — 3D</span>
+        <span class="feed-item-title">Summer / CNN</span>
+        <span class="feed-item-tag">Motion — Editorial</span>
       </div>
       <div class="layout-two-eq video-reveal">
         <div class="layout-col ar-16-9">
           <video autoplay muted loop playsinline>
-            <source src="playground/summer.mp4" type="video/mp4" />
+            <source src="videos/summer.mp4" type="video/mp4" />
           </video>
         </div>
         <div class="layout-col ar-16-9">
@@ -508,10 +507,7 @@
       </div>
     </div>
 
-
-
-    
-    <!-- 9. Platform 02 — 16:9 full width -->
+    <!-- 10. Platform 02 — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
         <span class="feed-item-title">Platform 02</span>
@@ -594,6 +590,16 @@
       });
     }, { threshold: 0.08 });
     document.querySelectorAll('.feed-item').forEach(el => feedObs.observe(el));
+    /* Page fade out on navigate away */
+    document.querySelectorAll('a[href="index.html"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.href;
+        document.body.style.transition = 'opacity 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00)';
+        document.body.style.opacity = '0';
+        setTimeout(() => window.location.href = href, 500);
+      });
+    });
   </script>
 </body>
 </html>
