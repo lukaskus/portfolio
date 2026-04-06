@@ -212,8 +212,28 @@
 
     .btn-dark  { background: var(--black); color: var(--white); }
     .btn-dark:hover  { background: var(--gray-dark); border-color: var(--gray-dark); }
-    .btn-outline { background: transparent; color: var(--black); }
-    .btn-outline:hover { background: var(--black); color: var(--white); }
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+      transition: color 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00),
+                  border-color 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+    }
+
+    .btn-outline::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+      z-index: -1;
+    }
+
+    .btn-outline:hover::before { transform: translateY(0); }
+    .btn-outline:hover { color: var(--white); }
 
     /* ── TICKER ── */
     .ticker-wrap {
@@ -960,7 +980,7 @@
       <div class="contact-row">
         <div class="contact-block">
           <span class="contact-block-label">Email</span>
-          <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="09657c62687a627c7a2764667d606667496e64686065276a6664">[email&#160;protected]</span></a>
+          <a id="contact-email-link" class="contact-email">lukaskus.motion@gmail.com</a>
         </div>
         <div class="contact-block">
           <span class="contact-block-label">Find me on</span>
@@ -998,11 +1018,15 @@
 
     /* ── EMAIL (bypass Cloudflare obfuscation) ── */
     (function() {
-      const h = 'mailto:' + 'lukaskus.motion' + '@' + 'gmail.com';
+      const email   = 'lukaskus.motion' + '@' + 'gmail.com';
+      const mailto  = 'mailto:' + email;
+      const gmail   = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + email;
       const a = document.getElementById('contact-email-link');
       const b = document.getElementById('contact-chat-link');
-      if (a) a.href = h;
-      if (b) b.href = h;
+      const heroBtn = document.querySelector('.hero-cta .btn-outline');
+      if (a) { a.href = mailto; }
+      if (b) { b.href = gmail; b.target = '_blank'; b.rel = 'noopener'; }
+      if (heroBtn) { heroBtn.href = gmail; heroBtn.target = '_blank'; heroBtn.rel = 'noopener'; }
     })();
 
     /* ── LETTER SPLIT — ExoApe style ── */
