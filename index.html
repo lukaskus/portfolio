@@ -281,27 +281,21 @@
       letter-spacing: 0.02em;
     }
 
-    /* ── FLOWER ── */
-    .flower-wrap {
+    /* ── PROFILE PHOTO ── */
+    .profile-wrap {
       position: relative;
       width: 100%;
       max-width: 260px;
       margin-top: 1.5rem;
-      cursor: pointer;
       aspect-ratio: 1;
     }
 
-    .flower-img-wrap {
+    .profile-img {
       width: 100%;
       height: 100%;
-      position: relative;
-    }
-
-    .flower-img { display: none; }
-
-    .flower-svg {
-      width: 100%;
-      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
       display: block;
     }
 
@@ -715,6 +709,18 @@
       transform: translateY(0);
     }
 
+    /* ── VIDEO REVEAL OBSERVER ── */
+    const videoRevealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          videoRevealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.video-reveal').forEach(el => videoRevealObs.observe(el));
+
     /* ── GENERAL REVEAL ── */
     .reveal {
       opacity: 0;
@@ -723,6 +729,19 @@
     }
 
     .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── VIDEO ENTRANCE ── */
+    .video-reveal {
+      opacity: 0;
+      transform: translateY(100px) scale(0.8);
+      transition: opacity 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00), transform 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+      will-change: transform, opacity;
+    }
+
+    .video-reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -826,19 +845,9 @@
   <section id="about">
     <div class="about-left reveal">
       <span class="section-label">About</span>
-      <div class="flower-wrap" id="flowerWrap">
-        <div class="flower-img-wrap">
-          <svg class="flower-svg" id="flowerSVG" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <mask id="petalMask">
-                <rect width="200" height="200" fill="black"/>
-                <path id="petalPath" fill="white"/>
-              </mask>
-            </defs>
-            <image href="lukaskus-photo.jpg" width="200" height="200"
-                   preserveAspectRatio="xMidYMin slice" mask="url(#petalMask)"/>
-          </svg>
-        </div>
+      <div class="profile-wrap">
+        <img src="lukaskus-photo.jpg" alt="Lukas Kus" class="profile-img" />
+        <!-- Lottie animation will go here -->
       </div>
     </div>
     <div class="about-right reveal">
@@ -881,32 +890,19 @@
           <span class="work-item-title">Creative Studio</span>
           <span class="work-item-cat">Motion — Brand</span>
         </div>
-        <div class="work-item-video">
+        <div class="work-item-video video-reveal">
           <video autoplay muted loop playsinline>
             <source src="creative-studio.mp4" type="video/mp4" />
           </video>
         </div>
       </div>
 
-  <div class="work-item">
-        <div class="work-item-meta">
-          <span class="work-item-title">Brand Showcase</span>
-          <span class="work-item-cat">Motion — Brand</span>
-        </div>
-        <div class="work-item-video">
-          <video autoplay muted loop playsinline>
-            <source src="videos/hydra.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
-      
-
       <div class="work-item">
         <div class="work-item-meta">
           <span class="work-item-title">Reclaim</span>
           <span class="work-item-cat">Motion — Brand</span>
         </div>
-        <div class="work-item-video">
+        <div class="work-item-video video-reveal">
           <video autoplay muted loop playsinline>
             <source src="reclaim.mp4" type="video/mp4" />
           </video>
@@ -930,9 +926,9 @@
       </div>
       <div class="play-teaser-right">
         <div class="play-preview-grid">
-          <div class="play-preview-item wide"><video autoplay muted loop playsinline><source src="playground/boards.mp4" type="video/mp4"/></video></div>
-          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/3D-tube.mp4" type="video/mp4"/></video></div>
-          <div class="play-preview-item"><video autoplay muted loop playsinline><source src="playground/Wakun-1.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item wide video-reveal"><video autoplay muted loop playsinline><source src="playground/boards.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item video-reveal"><video autoplay muted loop playsinline><source src="playground/3D-tube.mp4" type="video/mp4"/></video></div>
+          <div class="play-preview-item video-reveal"><video autoplay muted loop playsinline><source src="playground/Wakun-1.mp4" type="video/mp4"/></video></div>
         </div>
       </div>
     </a>
@@ -1042,6 +1038,18 @@
       });
     });
 
+    /* ── VIDEO REVEAL OBSERVER ── */
+    const videoRevealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          videoRevealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.video-reveal').forEach(el => videoRevealObs.observe(el));
+
     /* ── GENERAL REVEAL ── */
     const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1068,73 +1076,18 @@
       const rect  = heroVideo.getBoundingClientRect();
       const h     = heroVideo.offsetHeight;
       const p     = Math.min(Math.max(0, -rect.top) / h, 1);
+      // Shrink + fade as it scrolls away
       heroVideo.style.transform = `scale(${1 - p * 0.3})`;
       heroVideo.style.opacity   = String(1 - p);
+      // Parallax on the inner video — moves at 40% of scroll speed
+      const vid = heroVideo.querySelector('video');
+      if (vid) vid.style.transform = `translateY(${window.scrollY * 0.4}px)`;
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    /* ── FLOWER ROTATION — smooth rounded petals, mask rotates, photo static ── */
-    (function() {
-      const path = document.getElementById('petalPath');
-      const wrap = document.getElementById('flowerWrap');
-      if (!path || !wrap) return;
-
-      function buildPath(rot) {
-        const petals = 16;
-        const cx = 100, cy = 100;
-        const R = 82;   // outer radius
-        const r = 68;   // inner radius
-        const points = [];
-
-        for (let i = 0; i < petals * 2; i++) {
-          const angle = rot + (i * Math.PI) / petals;
-          const radius = i % 2 === 0 ? R : r;
-          points.push([
-            cx + radius * Math.cos(angle),
-            cy + radius * Math.sin(angle)
-          ]);
-        }
-
-        // Build smooth path using quadratic bezier between each point
-        let d = `M${points[0][0].toFixed(2)},${points[0][1].toFixed(2)}`;
-        for (let i = 0; i < points.length; i++) {
-          const curr = points[i];
-          const next = points[(i + 1) % points.length];
-          const mx = (curr[0] + next[0]) / 2;
-          const my = (curr[1] + next[1]) / 2;
-          d += ` Q${curr[0].toFixed(2)},${curr[1].toFixed(2)} ${mx.toFixed(2)},${my.toFixed(2)}`;
-        }
-        return d + 'Z';
-      }
-
-      let angle    = 0;
-      const NORMAL = 0.00003;
-      const FAST   = 0.00016;
-      let isHover  = false;
-      let boostEnd = 0;
-      let last     = null;
-
-      function tick(ts) {
-        if (last === null) last = ts;
-        const dt = ts - last;
-        last = ts;
-        const speed = (isHover && ts < boostEnd) ? FAST : NORMAL;
-        angle += speed * dt;
-        path.setAttribute('d', buildPath(angle));
-        requestAnimationFrame(tick);
-      }
-
-      path.setAttribute('d', buildPath(0));
-      requestAnimationFrame(tick);
-
-      wrap.addEventListener('mouseenter', () => {
-        isHover  = true;
-        boostEnd = performance.now() + 1000;
-      });
-      wrap.addEventListener('mouseleave', () => { isHover = false; });
-    })();
+    
 
   </script>
 </body>
