@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -299,6 +300,24 @@
       line-height: 0.95;
       text-transform: uppercase;
       letter-spacing: 0.02em;
+    }
+
+    /* ── SIGNATURE LOTTIE ── */
+    .signature-wrap {
+      width: 100%;
+      max-width: 260px;
+      margin-top: 1.5rem;
+      opacity: 1;
+      transition: opacity 0.6s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+    }
+
+    .signature-wrap.fade-out {
+      opacity: 0;
+    }
+
+    #signature-lottie {
+      width: 100%;
+      height: auto;
     }
 
     /* ── PROFILE PHOTO ── */
@@ -885,7 +904,9 @@
       <span class="section-label">About</span>
       <div class="profile-wrap">
         <img src="lukaskus-photo.jpg" alt="Lukas Kus" class="profile-img" />
-        <!-- Lottie animation will go here -->
+        <div class="signature-wrap">
+          <div id="signature-lottie"></div>
+        </div>
       </div>
     </div>
     <div class="about-right reveal">
@@ -980,7 +1001,7 @@
       <div class="contact-row">
         <div class="contact-block">
           <span class="contact-block-label">Email</span>
-          <a id="contact-email-link" class="contact-email">lukaskus.motion@gmail.com</a>
+          <a id="contact-email-link" class="contact-email"><span class="__cf_email__" data-cfemail="95f9e0fef4e6fee0e6bbf8fae1fcfafbd5f2f8f4fcf9bbf6faf8">[email&#160;protected]</span></a>
         </div>
         <div class="contact-block">
           <span class="contact-block-label">Find me on</span>
@@ -1005,7 +1026,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── HERO VIDEO FORCE PLAY ── */
     const heroVid = document.getElementById('hero-video');
     if (heroVid) {
@@ -1137,10 +1158,29 @@
       });
     });
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    /* ── SIGNATURE LOTTIE ── */
+    (function() {
+      const container = document.getElementById('signature-lottie');
+      if (!container || typeof lottie === 'undefined') return;
 
-    
+      const anim = lottie.loadAnimation({
+        container: container,
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        path: 'signature.json'
+      });
+
+      const wrap = container.closest('.signature-wrap');
+
+      anim.addEventListener('complete', () => {
+        wrap.classList.add('fade-out');
+        setTimeout(() => {
+          wrap.classList.remove('fade-out');
+          anim.goToAndPlay(0, true);
+        }, 800);
+      });
+    })();
 
   </script>
 </body>
