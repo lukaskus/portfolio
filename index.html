@@ -1037,9 +1037,16 @@
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── HERO VIDEO FORCE PLAY ── */
     const heroVid = document.getElementById('hero-video');
+    const heroWrap = document.querySelector('.hero-video-wrap');
+
+    function revealHero() {
+      if (heroWrap) heroWrap.classList.add('ready');
+    }
+
     if (heroVid) {
+      heroVid.addEventListener('canplay', revealHero, { once: true });
+      setTimeout(revealHero, 1500);
       heroVid.play().catch(() => {
-        // If autoplay blocked, try again on first user interaction
         document.addEventListener('click', () => heroVid.play(), { once: true });
         document.addEventListener('touchstart', () => heroVid.play(), { once: true });
       });
@@ -1139,7 +1146,7 @@
 
     // Wait for entrance animation to finish before allowing scroll to override
     if (heroVideo) {
-      heroVideo.addEventListener('animationend', () => { heroReady = true; }, { once: true });
+      heroVideo.addEventListener('transitionend', () => { heroReady = true; }, { once: true });
     }
 
     function onScroll() {
