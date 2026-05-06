@@ -7,7 +7,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+  <div class="dark-toggle" id="darkToggle" title="Toggle dark mode">
+    <div class="dark-toggle-knob" id="darkToggleKnob">
+      <!-- Sun icon -->
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2"  x2="12" y2="5"/>
+        <line x1="12" y1="19" x2="12" y2="22"/>
+        <line x1="2"  y1="12" x2="5"  y2="12"/>
+        <line x1="19" y1="12" x2="22" y2="12"/>
+        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+      </svg>
+      <!-- Moon icon -->
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -900,18 +921,6 @@
       transform: translateY(0);
     }
 
-    /* ── VIDEO REVEAL OBSERVER ── */
-    const videoRevealObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          videoRevealObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.video-reveal').forEach(el => videoRevealObs.observe(el));
-
     /* ── GENERAL REVEAL ── */
     .reveal {
       opacity: 0;
@@ -1277,7 +1286,7 @@
 
     // Wait for entrance animation to finish before allowing scroll to override
     if (heroVideo) {
-      heroVideo.addEventListener('transitionend', () => { heroReady = true; }, { once: true });
+      heroVideo.addEventListener('animationend', () => { heroReady = true; }, { once: true });
     }
 
     function onScroll() {
@@ -1377,25 +1386,6 @@
       requestAnimationFrame(updatePos);
     })();
 </script>
-  <div class="dark-toggle" id="darkToggle" title="Toggle dark mode">
-    <div class="dark-toggle-knob" id="darkToggleKnob">
-      <!-- Sun icon -->
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
-        <circle cx="12" cy="12" r="4"/>
-        <line x1="12" y1="2"  x2="12" y2="5"/>
-        <line x1="12" y1="19" x2="12" y2="22"/>
-        <line x1="2"  y1="12" x2="5"  y2="12"/>
-        <line x1="19" y1="12" x2="22" y2="12"/>
-        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
-        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
-        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
-      </svg>
-      <!-- Moon icon -->
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </div>
-  </div>
+  
 </body>
 </html>
