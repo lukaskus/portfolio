@@ -30,7 +30,8 @@
       --white: #111110;
       --off-white: #1a1a18;
       --gray-light: #2a2a28;
-      --gray-mid: #666;
+      --gray-mid: #8d8d8d;
+      --gray-dark: #d2d2cf;
       --black: #f0ede8;
       background: #111110;
       color: #f0ede8;
@@ -58,6 +59,28 @@
       background: #0a0a09;
     }
 
+    body.dark-mode nav {
+      background: #111110;
+    }
+
+    body.dark-mode footer {
+      background: #0a0a09;
+      color: #f0ede8;
+    }
+
+    body.dark-mode .ticker-wrap {
+      background: var(--off-white);
+    }
+
+    body.dark-mode .about-left,
+    body.dark-mode .about-right {
+      border-color: #2a2a28;
+    }
+
+    body.dark-mode .profile-img {
+      opacity: 0.9;
+    }
+
     body.dark-mode #contact .btn-outline {
       border-color: rgba(240,237,232,0.3);
       color: #f0ede8;
@@ -76,6 +99,7 @@
       position: fixed;
       right: 2rem;
       top: 50%;
+      transform: translateY(-50%);
       z-index: 9999;
       width: 72px;
       height: 38px;
@@ -111,16 +135,12 @@
     .dark-toggle-knob .icon-sun  { display: block; }
     .dark-toggle-knob .icon-moon { display: none;  }
 
-    .dark-toggle-bounce {
-      animation: toggleBounce 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
-    }
-
     @keyframes toggleBounce {
-      0%   { transform: translateX(var(--tx, 0)) scale(1); }
-      40%  { transform: translateX(var(--tx, 0)) scale(1.18); }
-      65%  { transform: translateX(var(--tx, 0)) scale(0.92); }
-      85%  { transform: translateX(var(--tx, 0)) scale(1.06); }
-      100% { transform: translateX(var(--tx, 0)) scale(1); }
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.2); }
+      65%  { transform: scale(0.9); }
+      85%  { transform: scale(1.06); }
+      100% { transform: scale(1); }
     }
 
     body.dark-mode .dark-toggle {
@@ -147,6 +167,7 @@
     body {
       background: var(--white);
       color: var(--black);
+      transition: background 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00), color 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
       font-family: var(--sans);
       font-size: 15px;
       line-height: 1.6;
@@ -167,6 +188,7 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       background: var(--white);
+      transition: background 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
     }
 
     .nav-inner {
@@ -391,6 +413,19 @@
     .ar-9-16  { aspect-ratio: 9 / 16; }
     .ar-1-1   { aspect-ratio: 1 / 1; }
     .ar-4-3   { aspect-ratio: 4 / 3; }
+
+    
+    body.dark-mode .page-desc,
+    body.dark-mode .feed-item-tag,
+    body.dark-mode .section-label,
+    body.dark-mode footer span {
+      color: #bdbdb8;
+    }
+
+    body.dark-mode .feed-item-title,
+    body.dark-mode .footer-back {
+      color: #f0ede8;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -710,7 +745,44 @@
         setTimeout(() => window.location.href = href, 500);
       });
     });
-  </script>
+  
+    /* ── DARK MODE TOGGLE JS ── */
+    (function() {
+      const toggle = document.getElementById('darkToggle');
+      const knob   = document.getElementById('darkToggleKnob');
+      const sun    = knob ? knob.querySelector('.icon-sun') : null;
+      const moon   = knob ? knob.querySelector('.icon-moon') : null;
+      if (!toggle || !knob) return;
+
+      let dark = localStorage.getItem('darkMode') === 'on';
+      if (dark) {
+        document.body.classList.add('dark-mode');
+        toggle.style.background = '#2a2a28';
+        knob.style.transform = 'translateX(34px)';
+        if (sun) sun.style.display = 'none';
+        if (moon) moon.style.display = 'block';
+      }
+
+      toggle.addEventListener('click', () => {
+        dark = !dark;
+        if (dark) {
+          document.body.classList.add('dark-mode');
+          toggle.style.background = '#2a2a28';
+          knob.style.transform = 'translateX(34px)';
+          sun.style.display = 'none';
+          moon.style.display = 'block';
+          localStorage.setItem('darkMode', 'on');
+        } else {
+          document.body.classList.remove('dark-mode');
+          toggle.style.background = '#e8e8e6';
+          knob.style.transform = 'translateX(0)';
+          sun.style.display = 'block';
+          moon.style.display = 'none';
+          localStorage.setItem('darkMode', 'off');
+        }
+      });
+})();
+</script>
   <div class="dark-toggle" id="darkToggle" title="Toggle dark mode">
     <div class="dark-toggle-knob" id="darkToggleKnob">
       <!-- Sun icon -->
