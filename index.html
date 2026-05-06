@@ -1333,18 +1333,36 @@
     (function() {
       const toggle = document.getElementById('darkToggle');
       const knob   = document.getElementById('darkToggleKnob');
+      const sun    = knob ? knob.querySelector('.icon-sun') : null;
+      const moon   = knob ? knob.querySelector('.icon-moon') : null;
       if (!toggle || !knob) return;
 
-      if (localStorage.getItem('darkMode') === 'on') {
+      let dark = localStorage.getItem('darkMode') === 'on';
+      if (dark) {
         document.body.classList.add('dark-mode');
+        toggle.style.background = '#2a2a28';
+        knob.style.transform = 'translateX(34px)';
+        if (sun) sun.style.display = 'none';
+        if (moon) moon.style.display = 'block';
       }
 
       toggle.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', isDark ? 'on' : 'off');
-        knob.style.animation = 'none';
-        void knob.offsetWidth;
-        knob.style.animation = 'toggleBounce 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00)';
+        dark = !dark;
+        if (dark) {
+          document.body.classList.add('dark-mode');
+          toggle.style.background = '#2a2a28';
+          knob.style.transform = 'translateX(34px)';
+          sun.style.display = 'none';
+          moon.style.display = 'block';
+          localStorage.setItem('darkMode', 'on');
+        } else {
+          document.body.classList.remove('dark-mode');
+          toggle.style.background = '#e8e8e6';
+          knob.style.transform = 'translateX(0)';
+          sun.style.display = 'block';
+          moon.style.display = 'none';
+          localStorage.setItem('darkMode', 'off');
+        }
       });
 
       let currentY = window.scrollY;
