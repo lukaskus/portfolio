@@ -51,7 +51,8 @@
       --white: #111110;
       --off-white: #1a1a18;
       --gray-light: #2a2a28;
-      --gray-mid: #666;
+      --gray-mid: #8d8d8d;
+      --gray-dark: #d2d2cf;
       --black: #f0ede8;
       background: #111110;
       color: #f0ede8;
@@ -119,6 +120,7 @@
       position: fixed;
       right: 2rem;
       top: 50%;
+      transform: translateY(-50%);
       z-index: 9999;
       width: 72px;
       height: 38px;
@@ -1373,18 +1375,7 @@
           localStorage.setItem('darkMode', 'off');
         }
       });
-
-      let currentY = window.scrollY;
-      const viewH  = window.innerHeight;
-      function lerp(a, b, t) { return a + (b - a) * t; }
-      function updatePos() {
-        currentY = lerp(currentY, window.scrollY, 0.06);
-        toggle.style.top = (currentY + viewH / 2 - toggle.offsetHeight / 2) + 'px';
-        requestAnimationFrame(updatePos);
-      }
-      toggle.style.top = (window.scrollY + viewH / 2 - toggle.offsetHeight / 2) + 'px';
-      requestAnimationFrame(updatePos);
-    })();
+})();
 </script>
   
 </body>
