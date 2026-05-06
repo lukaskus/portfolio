@@ -58,6 +58,28 @@
       background: #0a0a09;
     }
 
+    body.dark-mode nav {
+      background: #111110;
+    }
+
+    body.dark-mode footer {
+      background: #0a0a09;
+      color: #f0ede8;
+    }
+
+    body.dark-mode .ticker-wrap {
+      background: var(--off-white);
+    }
+
+    body.dark-mode .about-left,
+    body.dark-mode .about-right {
+      border-color: #2a2a28;
+    }
+
+    body.dark-mode .profile-img {
+      opacity: 0.9;
+    }
+
     body.dark-mode #contact .btn-outline {
       border-color: rgba(240,237,232,0.3);
       color: #f0ede8;
@@ -111,16 +133,12 @@
     .dark-toggle-knob .icon-sun  { display: block; }
     .dark-toggle-knob .icon-moon { display: none;  }
 
-    .dark-toggle-bounce {
-      animation: toggleBounce 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
-    }
-
     @keyframes toggleBounce {
-      0%   { transform: translateX(var(--tx, 0)) scale(1); }
-      40%  { transform: translateX(var(--tx, 0)) scale(1.18); }
-      65%  { transform: translateX(var(--tx, 0)) scale(0.92); }
-      85%  { transform: translateX(var(--tx, 0)) scale(1.06); }
-      100% { transform: translateX(var(--tx, 0)) scale(1); }
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.2); }
+      65%  { transform: scale(0.9); }
+      85%  { transform: scale(1.06); }
+      100% { transform: scale(1); }
     }
 
     body.dark-mode .dark-toggle {
@@ -138,6 +156,7 @@
     body {
       background: var(--white);
       color: var(--black);
+      transition: background 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00), color 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
       font-family: var(--sans);
       font-size: 15px;
       line-height: 1.6;
@@ -153,6 +172,7 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       background: var(--white);
+      transition: background 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
       border-bottom: 1px solid var(--gray-light);
     }
 
@@ -717,6 +737,7 @@
     /* ── CONTACT ── */
     #contact {
       background: var(--black);
+      transition: background 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
       color: var(--white);
       padding: 8rem 3rem;
     }
