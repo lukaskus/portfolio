@@ -154,6 +154,7 @@
 
     body.dark-mode .dark-toggle-knob .icon-sun  { display: none;  }
     body.dark-mode .dark-toggle-knob .icon-moon { display: block; }
+    body.dark-mode .dark-toggle-knob .icon-moon { stroke: #f0ede8; }
 
     body {
       animation: pageFadeIn 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00) both;
@@ -681,6 +682,28 @@
   </footer>
 
 
+  
+  <button class="dark-toggle" id="darkToggle" title="Toggle dark mode" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <div class="dark-toggle-knob" id="darkToggleKnob">
+      <!-- Sun icon -->
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2"  x2="12" y2="5"/>
+        <line x1="12" y1="19" x2="12" y2="22"/>
+        <line x1="2"  y1="12" x2="5"  y2="12"/>
+        <line x1="19" y1="12" x2="22" y2="12"/>
+        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+      </svg>
+      <!-- Moon icon -->
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+  </button>
+
   <script>
     /* Letter split — ExoApe style */
     function splitLetters(el) {
@@ -749,59 +772,21 @@
     /* ── DARK MODE TOGGLE JS ── */
     (function() {
       const toggle = document.getElementById('darkToggle');
-      const knob   = document.getElementById('darkToggleKnob');
-      const sun    = knob ? knob.querySelector('.icon-sun') : null;
-      const moon   = knob ? knob.querySelector('.icon-moon') : null;
-      if (!toggle || !knob) return;
+      if (!toggle) return;
 
-      let dark = localStorage.getItem('darkMode') === 'on';
-      if (dark) {
-        document.body.classList.add('dark-mode');
-        toggle.style.background = '#2a2a28';
-        knob.style.transform = 'translateX(34px)';
-        if (sun) sun.style.display = 'none';
-        if (moon) moon.style.display = 'block';
+      function applyTheme(isDark) {
+        document.body.classList.toggle('dark-mode', isDark);
+        toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        localStorage.setItem('darkMode', isDark ? 'on' : 'off');
       }
 
+      const dark = localStorage.getItem('darkMode') !== 'off';
+      applyTheme(dark);
+
       toggle.addEventListener('click', () => {
-        dark = !dark;
-        if (dark) {
-          document.body.classList.add('dark-mode');
-          toggle.style.background = '#2a2a28';
-          knob.style.transform = 'translateX(34px)';
-          sun.style.display = 'none';
-          moon.style.display = 'block';
-          localStorage.setItem('darkMode', 'on');
-        } else {
-          document.body.classList.remove('dark-mode');
-          toggle.style.background = '#e8e8e6';
-          knob.style.transform = 'translateX(0)';
-          sun.style.display = 'block';
-          moon.style.display = 'none';
-          localStorage.setItem('darkMode', 'off');
-        }
+        applyTheme(!document.body.classList.contains('dark-mode'));
       });
-})();
+    })();
 </script>
-  <div class="dark-toggle" id="darkToggle" title="Toggle dark mode">
-    <div class="dark-toggle-knob" id="darkToggleKnob">
-      <!-- Sun icon -->
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
-        <circle cx="12" cy="12" r="4"/>
-        <line x1="12" y1="2"  x2="12" y2="5"/>
-        <line x1="12" y1="19" x2="12" y2="22"/>
-        <line x1="2"  y1="12" x2="5"  y2="12"/>
-        <line x1="19" y1="12" x2="22" y2="12"/>
-        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
-        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
-        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
-      </svg>
-      <!-- Moon icon -->
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </div>
-  </div>
 </body>
 </html>
