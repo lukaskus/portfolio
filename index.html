@@ -7,27 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
-  <div class="dark-toggle" id="darkToggle" title="Toggle dark mode">
-    <div class="dark-toggle-knob" id="darkToggleKnob">
-      <!-- Sun icon -->
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
-        <circle cx="12" cy="12" r="4"/>
-        <line x1="12" y1="2"  x2="12" y2="5"/>
-        <line x1="12" y1="19" x2="12" y2="22"/>
-        <line x1="2"  y1="12" x2="5"  y2="12"/>
-        <line x1="19" y1="12" x2="22" y2="12"/>
-        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
-        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
-        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
-      </svg>
-      <!-- Moon icon -->
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </div>
-  </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,6 +94,18 @@
       color: #111110;
     }
 
+    body.dark-mode .contact-label,
+    body.dark-mode .contact-block-label,
+    body.dark-mode .contact-socials a,
+    body.dark-mode .contact-note {
+      color: #bdbdb8;
+    }
+
+    body.dark-mode .contact-email,
+    body.dark-mode .contact-heading {
+      color: #f5f5f2;
+    }
+
     /* ── DARK MODE TOGGLE ── */
     .dark-toggle {
       position: fixed;
@@ -175,6 +166,7 @@
 
     body.dark-mode .dark-toggle-knob .icon-sun  { display: none;  }
     body.dark-mode .dark-toggle-knob .icon-moon { display: block; }
+    body.dark-mode .dark-toggle-knob .icon-moon { stroke: #f0ede8; }
 
     body {
       background: var(--white);
@@ -1176,6 +1168,28 @@
     </div>
   </footer>
 
+  
+  <button class="dark-toggle" id="darkToggle" title="Toggle dark mode" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+    <div class="dark-toggle-knob" id="darkToggleKnob">
+      <!-- Sun icon -->
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2"  x2="12" y2="5"/>
+        <line x1="12" y1="19" x2="12" y2="22"/>
+        <line x1="2"  y1="12" x2="5"  y2="12"/>
+        <line x1="19" y1="12" x2="22" y2="12"/>
+        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+      </svg>
+      <!-- Moon icon -->
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+  </button>
+
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ── HERO VIDEO FORCE PLAY ── */
     const heroVid = document.getElementById('hero-video');
@@ -1343,39 +1357,21 @@
     /* ── DARK MODE TOGGLE JS ── */
     (function() {
       const toggle = document.getElementById('darkToggle');
-      const knob   = document.getElementById('darkToggleKnob');
-      const sun    = knob ? knob.querySelector('.icon-sun') : null;
-      const moon   = knob ? knob.querySelector('.icon-moon') : null;
-      if (!toggle || !knob) return;
+      if (!toggle) return;
 
-      let dark = localStorage.getItem('darkMode') === 'on';
-      if (dark) {
-        document.body.classList.add('dark-mode');
-        toggle.style.background = '#2a2a28';
-        knob.style.transform = 'translateX(34px)';
-        if (sun) sun.style.display = 'none';
-        if (moon) moon.style.display = 'block';
+      function applyTheme(isDark) {
+        document.body.classList.toggle('dark-mode', isDark);
+        toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        localStorage.setItem('darkMode', isDark ? 'on' : 'off');
       }
 
+      const dark = localStorage.getItem('darkMode') !== 'off';
+      applyTheme(dark);
+
       toggle.addEventListener('click', () => {
-        dark = !dark;
-        if (dark) {
-          document.body.classList.add('dark-mode');
-          toggle.style.background = '#2a2a28';
-          knob.style.transform = 'translateX(34px)';
-          sun.style.display = 'none';
-          moon.style.display = 'block';
-          localStorage.setItem('darkMode', 'on');
-        } else {
-          document.body.classList.remove('dark-mode');
-          toggle.style.background = '#e8e8e6';
-          knob.style.transform = 'translateX(0)';
-          sun.style.display = 'block';
-          moon.style.display = 'none';
-          localStorage.setItem('darkMode', 'off');
-        }
+        applyTheme(!document.body.classList.contains('dark-mode'));
       });
-})();
+    })();
 </script>
   
 </body>
