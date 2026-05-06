@@ -25,6 +25,116 @@
 
     html { scroll-behavior: smooth; }
 
+    /* ── DARK MODE ── */
+    body.dark-mode {
+      --white: #111110;
+      --off-white: #1a1a18;
+      --gray-light: #2a2a28;
+      --gray-mid: #666;
+      --black: #f0ede8;
+      background: #111110;
+      color: #f0ede8;
+    }
+
+    body.dark-mode .btn-dark {
+      background: #f0ede8;
+      color: #111110;
+    }
+
+    body.dark-mode .btn-outline {
+      border-color: #f0ede8;
+      color: #f0ede8;
+    }
+
+    body.dark-mode .btn-outline::before {
+      background: #f0ede8;
+    }
+
+    body.dark-mode .btn-outline:hover {
+      color: #111110;
+    }
+
+    body.dark-mode #contact {
+      background: #0a0a09;
+    }
+
+    body.dark-mode #contact .btn-outline {
+      border-color: rgba(240,237,232,0.3);
+      color: #f0ede8;
+    }
+
+    body.dark-mode #contact .btn-outline::before {
+      background: #f0ede8;
+    }
+
+    body.dark-mode #contact .btn-outline:hover {
+      color: #111110;
+    }
+
+    /* ── DARK MODE TOGGLE ── */
+    .dark-toggle {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      z-index: 9999;
+      width: 72px;
+      height: 38px;
+      background: #e8e8e6;
+      border-radius: 999px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+
+    .dark-toggle-knob {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #111110;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+      flex-shrink: 0;
+    }
+
+    .dark-toggle-knob svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .dark-toggle-knob .icon-sun  { display: block; }
+    .dark-toggle-knob .icon-moon { display: none;  }
+
+    .dark-toggle-bounce {
+      animation: toggleBounce 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00);
+    }
+
+    @keyframes toggleBounce {
+      0%   { transform: translateX(var(--tx, 0)) scale(1); }
+      40%  { transform: translateX(var(--tx, 0)) scale(1.18); }
+      65%  { transform: translateX(var(--tx, 0)) scale(0.92); }
+      85%  { transform: translateX(var(--tx, 0)) scale(1.06); }
+      100% { transform: translateX(var(--tx, 0)) scale(1); }
+    }
+
+    body.dark-mode .dark-toggle {
+      background: #2a2a28;
+    }
+
+    body.dark-mode .dark-toggle-knob {
+      transform: translateX(34px);
+      background: #111110;
+    }
+
+    body.dark-mode .dark-toggle-knob .icon-sun  { display: none;  }
+    body.dark-mode .dark-toggle-knob .icon-moon { display: block; }
+
     body {
       animation: pageFadeIn 0.5s cubic-bezier(0.45, 0.00, 0.25, 1.00) both;
     }
@@ -362,7 +472,7 @@
     <p class="page-desc">
       Exploration is vital to my creative process.
       Evolving ideas, testing techniques, and crafting visuals —
-      minimal briefs, no constraints, all fun.
+      no briefs, no constraints.
     </p>
   </header>
 
@@ -372,7 +482,8 @@
     <!-- 1. Mockup-3 — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Platform Animation — UI Update for Emplifi, 2024</span>
+        <span class="feed-item-title">Mockup 3</span>
+        <span class="feed-item-tag">Motion — Brand</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
@@ -384,7 +495,8 @@
     <!-- 2. Sportlito 1+2 — side by side 1:1 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Sportlito - Animations for Social Media Channels, 2022</span>
+        <span class="feed-item-title">Sportlito</span>
+        <span class="feed-item-tag">Motion — Social</span>
       </div>
       <div class="layout-two-eq video-reveal">
         <div class="layout-col ar-1-1">
@@ -403,7 +515,8 @@
     <!-- 3. Boards — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Boards Animation — UI Update for Emplifi, 2025</span>
+        <span class="feed-item-title">Boards</span>
+        <span class="feed-item-tag">Motion — UI</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
@@ -415,11 +528,12 @@
     <!-- 4. Rr — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Website Animation — Web Motion Design System for Creative Nights, 2022</span>
+        <span class="feed-item-title">Rr Product Motion</span>
+        <span class="feed-item-tag">Motion — Type</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
-          <source src="playground/oscar.mp4" type="video/mp4" />
+          <source src="playground/rr.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
@@ -427,7 +541,8 @@
     <!-- 5. Yoga — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Yoga Studio — Brand Identity System for Jakub Vanek Studio, 2025</span>
+        <span class="feed-item-title">Yoga</span>
+        <span class="feed-item-tag">Motion — Brand</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
@@ -439,7 +554,8 @@
     <!-- 6. 3D 1+2 — side by side 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">3D Explorations</span>
+        <span class="feed-item-title">3D</span>
+        <span class="feed-item-tag">Motion — 3D</span>
       </div>
       <div class="layout-two-eq video-reveal">
         <div class="layout-col ar-16-9">
@@ -455,11 +571,24 @@
       </div>
     </div>
 
+    <!-- 7. Reclaim — full 16:9 -->
+    <div class="feed-item">
+      <div class="feed-item-meta">
+        <span class="feed-item-title">Reclaim</span>
+        <span class="feed-item-tag">Motion — Brand</span>
+      </div>
+      <div class="layout-full ar-16-9 video-reveal">
+        <video autoplay muted loop playsinline>
+          <source src="videos/reclaim.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
 
     <!-- 8. Platform 01 — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Platform Animation — UI Update for Emplifi, 2024</span>
+        <span class="feed-item-title">Platform 01</span>
+        <span class="feed-item-tag">Motion — UI</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
@@ -471,7 +600,8 @@
     <!-- 9. Summer + CNN — side by side 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Animations for Social Media Channels — Emplifi, 2024</span>
+        <span class="feed-item-title">Summer / CNN</span>
+        <span class="feed-item-tag">Motion — Editorial</span>
       </div>
       <div class="layout-two-eq video-reveal">
         <div class="layout-col ar-16-9">
@@ -490,11 +620,12 @@
     <!-- 10. Platform 02 — full 16:9 -->
     <div class="feed-item">
       <div class="feed-item-meta">
-        <span class="feed-item-title">Media Age — Brand Identity for TRAU Studio, 2023</span>
+        <span class="feed-item-title">Platform 02</span>
+        <span class="feed-item-tag">Motion — UI</span>
       </div>
       <div class="layout-full ar-16-9 video-reveal">
         <video autoplay muted loop playsinline>
-          <source src="videos/media age.mp4" type="video/mp4" />
+          <source src="playground/platform-02.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
@@ -580,5 +711,25 @@
       });
     });
   </script>
+  <div class="dark-toggle" id="darkToggle" title="Toggle dark mode">
+    <div class="dark-toggle-knob" id="darkToggleKnob">
+      <!-- Sun icon -->
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2"  x2="12" y2="5"/>
+        <line x1="12" y1="19" x2="12" y2="22"/>
+        <line x1="2"  y1="12" x2="5"  y2="12"/>
+        <line x1="19" y1="12" x2="22" y2="12"/>
+        <line x1="4.22"  y1="4.22"  x2="6.34"  y2="6.34"/>
+        <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+        <line x1="4.22"  y1="19.78" x2="6.34"  y2="17.66"/>
+        <line x1="17.66" y1="6.34"  x2="19.78" y2="4.22"/>
+      </svg>
+      <!-- Moon icon -->
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="#f0ede8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+  </div>
 </body>
 </html>
