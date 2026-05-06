@@ -7,7 +7,7 @@
   (function() {
     const dark = localStorage.getItem('darkMode') !== 'off';
     if (dark) {
-      document.documentElement.classList.add('dark-mode-preload');
+      document.documentElement.classList.add('dark-mode');
     }
   })();
 </script>
@@ -30,18 +30,10 @@
       --display: 'Bebas Neue', sans-serif;
       --mono: 'Syne Mono', monospace;
     }
-
-
-    html.dark-mode-preload,
-    html.dark-mode-preload body {
-      background: #111110;
-      color: #f0ede8;
-    }
-
-    html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; }
 
     /* ── DARK MODE ── */
-    body.dark-mode {
+    html.dark-mode {
       --white: #111110;
       --off-white: #1a1a18;
       --gray-light: #2a2a28;
@@ -52,72 +44,72 @@
       color: #f0ede8;
     }
 
-    body.dark-mode .btn-dark {
+    html.dark-mode .btn-dark {
       background: #f0ede8;
       color: #111110;
     }
 
-    body.dark-mode .btn-outline {
+    html.dark-mode .btn-outline {
       border-color: #f0ede8;
       color: #f0ede8;
     }
 
-    body.dark-mode .btn-outline::before {
+    html.dark-mode .btn-outline::before {
       background: #f0ede8;
     }
 
-    body.dark-mode .btn-outline:hover {
+    html.dark-mode .btn-outline:hover {
       color: #111110;
     }
 
-    body.dark-mode #contact {
+    html.dark-mode #contact {
       background: #0a0a09;
     }
 
-    body.dark-mode nav {
+    html.dark-mode nav {
       background: #111110;
     }
 
-    body.dark-mode footer {
+    html.dark-mode footer {
       background: #0a0a09;
       color: #f0ede8;
     }
 
-    body.dark-mode .ticker-wrap {
+    html.dark-mode .ticker-wrap {
       background: var(--off-white);
     }
 
-    body.dark-mode .about-left,
-    body.dark-mode .about-right {
+    html.dark-mode .about-left,
+    html.dark-mode .about-right {
       border-color: #2a2a28;
     }
 
-    body.dark-mode .profile-img {
+    html.dark-mode .profile-img {
       opacity: 0.9;
     }
 
-    body.dark-mode #contact .btn-outline {
+    html.dark-mode #contact .btn-outline {
       border-color: rgba(240,237,232,0.3);
       color: #f0ede8;
     }
 
-    body.dark-mode #contact .btn-outline::before {
+    html.dark-mode #contact .btn-outline::before {
       background: #f0ede8;
     }
 
-    body.dark-mode #contact .btn-outline:hover {
+    html.dark-mode #contact .btn-outline:hover {
       color: #111110;
     }
 
-    body.dark-mode .contact-label,
-    body.dark-mode .contact-block-label,
-    body.dark-mode .contact-socials a,
-    body.dark-mode .contact-note {
+    html.dark-mode .contact-label,
+    html.dark-mode .contact-block-label,
+    html.dark-mode .contact-socials a,
+    html.dark-mode .contact-note {
       color: #bdbdb8;
     }
 
-    body.dark-mode .contact-email,
-    body.dark-mode .contact-heading {
+    html.dark-mode .contact-email,
+    html.dark-mode .contact-heading {
       color: #f5f5f2;
     }
 
@@ -170,18 +162,18 @@
       100% { transform: scale(1); }
     }
 
-    body.dark-mode .dark-toggle {
+    html.dark-mode .dark-toggle {
       background: #2a2a28;
     }
 
-    body.dark-mode .dark-toggle-knob {
+    html.dark-mode .dark-toggle-knob {
       transform: translateX(34px);
       background: #111110;
     }
 
-    body.dark-mode .dark-toggle-knob .icon-sun  { display: none;  }
-    body.dark-mode .dark-toggle-knob .icon-moon { display: block; }
-    body.dark-mode .dark-toggle-knob .icon-moon { stroke: #f0ede8; }
+    html.dark-mode .dark-toggle-knob .icon-sun  { display: none;  }
+    html.dark-mode .dark-toggle-knob .icon-moon { display: block; }
+    html.dark-mode .dark-toggle-knob .icon-moon { stroke: #f0ede8; }
 
     body {
       background: var(--white);
@@ -1375,7 +1367,7 @@
       if (!toggle) return;
 
       function applyTheme(isDark) {
-        document.body.classList.toggle('dark-mode', isDark);
+        document.documentElement.classList.toggle('dark-mode', isDark);
         toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
         localStorage.setItem('darkMode', isDark ? 'on' : 'off');
       }
@@ -1384,7 +1376,7 @@
       applyTheme(dark);
 
       toggle.addEventListener('click', () => {
-        applyTheme(!document.body.classList.contains('dark-mode'));
+        applyTheme(!document.documentElement.classList.contains('dark-mode'));
       });
     })();
 </script>
